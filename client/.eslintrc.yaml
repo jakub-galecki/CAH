@@ -2,6 +2,7 @@ extends:
   - eslint:recommended
   - prettier
   - prettier/react
+  - plugin:react/recommended
 parserOptions:
   ecmaVersion: 2020
   sourceType: module
@@ -10,3 +11,17 @@ parserOptions:
 env:
   es6: true
   browser: true
+  node: true
+settings:
+  react:
+    version: latest
+plugins:
+  - simple-import-sort
+  - eslint-plugin-import
+rules:
+  simple-import-sort/imports: error
+  no-unused-vars:
+    - error
+    - ignoreRestSiblings: true
+      varsIgnorePattern: ^_
+  import/no-default-export: error
