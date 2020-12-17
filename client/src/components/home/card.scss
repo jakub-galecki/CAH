@@ -1,0 +1,27 @@
+@import '../../shared/styles/globals.scss';
+
+.card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30vh;
+  height: 40vh;
+  background-color: $black;
+  color: $white;
+  letter-spacing: 2px;
+  margin: 0.5em 0.75em;
+
+  cursor: pointer;
+
+  h2 {
+    font-size: 1.25em;
+    margin: 0;
+  }
+}
+.card-wrapper {
+  display: inline-block;
+}
+.card {
+  border-radius: 1em;
+}
