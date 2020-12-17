@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 require('../models/UserSchema');
 const User = mongoose.model('User');
 
-router.post('/getData', function(req, res){
-    User.findById(req.body.id).then((user)=>{
+router.get('/getData/:id', function(req, res){
+    User.findById(req.params.id).then((user)=>{
         if(user){
             return res.json(user.getProfileData());
         } else {
