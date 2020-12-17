@@ -19,12 +19,12 @@ UserSchema.methods.validatePassword = function (password){
     return this.hash === hash;
 }
 
-UserSchema.method.setPassword = function (password){
+UserSchema.methods.setPassword = function (password){
     this.salt = crypto.randomBytes(16).toString('hex');
     this.password = crypto.pbkdf2Sync(password,this.salt,1000,64, 'sha512').toString('hex');
 }
 
-UserSchema.method.getProfileData = function (){
+UserSchema.methods.getProfileData = function (){
     return {
         "username" : this.username,
         "played" : this.played,
@@ -32,4 +32,4 @@ UserSchema.method.getProfileData = function (){
     };
 }
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema, "users");
