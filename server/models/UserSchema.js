@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.methods.validatePassword = function(password) {
     const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-    return this.hash === hash;
+    return this.password === hash;
 };
 
 UserSchema.methods.setPassword = function(password) {
@@ -31,5 +31,19 @@ UserSchema.methods.getProfileData = function() {
         'won': this.won,
     };
 };
-
+UserSchema.methods.getStats = function() {
+    const result = (this.won / this.played) * 100;
+    if (!isNaN(result)) {
+        return result;
+    } else {
+        return 0;
+    }
+};
+UserSchema.methods.updateStats = function(won) {
+    this.played = this.played + 1;
+    if (won) {
+        this.won = this.won + 1;
+    }
+    this.save();
+};
 module.exports = mongoose.model('User', UserSchema, 'users');
