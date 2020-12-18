@@ -7,10 +7,23 @@ router.get('/getData/:id', function(req, res) {
     User.findById(req.params.id).then((user)=>{
         if (user) {
             return res.json(user.getProfileData());
-        } else {
-            res.status(401);
-            res.send('User not found');
         }
+    }).catch((error)=>{
+        console.error(error.message);
+        res.status(401);
+        res.send('User not found');
+    });
+});
+
+router.get('/getStats/:id', function(req, res) {
+    User.findById(req.params.id).then((user)=>{
+        if (user) {
+            return res.status(200).send({'stats': user.getStats()});
+        }
+    }).catch((error) => {
+        console.error(error.message);
+        res.status(401);
+        res.send('User not found');
     });
 });
 
@@ -30,6 +43,37 @@ router.post('/createUser', function(req, res) {
         } else {
             res.send(error.message);
         }
+    });
+});
+
+router.post('/login', function(req, res) {
+    if (!req.body.username) return res.status(422).send({'found': false, 'message': 'You must provide username'});
+    if (!req.body.password) return res.status(422).send({'found': false, 'message': 'You must provide password'});
+    User.findOne({'username': req.body.username}).then( function(user) {
+        const pass = user.validatePassword(req.body.password);
+        if (pass) {
+            return res.status(202).send({'found': true, 'message': 'Logged in'});
+        } else {
+            return res.status(422).send({'found': false, 'message': 'Invalid password'});
+        }
+    }).catch((error) => {
+        console.error(error.message);
+        return res.status(422).send({'found': false, 'message': 'User does not exist.'});
+    });
+});
+
+router.put('/updateStats', function(req, res) {
+    if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide user id'});
+    if (!req.body.played) return res.status(422).send({'found': false, 'message': 'Was the game played? true/false'});
+    User.findById(req.body.id).then((user)=>{
+        if (user) {
+            user.updateStats(req.body.won);
+            return res.status(200).send({'stats': user.getStats()});
+        }
+    }).catch((error) => {
+        console.error(error.message);
+        res.status(401);
+        res.send('User not found');
     });
 });
 
