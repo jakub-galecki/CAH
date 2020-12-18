@@ -1,8 +1,13 @@
+import './style.css';
+
 import React from 'react';
+
+import { CardsInHand } from './CardsInHand';
+import { cardsInHandData } from './dummyData';
 
 const Game = () => (
   <div className="game">
-    <h1>Game</h1>
+    <CardsInHand cards={cardsInHandData}></CardsInHand>
   </div>
 );
 

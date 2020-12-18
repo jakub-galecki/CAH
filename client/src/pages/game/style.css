@@ -14,3 +14,11 @@ body {
 .answer-card span {
   color: black;
 }
+
+.cards-in-hand {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
