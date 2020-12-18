@@ -12,5 +12,10 @@
     "mongoose": "^5.11.8"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-node": "^11.1.0"
+  }
 }
