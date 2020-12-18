@@ -1,0 +1,16 @@
+body {
+  background-color: #555555;
+}
+
+.answer-card {
+  display: block;
+  width: 100px;
+  height: 150px;
+  background-color: white;
+
+  margin: 0 20px;
+}
+
+.answer-card span {
+  color: black;
+}
