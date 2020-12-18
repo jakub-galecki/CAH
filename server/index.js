@@ -1,13 +1,11 @@
-const express = require('express'),
-    http = require('http'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    apiRouter = require('./routes/api');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const apiRouter = require('./routes/api');
 
 
-const uri = "mongodb://127.0.0.1:27017/CAH";
-mongoose.connect(uri, {useNewUrlParser: true}).catch(err => console.error(err.reason));
-const db = mongoose.connection;
+const uri = 'mongodb://127.0.0.1:27017/CAH';
+mongoose.connect(uri, {useNewUrlParser: true}).catch((err) => console.error(err.reason));
 
 const app = express();
 app.use(bodyParser.json());
