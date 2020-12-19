@@ -1,5 +1,3 @@
-export { Header } from './Header';
-export { CardsContainer } from './CardsContainer';
-export { LoginCard } from './LoginCard';
-export { RegisterCard } from './RegisterCard';
-export { PlayAsGuest } from './PlayAsGuest';
+export { Header } from './header/Header';
+export { CardsContainer } from './card/CardsContainer';
+export { PlayAsGuest } from './guest/PlayAsGuest';

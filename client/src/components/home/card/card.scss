@@ -1,0 +1,66 @@
+@import '../../../shared/styles/globals.scss';
+$width: 34vh;
+$height: 45vh;
+
+.cards-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.react-card-flip-wrapper {
+  position: absolute;
+  top: calc(50% - $height/2);
+  transform: scale(0.74);
+  &.react-card-flip-wrapper-left.active {
+    left: calc(50% - #{$width}/ 2);
+  }
+  &.react-card-flip-wrapper-right.active {
+    right: calc(50% - #{$width}/ 2);
+  }
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+  }
+  transition: all 1s ease-in-out;
+}
+
+.react-card-flip-wrapper-left {
+  left: 0;
+}
+
+.react-card-flip-wrapper-right {
+  right: 0;
+}
+
+.card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $width;
+  height: $height;
+  background-color: $black;
+  color: $white;
+  letter-spacing: 2px;
+  padding: 1em;
+
+  cursor: pointer;
+
+  h2 {
+    font-size: 1.25em;
+    margin: 0;
+  }
+  &.card-preview-back {
+    align-items: flex-start;
+  }
+}
+.card-wrapper {
+  display: inline-block;
+  height: 100%;
+}
+
+.card {
+  border-radius: 1em;
+}

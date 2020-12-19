@@ -13,7 +13,7 @@ import { RoomList } from './pages/roomList';
 const App = () => (
   <div className="app">
     <Router>
-      <div>
+      <>
         <Navigation />
         <Switch>
           <Route exact path="/">
@@ -32,7 +32,7 @@ const App = () => (
             <Game />
           </Route>
         </Switch>
-      </div>
+      </>
     </Router>
   </div>
 );
