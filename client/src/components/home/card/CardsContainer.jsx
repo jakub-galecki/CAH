@@ -2,6 +2,8 @@ import './card.scss';
 
 import React, { useState } from 'react';
 
+import { Login } from '../forms/login';
+import { Register } from '../forms/register';
 import { BackCard } from './BackCard';
 import { CardWrapper } from './CardWrapper';
 import { FrontCard } from './FrontCard';
@@ -20,11 +22,7 @@ const CardsContainer = () => {
           <h2>Login</h2>
         </FrontCard>
         <BackCard>
-          <form>
-            <p>Hello, my login is</p>
-            <input></input>,<p>and my password</p>
-            <input></input>.
-          </form>
+          <Login />
         </BackCard>
       </CardWrapper>
       <CardWrapper side="right" activeCard={activeCard}>
@@ -32,12 +30,7 @@ const CardsContainer = () => {
           <h2>Register</h2>
         </FrontCard>
         <BackCard>
-          <form>
-            <p>Hello, my email is</p>
-            <input></input>,<p>my login will be</p>
-            <input></input>,<p>and my password</p>
-            <input></input>.
-          </form>
+          <Register />
         </BackCard>
       </CardWrapper>
     </div>
