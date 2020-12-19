@@ -38,7 +38,7 @@ router.post('/createUser', function(req, res) {
         res.status(201);
         res.json({'id': user._id});
     }).catch(function(error) {
-        if (error.name === 'MongoError' && error.code === 11000) {
+        if (error.name === 'ValidationError') {
             return res.status(422).send({'status': false, 'message': 'Username is already taken'});
         } else {
             res.send(error.message);
