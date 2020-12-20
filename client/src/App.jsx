@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Navigation } from './components/navigation';
+import { AuthProvider } from './contexts/auth';
 import { DeckCreator } from './pages/deckCreator';
 import { Game } from './pages/game';
 import { Home } from './pages/home';
@@ -13,7 +14,7 @@ import { RoomList } from './pages/roomList';
 const App = () => (
   <div className="app">
     <Router>
-      <>
+      <AuthProvider>
         <Navigation />
         <Switch>
           <Route exact path="/">
@@ -32,7 +33,7 @@ const App = () => (
             <Game />
           </Route>
         </Switch>
-      </>
+      </AuthProvider>
     </Router>
   </div>
 );

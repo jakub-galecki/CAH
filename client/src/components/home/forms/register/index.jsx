@@ -24,6 +24,7 @@ const Register = () => {
       // TODO: redirect
     } else {
       // TODO: error handling
+      console.log(result);
     }
   };
 
