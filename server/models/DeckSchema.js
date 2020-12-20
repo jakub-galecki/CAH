@@ -8,9 +8,10 @@ const DeckSchema = new mongoose.Schema({
             validator: function(content) {
                 return content.length <= 256;
             },
-            message: 'Title is too long!',
+            message: (props) => `${props.value} is too long!`,
         },
     },
+    'shortId': String,
     'userId': String,
 });
 

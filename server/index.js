@@ -5,7 +5,7 @@ const apiRouter = require('./routes/api');
 
 
 const uri = 'mongodb://127.0.0.1:27017/CAH';
-mongoose.connect(uri, {useNewUrlParser: true}).catch((err) => console.error(err.reason));
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false}).catch((err) => console.error(err.reason));
 
 const app = express();
 app.use(bodyParser.json());
