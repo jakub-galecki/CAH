@@ -26,7 +26,7 @@ router.post('/createDeck', function(req, res) {
 });
 
 router.get('/getDeck/:id', function(req, res) {
-    const deck = Deck.findOne({'shortId': req.params.id});
+    const deck = Deck.findOne({'shortId': req.params.id}).exec();
     deck.then(function (deck) {
         if (deck) {
             res.json(deck);
@@ -34,7 +34,7 @@ router.get('/getDeck/:id', function(req, res) {
         else{
             res.status(422).send({'found': false, 'message': 'Deck not found'});
         }
-    }).catch((error)=>{
+    }).catch(function (error) {
         console.error(error.message);
         res.send(error.message);
     });
@@ -43,28 +43,32 @@ router.get('/getDeck/:id', function(req, res) {
 router.get('/getAllDecks', function(req, res) {
     Deck.find().then((data) => {
         res.json(data);
+    }).catch(function(error) {
+        console.error(error.message);
+        res.send(error.message);
     });
 });
 
 router.put('/updateDeck', function(req, res) {
     if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide deck id'});
 
-    const deck = Deck.findOneAndUpdate({'shortId': req.body.id}, {title: req.body.title});
+    const deck = Deck.findOneAndUpdate({'shortId': req.body.id}, {title: req.body.title}).exec();
     deck.then(function(deck) {
             res.status(201);
             res.json({'id': deck.shortId});
         }).catch(function(error) {
+            console.error(error.message);
             res.send(error.message);
         });
 });
 
 router.delete('/deleteDeck', function(req, res) {
     if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide deck id'});
-    const deck = Deck.findOneAndRemove({'shortId': req.body.id})
+    const deck = Deck.findOneAndRemove({'shortId': req.body.id}).exec();
     deck.then(function(deck) {
             res.status(201);
             res.json({'id': deck.shortId});
-        }).catch((error)=>{
+        }).catch(function(error) {
         console.error(error.message);
         res.send('Deck not found');
     });
