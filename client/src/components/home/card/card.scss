@@ -24,6 +24,9 @@ $height: 45vh;
     transform: scale(1);
     opacity: 1;
     z-index: 100;
+    .card {
+      box-shadow: 0px 6px 6px 0 rgba(black, 0.1);
+    }
   }
   transition: all 1s ease-in-out;
 }
@@ -63,6 +66,8 @@ $height: 45vh;
 
 .card {
   border-radius: 1em;
+  box-shadow: 0px 4px 4px 0 rgba(black, 0.1);
+  transition: box-shadow 1s ease-in-out;
 }
 
 .card-border {
@@ -71,7 +76,6 @@ $height: 45vh;
   justify-content: center;
   width: calc(100% - 30px);
   height: calc(100% - 30px);
-  // background-color: blue;
   border: 1px solid $white;
   border-radius: 1em;
 }
