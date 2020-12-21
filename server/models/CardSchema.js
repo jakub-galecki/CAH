@@ -8,7 +8,7 @@ const CardSchema = new mongoose.Schema({
             validator: function(content) {
                 return content.length <= 256;
             },
-            message: 'Card content is too long!',
+            message: (props) => `${props.value} content is too long!`,
         },
     },
     'deckId': {
