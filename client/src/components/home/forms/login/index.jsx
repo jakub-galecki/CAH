@@ -19,7 +19,7 @@ const Login = () => {
     });
 
     if (result.status === 202) {
-      setAccessToken(result.body);
+      setAccessToken(result.data.token);
     } else {
       // TODO: error handling
       console.log(result);
