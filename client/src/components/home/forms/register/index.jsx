@@ -30,23 +30,28 @@ const Register = () => {
 
   return (
     <form className="register" onSubmit={handleSubmit}>
-      <div className="group">
-        <label>Hello, my username will be:</label>
-        <input
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label>and my password</label>
-        <input
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className="up">
+        <h2>Register</h2>
+        <div className="form-group">
+          <label>Hello, my username will be:</label>
+          <input
+            placeholder="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label>and my password</label>
+          <input
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
       </div>
-      <div className="group">
-        <button type="submit">Confirm</button>
+      <div className="down">
+        <div className="group">
+          <button type="submit">Confirm</button>
+        </div>
       </div>
     </form>
   );

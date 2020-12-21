@@ -1,5 +1,5 @@
 @import '../../../shared/styles/globals.scss';
-$width: 34vh;
+$width: 33vh;
 $height: 45vh;
 
 .cards-container {
@@ -46,14 +46,11 @@ $height: 45vh;
   background-color: $black;
   color: $white;
   letter-spacing: 2px;
-  padding: 1em;
 
   h2 {
     font-size: 1.25em;
+    font-weight: 500;
     margin: 0;
-  }
-  &.card-preview-back {
-    align-items: flex-start;
   }
 }
 .card-wrapper {
@@ -65,5 +62,16 @@ $height: 45vh;
 }
 
 .card {
+  border-radius: 1em;
+}
+
+.card-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  // background-color: blue;
+  border: 1px solid $white;
   border-radius: 1em;
 }

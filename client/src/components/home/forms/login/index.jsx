@@ -31,23 +31,28 @@ const Login = () => {
 
   return (
     <form className="login" onSubmit={handleSubmit}>
-      <div className="group">
-        <label>Hello, my login is</label>
-        <input
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label>and my password</label>
-        <input
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className="up">
+        <h2>Login</h2>
+        <div className="form-group">
+          <label>Hello, my username is</label>
+          <input
+            placeholder="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label>and my password</label>
+          <input
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
       </div>
-      <div className="group">
-        <button>Confirm</button>
+      <div className="down">
+        <div className="group">
+          <button>Confirm</button>
+        </div>
       </div>
     </form>
   );

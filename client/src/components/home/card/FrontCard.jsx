@@ -6,7 +6,7 @@ const FrontCard = ({ handleClick, children }) => {
   return (
     <div className="card-wrapper front">
       <div className="card-preview card" onClick={handleClick}>
-        {children}
+        <div className="card-border">{children}</div>
       </div>
     </div>
   );
