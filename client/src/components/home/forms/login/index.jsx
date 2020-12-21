@@ -2,6 +2,7 @@ import '../style.scss';
 
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../../contexts/auth';
 
@@ -9,6 +10,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setAccessToken } = useAuth();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Login = () => {
 
     if (result.status === 202) {
       setAccessToken(result.data.token);
+      history.push('/roomList');
     } else {
       // TODO: error handling
       console.log(result);

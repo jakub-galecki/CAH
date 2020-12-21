@@ -11,7 +11,7 @@ $height: 45vh;
 
 .react-card-flip-wrapper {
   position: absolute;
-  top: calc(50% - $height/2);
+  top: calc(50% - #{$height}/ 2);
   transform: scale(0.74);
   opacity: 0.95;
   &.react-card-flip-wrapper-left.active {
