@@ -59,3 +59,8 @@ body {
 .deck.white span {
   color: black;
 }
+
+.counter {
+  font-size: 2rem;
+  color: white;
+}
