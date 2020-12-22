@@ -64,3 +64,13 @@ body {
   font-size: 2rem;
   color: white;
 }
+
+.left-side-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 35px);
+  width: 250px;
+
+  justify-content: space-around;
+  align-items: center;
+}
