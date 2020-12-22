@@ -39,3 +39,23 @@ body {
 .card-reverse.white {
   background-color: white;
 }
+
+.deck {
+  position: relative;
+  width: 180px;
+  height: 255px;
+}
+
+.cards-in-deck-counter {
+  position: absolute;
+  bottom: 40%;
+  left: 30%;
+}
+
+.deck.black span {
+  color: white;
+}
+
+.deck.white span {
+  color: black;
+}
