@@ -8,8 +8,8 @@ const Center = styled.div`
   align-items: center;
 `;
 
-const TextError = styled.h3``;
-const TextSuccess = styled.h3``;
+const TextError = styled.h4``;
+const TextSuccess = styled.h4``;
 
 export const toastError = (message) =>
   toast.error(
