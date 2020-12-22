@@ -22,3 +22,20 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.card-reverse {
+  position: absolute;
+  display: block;
+  width: 150px;
+  height: 225px;
+
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.card-reverse.black {
+  background-color: black;
+}
+
+.card-reverse.white {
+  background-color: white;
+}
