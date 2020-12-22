@@ -6,6 +6,7 @@ import { CardsInHand } from './CardsInHand';
 import { Counter } from './Counter';
 import { Deck } from './Deck';
 import { cardsInHandData } from './dummyData';
+import { QuestionCard } from './QuestionCard';
 
 const Game = () => (
   <div className="game">
@@ -15,6 +16,7 @@ const Game = () => (
       <Counter></Counter>
       <Deck color="white" cardsLeft={44} cardsMax={80}></Deck>
     </div>
+    <QuestionCard text="Fill this sentence _________________"></QuestionCard>
   </div>
 );
 
