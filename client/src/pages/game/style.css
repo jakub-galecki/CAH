@@ -7,7 +7,7 @@ body {
   height: 150px;
   background-color: white;
 
-  margin: 0 20px;
+  margin: 10px 20px;
 }
 
 .answer-card span {
@@ -89,4 +89,14 @@ body {
 
 .question-card span {
   color: white;
+}
+
+.played-cards {
+  width: 40%;
+  height: 300px;
+  margin: auto;
+
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
