@@ -1,0 +1,81 @@
+@import '../../../shared/styles/globals.scss';
+$width: 33vh;
+$height: 45vh;
+
+.cards-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.react-card-flip-wrapper {
+  position: absolute;
+  top: calc(50% - #{$height}/ 2);
+  transform: scale(0.74);
+  opacity: 0.95;
+  &.react-card-flip-wrapper-left.active {
+    left: calc(50% - #{$width}/ 2);
+  }
+  &.react-card-flip-wrapper-right.active {
+    right: calc(50% - #{$width}/ 2);
+  }
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 100;
+    .card {
+      box-shadow: 0px 6px 6px 0 rgba(black, 0.1);
+    }
+  }
+  transition: all 1s ease-in-out;
+}
+
+.react-card-flip-wrapper-left {
+  left: 0;
+}
+
+.react-card-flip-wrapper-right {
+  right: 0;
+}
+
+.card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $width;
+  height: $height;
+  background-color: $black;
+  color: $white;
+  letter-spacing: 2px;
+
+  h2 {
+    font-size: 1.25em;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+.card-wrapper {
+  display: inline-block;
+  height: 100%;
+  &.front {
+    cursor: pointer;
+  }
+}
+
+.card {
+  border-radius: 1em;
+  box-shadow: 0px 4px 4px 0 rgba(black, 0.1);
+  transition: box-shadow 1s ease-in-out;
+}
+
+.card-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  border: 1px solid $white;
+  border-radius: 1em;
+}

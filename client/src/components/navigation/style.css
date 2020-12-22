@@ -1,5 +1,9 @@
+/* ! Navigation in this form is temporary */
 nav.navigation {
   width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 nav.navigation ul {
   width: 100%;

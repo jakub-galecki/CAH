@@ -25,3 +25,4 @@ rules:
     - ignoreRestSiblings: true
       varsIgnorePattern: ^_
   import/no-default-export: error
+  react/prop-types: 0

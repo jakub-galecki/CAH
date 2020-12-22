@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 require('../models/UserSchema');
 const User = mongoose.model('User');
 
@@ -38,7 +39,7 @@ router.post('/createUser', function(req, res) {
         res.status(201);
         res.json({'id': user._id});
     }).catch(function(error) {
-        if (error.name === 'MongoError' && error.code === 11000) {
+        if (error.name === 'ValidationError') {
             return res.status(422).send({'status': false, 'message': 'Username is already taken'});
         } else {
             res.send(error.message);
@@ -52,7 +53,10 @@ router.post('/login', function(req, res) {
     User.findOne({'username': req.body.username}).then( function(user) {
         const pass = user.validatePassword(req.body.password);
         if (pass) {
-            return res.status(202).send({'found': true, 'message': 'Logged in'});
+            jwt.sign({user}, 'privatekey', {expiresIn: '1h'}, (err, token) => {
+                if (err) console.log(err);
+                res.status(202).send({token, 'found': true, 'message': 'Logged in'});
+            });
         } else {
             return res.status(422).send({'found': false, 'message': 'Invalid password'});
         }
