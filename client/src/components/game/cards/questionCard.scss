@@ -1,0 +1,19 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+
+.question-card {
+  grid-column: 2 / 2;
+  grid-row: 1 / 1;
+
+  align-self: end;
+
+  width: $card-big-width;
+  height: $card-big-height;
+  min-width: $card-big-min-width;
+  min-height: $card-big-min-height;
+  background-color: $black;
+
+  span {
+    color: $white;
+  }
+}

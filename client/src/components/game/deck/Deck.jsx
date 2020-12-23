@@ -1,6 +1,8 @@
+import './deck.scss';
+
 import React from 'react';
 
-import { CardReverse } from './CardReverse';
+import { CardReverse } from '../cards/CardReverse';
 
 const Deck = ({ color, cardsLeft, cardsMax }) => {
   let cardsToRender = cardsLeft > 10 ? 10 : cardsLeft;

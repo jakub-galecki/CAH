@@ -1,0 +1,22 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+
+.card-reverse {
+  position: absolute;
+  display: block;
+
+  width: $reverse-width;
+  height: $reverse-height;
+  min-width: $reverse-min-width;
+  min-height: $reverse-min-height;
+
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.card-reverse.black {
+  background-color: $black;
+}
+
+.card-reverse.white {
+  background-color: $white;
+}

@@ -1,19 +1,5 @@
 @import '../../shared/styles/globals.scss';
-
-$card-normal-min-width: 50px;
-$card-normal-min-height: 75px;
-$card-normal-width: 6vw;
-$card-normal-height: 1.5 * $card-normal-width;
-
-$card-big-min-width: 100px;
-$card-big-min-height: 150px;
-$card-big-width: 9vw;
-$card-big-height: 1.5 * $card-big-width;
-
-$reverse-min-width: 75px;
-$reverse-min-height: 112px;
-$reverse-width: 7vw;
-$reverse-height: 1.5 * $reverse-width;
+@import '../../components/game/cardSizes.scss';
 
 .game {
   display: grid;
@@ -27,74 +13,6 @@ $reverse-height: 1.5 * $reverse-width;
   width: 100%;
 }
 
-.answer-card {
-  width: $card-normal-width;
-  height: $card-normal-height;
-  min-width: $card-normal-min-width;
-  min-height: $card-normal-min-height;
-
-  background-color: $white;
-  margin: 0 10px;
-
-  span {
-    color: $black;
-  }
-}
-
-.cards-in-hand {
-  grid-column: 2 / 2;
-  grid-row: 3 / 3;
-
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.card-reverse {
-  position: absolute;
-  display: block;
-
-  width: $reverse-width;
-  height: $reverse-height;
-  min-width: $reverse-min-width;
-  min-height: $reverse-min-height;
-
-  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
-}
-
-.card-reverse.black {
-  background-color: $black;
-}
-
-.card-reverse.white {
-  background-color: $white;
-}
-
-.deck {
-  position: relative;
-  width: calc(#{$card-big-width} + 30px);
-  height: calc(#{$card-big-height} + 30px);
-}
-
-.cards-in-deck-counter {
-  position: absolute;
-  bottom: 40%;
-  left: 30%;
-}
-
-.deck.black span {
-  color: $white;
-}
-
-.deck.white span {
-  color: $black;
-}
-
-.counter {
-  font-size: 2rem;
-  color: $black;
-}
-
 .left-side-panel {
   grid-column: 1 / 1;
   grid-row: 1 / 4;
@@ -105,44 +23,4 @@ $reverse-height: 1.5 * $reverse-width;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-}
-
-.question-card {
-  grid-column: 2 / 2;
-  grid-row: 1 / 1;
-
-  align-self: end;
-
-  width: $card-big-width;
-  height: $card-big-height;
-  min-width: $card-big-min-width;
-  min-height: $card-big-min-height;
-  background-color: $black;
-
-  span {
-    color: $white;
-  }
-}
-
-.played-cards {
-  grid-column: 2 / 2;
-  grid-row: 2 / 2;
-
-  display: grid;
-  justify-items: center;
-  align-items: center;
-
-  column-gap: 20px;
-  row-gap: 15px;
-
-  //calc(max()) is called because Sass calls a different max() function by default:
-  //https://github.com/sass/sass/issues/2378
-  grid-template-columns: repeat(
-    5,
-    calc(max(#{$card-normal-width}, #{$card-normal-min-width}))
-  );
-  grid-template-rows: repeat(
-    2,
-    calc(max(#{$card-normal-height}, #{$card-normal-min-height}))
-  );
 }

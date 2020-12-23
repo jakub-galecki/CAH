@@ -1,3 +1,5 @@
+import './counter.scss';
+
 import React from 'react';
 
 const Counter = () => {

@@ -1,3 +1,5 @@
+import './answerCard.scss';
+
 import React from 'react';
 
 const AnswerCard = ({ text }) => (

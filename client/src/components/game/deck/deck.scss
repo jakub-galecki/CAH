@@ -1,0 +1,22 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+
+.deck {
+  position: relative;
+  width: calc(#{$card-big-width} + 30px);
+  height: calc(#{$card-big-height} + 30px);
+}
+
+.cards-in-deck-counter {
+  position: absolute;
+  bottom: 40%;
+  left: 30%;
+}
+
+.deck.black span {
+  color: $white;
+}
+
+.deck.white span {
+  color: $black;
+}

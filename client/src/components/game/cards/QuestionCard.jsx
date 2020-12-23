@@ -1,3 +1,5 @@
+import './questionCard.scss';
+
 import React from 'react';
 
 const QuestionCard = ({ text }) => (

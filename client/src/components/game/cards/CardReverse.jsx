@@ -1,3 +1,5 @@
+import './cardReverse.scss';
+
 import React from 'react';
 
 const CardReverse = ({ color, rightOffset, bottomOffset, text }) => {

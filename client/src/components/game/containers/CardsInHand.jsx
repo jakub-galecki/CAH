@@ -1,6 +1,8 @@
+import './cardsInHand.scss';
+
 import React from 'react';
 
-import { AnswerCard } from './AnswerCard';
+import { AnswerCard } from '../cards/AnswerCard';
 
 const CardsInHand = ({ cards }) => {
   return (

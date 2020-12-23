@@ -1,6 +1,8 @@
+import './playedCards.scss';
+
 import React from 'react';
 
-import { AnswerCard } from './AnswerCard';
+import { AnswerCard } from '../cards/AnswerCard';
 
 const PlayedCards = ({ numberOfCards }) => {
   let playedCards = Array(numberOfCards);

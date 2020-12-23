@@ -2,12 +2,11 @@ import './style.scss';
 
 import React from 'react';
 
-import { CardsInHand } from './CardsInHand';
-import { Counter } from './Counter';
-import { Deck } from './Deck';
+import { QuestionCard } from '../../components/game/cards/QuestionCard';
+import { CardsInHand, PlayedCards } from '../../components/game/containers';
+import { Counter } from '../../components/game/counter/Counter';
+import { Deck } from '../../components/game/deck/Deck';
 import { cardsInHandData } from './dummyData';
-import { PlayedCards } from './PlayedCards';
-import { QuestionCard } from './QuestionCard';
 
 const Game = () => (
   <div className="game">
