@@ -1,30 +1,28 @@
 import '../style.scss';
 
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { register } from '../../../../utils/resources';
+import { toastError, toastSuccess } from '../../../../utils/toastify/index';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await axios.post(
-      'http://localhost:8080/api/user/createUser',
-      {
-        username,
-        password,
-        played: 0,
-        won: 0,
-      },
-    );
+    // TODO: elaborate on instant login & redirect (backend interference)
+    try {
+      await register({ username, password });
 
-    if (result.status === 201) {
-      // TODO: redirect
-    } else {
-      // TODO: error handling
-      console.log(result);
+      toastSuccess('Signed up!');
+      history.push('/');
+    } catch ({ response }) {
+      if (response) toastError(response.data.message);
+      else toastError('Error while connecting to Server');
     }
   };
 

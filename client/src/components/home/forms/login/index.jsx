@@ -1,10 +1,11 @@
 import '../style.scss';
 
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../../contexts/auth';
+import { login } from '../../../../utils/resources';
+import { toastError, toastSuccess } from '../../../../utils/toastify/index';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -14,18 +15,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const result = await login({ username, password });
 
-    const result = await axios.post('http://localhost:8080/api/user/login', {
-      username,
-      password,
-    });
-
-    if (result.status === 202) {
       setAccessToken(result.data.token);
+      toastSuccess('Logged in!');
       history.push('/roomList');
-    } else {
-      // TODO: error handling
-      console.log(result);
+    } catch ({ response }) {
+      if (response) toastError(response.data.message);
+      else toastError('Error while connecting to Server');
     }
   };
 
