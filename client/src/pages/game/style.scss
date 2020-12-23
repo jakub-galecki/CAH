@@ -1,17 +1,19 @@
-body {
-  background-color: #555555;
+@import '../../shared/styles/globals.scss';
+
+.game {
+  margin-top: 35px;
 }
 
 .answer-card {
   width: 100px;
   height: 150px;
-  background-color: white;
+  background-color: $white;
 
   margin: 10px 20px;
-}
 
-.answer-card span {
-  color: black;
+  span {
+    color: $black;
+  }
 }
 
 .cards-in-hand {
@@ -32,11 +34,11 @@ body {
 }
 
 .card-reverse.black {
-  background-color: black;
+  background-color: $black;
 }
 
 .card-reverse.white {
-  background-color: white;
+  background-color: $white;
 }
 
 .deck {
@@ -52,16 +54,16 @@ body {
 }
 
 .deck.black span {
-  color: white;
+  color: $white;
 }
 
 .deck.white span {
-  color: black;
+  color: $black;
 }
 
 .counter {
   font-size: 2rem;
-  color: white;
+  color: $white;
 }
 
 .left-side-panel {
@@ -81,14 +83,13 @@ body {
 .question-card {
   width: 150px;
   height: 225px;
-  background-color: black;
+  background-color: $black;
 
   margin: auto;
-  margin-top: 50px;
-}
 
-.question-card span {
-  color: white;
+  span {
+    color: $white;
+  }
 }
 
 .played-cards {
