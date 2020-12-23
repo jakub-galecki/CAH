@@ -9,6 +9,11 @@
 
   background-color: $white;
   margin: 0 10px;
+  padding: 10px 5px;
+  font-size: $card-normal-font-size;
+
+  border-radius: 10px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
 
   span {
     color: $black;

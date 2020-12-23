@@ -2,12 +2,12 @@ import './playedCards.scss';
 
 import React from 'react';
 
-import { AnswerCard } from '../cards/AnswerCard';
+import { PlayedCard } from '../cards/PlayedCard';
 
 const PlayedCards = ({ numberOfCards }) => {
   let playedCards = Array(numberOfCards);
   for (let i = 0; i < numberOfCards; i++) {
-    let card = <AnswerCard text="Cards Against Humanity"></AnswerCard>;
+    let card = <PlayedCard></PlayedCard>;
     playedCards.push(card);
   }
 

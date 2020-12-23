@@ -2,6 +2,8 @@
 @import '../../components/game/cardSizes.scss';
 
 .game {
+  font-family: 'Rokkitt';
+
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-rows: 3fr 4fr 1fr;

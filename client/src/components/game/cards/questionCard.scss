@@ -13,6 +13,12 @@
   min-height: $card-big-min-height;
   background-color: $black;
 
+  padding: 10px 5px;
+  font-size: $card-big-font-size;
+
+  border-radius: 10px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+
   span {
     color: $white;
   }

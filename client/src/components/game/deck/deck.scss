@@ -3,14 +3,17 @@
 
 .deck {
   position: relative;
-  width: calc(#{$card-big-width} + 30px);
-  height: calc(#{$card-big-height} + 30px);
+  width: calc(#{$reverse-width} + 30px);
+  height: calc(#{$reverse-height} + 30px);
 }
 
 .cards-in-deck-counter {
   position: absolute;
-  bottom: 40%;
-  left: 30%;
+  bottom: 30%;
+  right: 30%;
+
+  font-weight: bold;
+  font-size: $reverse-font-size;
 }
 
 .deck.black span {
