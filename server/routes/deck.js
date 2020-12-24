@@ -6,11 +6,11 @@ const Deck = mongoose.model('Deck');
 router.post('/createDeck', function(req, res) {
     const deck = new Deck();
     deck.title = req.body.title;
-    
+
     let shortId;
     do {
-        shortId = Math.random().toString(36).substr(2, 6).toUpperCase()
-    } while(Deck.findOne({'shortId': shortId}).length);
+        shortId = Math.random().toString(36).substr(2, 6).toUpperCase();
+    } while (Deck.findOne({'shortId': shortId}).length);
     deck.shortId = shortId;
 
 
@@ -27,14 +27,13 @@ router.post('/createDeck', function(req, res) {
 
 router.get('/getDeck/:id', function(req, res) {
     const deck = Deck.findOne({'shortId': req.params.id}).exec();
-    deck.then(function (deck) {
+    deck.then(function(deck) {
         if (deck) {
             res.json(deck);
-        }
-        else{
+        } else {
             res.status(422).send({'found': false, 'message': 'Deck not found'});
         }
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.error(error.message);
         res.send(error.message);
     });
@@ -54,21 +53,21 @@ router.put('/updateDeck', function(req, res) {
 
     const deck = Deck.findOneAndUpdate({'shortId': req.body.id}, {title: req.body.title}).exec();
     deck.then(function(deck) {
-            res.status(201);
-            res.json({'id': deck.shortId});
-        }).catch(function(error) {
-            console.error(error.message);
-            res.send(error.message);
-        });
+        res.status(201);
+        res.json({'id': deck.shortId});
+    }).catch(function(error) {
+        console.error(error.message);
+        res.send(error.message);
+    });
 });
 
 router.delete('/deleteDeck', function(req, res) {
     if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide deck id'});
     const deck = Deck.findOneAndRemove({'shortId': req.body.id}).exec();
     deck.then(function(deck) {
-            res.status(201);
-            res.json({'id': deck.shortId});
-        }).catch(function(error) {
+        res.status(201);
+        res.json({'id': deck.shortId});
+    }).catch(function(error) {
         console.error(error.message);
         res.send('Deck not found');
     });
