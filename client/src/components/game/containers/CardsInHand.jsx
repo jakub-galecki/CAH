@@ -7,8 +7,8 @@ import { AnswerCard } from '../cards/AnswerCard';
 const CardsInHand = ({ cards }) => {
   return (
     <div className="cards-in-hand">
-      {cards.map((card) => (
-        <AnswerCard key={card.id} text={card.cardText}></AnswerCard>
+      {cards.map(({ id, cardText }) => (
+        <AnswerCard key={id}>{cardText}</AnswerCard>
       ))}
     </div>
   );

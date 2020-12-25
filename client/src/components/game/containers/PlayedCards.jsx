@@ -5,9 +5,9 @@ import React from 'react';
 import { PlayedCard } from '../cards/PlayedCard';
 
 const PlayedCards = ({ numberOfCards }) => {
-  let playedCards = Array(numberOfCards);
+  const playedCards = Array(numberOfCards);
   for (let i = 0; i < numberOfCards; i++) {
-    let card = <PlayedCard></PlayedCard>;
+    const card = <PlayedCard></PlayedCard>;
     playedCards.push(card);
   }
 

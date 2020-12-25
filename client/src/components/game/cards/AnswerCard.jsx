@@ -2,9 +2,9 @@ import './answerCard.scss';
 
 import React from 'react';
 
-const AnswerCard = ({ text }) => (
+const AnswerCard = ({ children }) => (
   <div className="answer-card">
-    <span>{text}</span>
+    <span>{children}</span>
   </div>
 );
 
