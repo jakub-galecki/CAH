@@ -1,0 +1,25 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+
+.deck {
+  position: relative;
+  width: calc(#{$reverse-width} + 30px);
+  height: calc(#{$reverse-height} + 30px);
+}
+
+.cards-in-deck-counter {
+  position: absolute;
+  bottom: 30%;
+  right: 30%;
+
+  font-weight: bold;
+  font-size: $reverse-font-size;
+}
+
+.deck.black span {
+  color: $white;
+}
+
+.deck.white span {
+  color: $black;
+}

@@ -1,0 +1,24 @@
+@import '../cardSizes.scss';
+
+.played-cards {
+  grid-column: 2 / 2;
+  grid-row: 2 / 2;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  column-gap: 20px;
+  row-gap: 15px;
+
+  //calc(max()) is called because Sass calls a different max() function by default:
+  //https://github.com/sass/sass/issues/2378
+  grid-template-columns: repeat(
+    5,
+    calc(max(#{$card-normal-width}, #{$card-normal-min-width}))
+  );
+  grid-template-rows: repeat(
+    2,
+    calc(max(#{$card-normal-height}, #{$card-normal-min-height}))
+  );
+}

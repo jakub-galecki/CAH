@@ -1,0 +1,8 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+@import './answerCard.scss';
+
+.played-card {
+  @extend .answer-card;
+  font-weight: bold;
+}
