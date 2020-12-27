@@ -6,7 +6,8 @@ import { QuestionCard } from '../../components/game/cards/QuestionCard';
 import { CardsInHand, PlayedCards } from '../../components/game/containers';
 import { Counter } from '../../components/game/counter/Counter';
 import { Deck } from '../../components/game/deck/Deck';
-import { cardsInHandData } from './dummyData';
+import { Leaderboard } from '../../components/game/leaderboard/Leaderboard';
+import { cardsInHandData, leaderboardData } from './dummyData';
 
 const Game = () => (
   <div className="game">
@@ -18,6 +19,8 @@ const Game = () => (
     </div>
     <QuestionCard text="Fill this sentence _________________"></QuestionCard>
     <PlayedCards numberOfCards={10}></PlayedCards>
+
+    <Leaderboard playersInfo={leaderboardData}></Leaderboard>
   </div>
 );
 
