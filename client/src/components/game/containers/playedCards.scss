@@ -1,3 +1,4 @@
+@import '../../../shared/styles/globals.scss';
 @import '../cardSizes.scss';
 
 .played-cards {
@@ -21,4 +22,8 @@
     2,
     calc(max(#{$card-normal-height}, #{$card-normal-min-height}))
   );
+}
+
+.played-cards.card-hover {
+  box-shadow: 0 0 3px 1px $red;
 }

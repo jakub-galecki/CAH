@@ -24,7 +24,7 @@ const AnswerCard = ({ children, playCardFromHand, id }) => {
   return (
     <div
       ref={drag}
-      className="answer-card"
+      className="answer-card in-hand"
       style={isDragging ? { opacity: 0 } : {}}
     >
       <span>{children}</span>

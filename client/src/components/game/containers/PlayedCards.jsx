@@ -6,8 +6,12 @@ import { useDrop } from 'react-dnd';
 import { PlayedCard } from '../cards/PlayedCard';
 
 const PlayedCards = ({ numberOfCards }) => {
-  const [, drop] = useDrop({
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'card',
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
   });
 
   const playedCards = Array(numberOfCards);
@@ -17,7 +21,10 @@ const PlayedCards = ({ numberOfCards }) => {
   }
 
   return (
-    <div ref={drop} className="played-cards">
+    <div
+      ref={drop}
+      className={`played-cards${isOver && canDrop ? ' card-hover' : ''}`}
+    >
       {playedCards}
     </div>
   );
