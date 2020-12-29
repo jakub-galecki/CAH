@@ -1,0 +1,38 @@
+@import '../../../shared/styles/globals.scss';
+@import '../cardSizes.scss';
+
+.leaderboard {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: 20vw;
+
+  padding: 20px 30px;
+
+  background-color: $white;
+  color: $black;
+  border: 10px solid $black;
+  border-radius: 3%;
+}
+
+.leaderboard-row {
+  font-size: $card-big-font-size;
+  width: 100%;
+
+  text-align: center;
+}
+
+.leaderboard-state,
+.leaderboard-points,
+.leaderboard-nick {
+  display: inline-block;
+}
+
+.leaderboard-state,
+.leaderboard-points {
+  width: 25%;
+}
+
+.leaderboard-nick {
+  width: 50%;
+}
