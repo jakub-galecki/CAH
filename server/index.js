@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const WebSocket = require('ws');
 const http = require('http');
 const uri = 'mongodb://127.0.0.1:27017/CAH';
+const JSONRPc = require('./src/jsonrpc');
 const Request = require('./src/request');
 
 mongoose.connect(uri, {
@@ -27,12 +28,8 @@ wss.on('connection', (ws, request) => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
-        const tmp = JSON.parse(message);
-        const req = new Request(tmp.jsonrpc, tmp.id, tmp.method, tmp.params);
-        if (Request.isRequest(req)) { // For testing purposes only.
-            Request.parseRequest(req);
-        }
-        console.log(Request.getData(req));
+        const res = JSONRPc.parse(message);
+        console.log(Request.getData(res));
         ws.send(message);
     });
 });
