@@ -22,15 +22,39 @@ server.listen(process.env.PORT || '8080', () => {
 });
 
 
-wss.on('connection', (ws, request) => {
+wss.on('connection', (ws) => {
     ws.isAlive = true;
     ws.on('pong', () => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
-        const res = JSONRPc.parse(message);
-        console.log(Request.getData(res));
-        ws.send(message);
+        if (!message) {
+            ws.send('Empty request');
+            return;
+        }
+        try {
+            const res = JSONRPc.parse(message);
+            // TODO Method Handling
+            ws.send(JSON.stringify(Request.getData(res)));
+        } catch (e) {
+            try {
+                const res = JSON.parse(message);
+                if (!res.id) {
+                    ws.send('Notification'); // Not supported yet
+                }
+                const err = {
+                    'jsonrpc': '2.0',
+                    'error': {
+                        'code': e.code,
+                        'message': e.data,
+                    },
+                    'id': res.id,
+                };
+                ws.send(JSON.stringify(err));
+            } catch (e) {
+                ws.send(e.message);
+            }
+        }
     });
 });
 

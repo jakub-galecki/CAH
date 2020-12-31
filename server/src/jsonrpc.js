@@ -1,4 +1,3 @@
-// https://www.youtube.com/watch?v=6XzGmdXbZmU&ab_channel=GolecuOrkiestra
 const Request = require('./request');
 const {ParseError, InvalidRequest} = require('./err');
 /**
