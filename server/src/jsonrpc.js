@@ -25,9 +25,5 @@ module.exports.parse = function(message) {
     } catch (e) {
         throw new ParseError(e.message);
     }
-    try {
-        return createRpcObj(obj);
-    } catch (e) {
-        throw new InvalidRequest(e.message);
-    }
+    return createRpcObj(obj);
 };
