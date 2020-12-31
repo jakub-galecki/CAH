@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.15.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-node": "^11.1.0"

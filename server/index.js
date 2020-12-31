@@ -1,13 +1,10 @@
 'use strict';
 
-const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const WebSocket = require('ws');
-const apiRouter = require('./routes/api');
 const http = require('http');
 const uri = 'mongodb://127.0.0.1:27017/CAH';
+const Request = require('./src/request');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -16,16 +13,8 @@ mongoose.connect(uri, {
     useFindAndModify: false,
 }).catch((err) => console.error(err.reason));
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
-require('./models/UserSchema');
-app.use('/api/', apiRouter);
-
-const server = http.createServer(app);
-const wss = new WebSocket.Server({server, path: '/game'});
+const server = http.createServer();
+const wss = new WebSocket.Server({server});
 
 server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
@@ -38,7 +27,13 @@ wss.on('connection', (ws, request) => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
-        console.log(message);
+        const tmp = JSON.parse(message);
+        const req = new Request(tmp.jsonrpc, tmp.id, tmp.method, tmp.params);
+        if (Request.isRequest(req)) { // For testing purposes only.
+            Request.parseRequest(req);
+        }
+        console.log(Request.getData(req));
+        ws.send(message);
     });
 });
 
@@ -54,4 +49,3 @@ const interval = setInterval(() => {
 wss.on('close', () => {
     clearInterval(interval);
 });
-
