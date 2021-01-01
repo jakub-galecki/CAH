@@ -1,11 +1,33 @@
-const router = require('express').Router();
 const mongoose = require('mongoose');
+const {InternalError} = require('../src/err');
 require('../models/DeckSchema');
 const Deck = mongoose.model('Deck');
 
-router.post('/createDeck', function(req, res) {
+module.exports.getData = async function(func, params) {
+    return await func(params);
+};
+
+// {"jsonrpc": "2.0", "method": "deck.createDeck", "params": {"title":"tytul", "userId":"1"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.getDeck", "params": {"id":"67QY5Z"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.getAllDecks", "params": {}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.updateDeck", "params": {"id":"67QY5Z", "title":"nowy tytul"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.deleteDeck", "params": {"id":"67QY5Z"}, "id": 1}
+
+module.exports.getDeck = async function getDeck(params) {
+    const deck = Deck.findOne({'shortId': params.id}).exec();
+    return await deck.then(function(data) {
+        return data;
+    }).catch(function(error) {
+        throw new InternalError('Deck not found');
+    });
+};
+
+module.exports.createDeck = async function(params) {
     const deck = new Deck();
-    deck.title = req.body.title;
+    if (params.title.length == 0) {
+        throw new InternalError('Deck title is empty');
+    }
+    deck.title = params.title;
 
     let shortId;
     do {
@@ -13,64 +35,44 @@ router.post('/createDeck', function(req, res) {
     } while (Deck.findOne({'shortId': shortId}).length);
     deck.shortId = shortId;
 
-
     // narazie tak to zostawie, a potem pewnie będzie brane z uwierzytelniania
-    deck.userId = req.body.userId;
+    deck.userId = params.userId;
 
-    deck.save().then(function(deck) {
-        res.status(201);
-        res.json({'id': deck.shortId});
+    return await deck.save().then(function(deck) {
+        return shortId;
     }).catch(function(error) {
-        res.send(error.message);
+        throw new InternalError('User already exists');
     });
-});
+};
 
-router.get('/getDeck/:id', function(req, res) {
-    const deck = Deck.findOne({'shortId': req.params.id}).exec();
-    deck.then(function(deck) {
-        if (deck) {
-            res.json(deck);
-        } else {
-            res.status(422).send({'found': false, 'message': 'Deck not found'});
-        }
+module.exports.getAllDecks = async function getAllDecks(params) {
+    return await Deck.find().exec().then(function(data) {
+        return data;
     }).catch(function(error) {
-        console.error(error.message);
-        res.send(error.message);
+        throw new InternalError(error.message);
     });
-});
+};
 
-router.get('/getAllDecks', function(req, res) {
-    Deck.find().then((data) => {
-        res.json(data);
+module.exports.updateDeck = async function updateDeck(params) {
+    if (!params.id) throw new InternalError('You must provide deck id');
+    if (params.title.length == 0) {
+        throw new InternalError('Deck title is empty');
+    }
+
+    const deck = Deck.findOneAndUpdate({shortId: params.id}, {title: params.title}, {new: true}).exec();
+    return await deck.then(function(deck) {
+        return deck;
     }).catch(function(error) {
-        console.error(error.message);
-        res.send(error.message);
+        throw new InternalError(error.message);
     });
-});
+};
 
-router.put('/updateDeck', function(req, res) {
-    if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide deck id'});
-
-    const deck = Deck.findOneAndUpdate({'shortId': req.body.id}, {title: req.body.title}).exec();
-    deck.then(function(deck) {
-        res.status(201);
-        res.json({'id': deck.shortId});
+module.exports.deleteDeck = async function deleteDeck(params) {
+    if (!params.id) throw new InternalError('You must provide deck id');
+    const deck = Deck.findOneAndRemove({shortId: params.id}).exec();
+    return await deck.then(function(deck) {
+        return 'deleted';
     }).catch(function(error) {
-        console.error(error.message);
-        res.send(error.message);
+        throw new InternalError('Deck not found');
     });
-});
-
-router.delete('/deleteDeck', function(req, res) {
-    if (!req.body.id) return res.status(422).send({'found': false, 'message': 'You must provide deck id'});
-    const deck = Deck.findOneAndRemove({'shortId': req.body.id}).exec();
-    deck.then(function(deck) {
-        res.status(201);
-        res.json({'id': deck.shortId});
-    }).catch(function(error) {
-        console.error(error.message);
-        res.send('Deck not found');
-    });
-});
-
-module.exports = router;
+};
