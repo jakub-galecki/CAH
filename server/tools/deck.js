@@ -20,7 +20,7 @@ module.exports.getDeck = async function getDeck(params) {
 };
 
 module.exports.createDeck = async function(params) {
-    if (params.title.length == 0) {
+    if (params.title.length === 0) {
         throw new InternalError('Deck title is empty');
     }
     if (params.title.length > 256) {
@@ -56,7 +56,7 @@ module.exports.getAllDecks = async function getAllDecks(params) {
 
 module.exports.updateDeck = async function updateDeck(params) {
     if (!params.id) throw new InternalError('You must provide deck id');
-    if (params.title.length == 0) {
+    if (params.title.length === 0) {
         throw new InternalError('Deck title is empty');
     }
     if (params.title.length > 256) {
