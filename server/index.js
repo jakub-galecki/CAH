@@ -6,6 +6,7 @@ const http = require('http');
 const uri = 'mongodb://127.0.0.1:27017/CAH';
 const JSONRPc = require('./src/jsonrpc');
 const Request = require('./src/request');
+const Methods = require('./src/method');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -33,9 +34,22 @@ wss.on('connection', (ws) => {
             return;
         }
         try {
-            const res = JSONRPc.parse(message);
-            // TODO Method Handling
-            ws.send(JSON.stringify(Request.getData(res)));
+            const rpcObj = JSONRPc.parse(message);
+            Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
+                const response = {
+                    'jsonrpc': '2.0',
+                    'result': res,
+                    'id': rpcObj.id,
+                };
+                ws.send(JSON.stringify(response));
+            }).catch(()=>{
+                const response = {
+                    'jsonrpc': '2.0',
+                    'result': null,
+                    'id': rpcObj.id,
+                };
+                ws.send(JSON.stringify(response));
+            });
         } catch (e) {
             try {
                 const res = JSON.parse(message);
