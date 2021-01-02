@@ -42,10 +42,10 @@ wss.on('connection', (ws) => {
                     'id': rpcObj.id,
                 };
                 ws.send(JSON.stringify(response));
-            }).catch(()=>{
+            }).catch((e)=>{
                 const response = {
                     'jsonrpc': '2.0',
-                    'result': null,
+                    'result': e.data,
                     'id': rpcObj.id,
                 };
                 ws.send(JSON.stringify(response));
