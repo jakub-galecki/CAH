@@ -4,18 +4,22 @@ require('../models/DeckSchema');
 const Deck = mongoose.model('Deck');
 
 // {"jsonrpc": "2.0", "method": "deck.createDeck", "params": {"title":"tytul", "userId":"1"}, "id": 1}
-// {"jsonrpc": "2.0", "method": "deck.getDeck", "params": {"id":"07ZZ4G"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.getDeck", "params": {"deckId":"07ZZ4G"}, "id": 1}
 // {"jsonrpc": "2.0", "method": "deck.getAllDecks", "params": {}, "id": 1}
-// {"jsonrpc": "2.0", "method": "deck.updateDeck", "params": {"id":"07ZZ4G", "title":"nowy tytul"}, "id": 1}
-// {"jsonrpc": "2.0", "method": "deck.deleteDeck", "params": {"id":"07ZZ4G"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.updateDeck", "params": {"deckId":"07ZZ4G", "title":"nowy tytul"}, "id": 1}
+// {"jsonrpc": "2.0", "method": "deck.deleteDeck", "params": {"deckId":"07ZZ4G"}, "id": 1}
 
 module.exports.getDeck = async function getDeck(params) {
-    if (!params.id) throw new InternalError('You must provide deck id');
+    if (!params.deckId) throw new InternalError('You must provide deck id');
 
-    return await Deck.findOne({'shortId': params.id}).exec().then(function(data) {
-        return data;
+    return await Deck.findOne({'shortId': params.deckId}).exec().then(function(data) {
+        if (data) {
+            return data;
+        } else {
+            throw new InternalError('Deck not found');
+        }
     }).catch(function(error) {
-        throw new InternalError('Deck not found');
+        throw new InternalError(error.data);
     });
 };
 
@@ -55,7 +59,7 @@ module.exports.getAllDecks = async function getAllDecks(params) {
 };
 
 module.exports.updateDeck = async function updateDeck(params) {
-    if (!params.id) throw new InternalError('You must provide deck id');
+    if (!params.deckId) throw new InternalError('You must provide deck id');
     if (!params.title) throw new InternalError('You must provide deck title');
     if (params.title.length === 0) {
         throw new InternalError('Deck title is empty');
@@ -64,18 +68,26 @@ module.exports.updateDeck = async function updateDeck(params) {
         throw new InternalError('Deck title is too long');
     }
 
-    return await Deck.findOneAndUpdate({shortId: params.id}, {title: params.title}, {new: true}).exec().then(function(deck) {
-        return deck;
+    return await Deck.findOneAndUpdate({shortId: params.deckId}, {title: params.title}, {new: true}).exec().then(function(data) {
+        if (data) {
+            return data;
+        } else {
+            throw new InternalError('Deck not found');
+        }
     }).catch(function(error) {
-        throw new InternalError(error.message);
+        throw new InternalError(error.data);
     });
 };
 
 module.exports.deleteDeck = async function deleteDeck(params) {
-    if (!params.id) throw new InternalError('You must provide deck id');
-    return await Deck.findOneAndRemove({shortId: params.id}).exec().then(function(deck) {
-        return 'deleted';
+    if (!params.deckId) throw new InternalError('You must provide deck id');
+    return await Deck.findOneAndRemove({shortId: params.deckId}).exec().then(function(data) {
+        if (data) {
+            return 'deleted';
+        } else {
+            throw new InternalError('Deck not found');
+        }
     }).catch(function(error) {
-        throw new InternalError('Deck not found');
+        throw new InternalError(error.data);
     });
 };

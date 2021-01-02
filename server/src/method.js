@@ -1,4 +1,4 @@
-const {MethodNotfound, InternalError} = require('./err');
+const {MethodNotfound} = require('./err');
 
 module.exports._callMethod = function(methodName, params) {
     if (typeof methodName === 'string' && typeof params === 'object') {
@@ -14,8 +14,6 @@ module.exports._callMethod = function(methodName, params) {
         try {
             return handler[method](params).then((res)=>{
                 return res;
-            }).catch(()=>{
-                throw new InternalError('Error while waiting for the results');
             });
         } catch (e) {
             throw new MethodNotfound('Could not find method');
