@@ -10,6 +10,8 @@ const Deck = mongoose.model('Deck');
 // {"jsonrpc": "2.0", "method": "deck.deleteDeck", "params": {"id":"07ZZ4G"}, "id": 1}
 
 module.exports.getDeck = async function getDeck(params) {
+    if (!params.id) throw new InternalError('You must provide deck id');
+
     return await Deck.findOne({'shortId': params.id}).exec().then(function(data) {
         return data;
     }).catch(function(error) {
@@ -18,10 +20,14 @@ module.exports.getDeck = async function getDeck(params) {
 };
 
 module.exports.createDeck = async function(params) {
-    const deck = new Deck();
-    if (params.title.length == 0) {
+    if (!params.title) throw new InternalError('You must provide deck title');
+    if (params.title.length === 0) {
         throw new InternalError('Deck title is empty');
     }
+    if (params.title.length > 256) {
+        throw new InternalError('Deck title is too long');
+    }
+    const deck = new Deck();
     deck.title = params.title;
 
     let shortId;
@@ -50,8 +56,12 @@ module.exports.getAllDecks = async function getAllDecks(params) {
 
 module.exports.updateDeck = async function updateDeck(params) {
     if (!params.id) throw new InternalError('You must provide deck id');
-    if (params.title.length == 0) {
+    if (!params.title) throw new InternalError('You must provide deck title');
+    if (params.title.length === 0) {
         throw new InternalError('Deck title is empty');
+    }
+    if (params.title.length > 256) {
+        throw new InternalError('Deck title is too long');
     }
 
     return await Deck.findOneAndUpdate({shortId: params.id}, {title: params.title}, {new: true}).exec().then(function(deck) {
