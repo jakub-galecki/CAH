@@ -5,8 +5,11 @@ const WebSocket = require('ws');
 const http = require('http');
 const uri = 'mongodb://127.0.0.1:27017/CAH';
 const JSONRPc = require('./src/jsonrpc');
-const Request = require('./src/request');
 const Methods = require('./src/method');
+const jwt = require('jsonwebtoken');
+const express = require('express');
+const router = require('./routes/router');
+const bodyParser = require('body-parser');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -15,15 +18,18 @@ mongoose.connect(uri, {
     useFindAndModify: false,
 }).catch((err) => console.error(err.reason));
 
-const server = http.createServer();
-const wss = new WebSocket.Server({server});
+const app = express();
+app.use(bodyParser.json());
+app.use('/', router);
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({noServer: true});
 
 server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
-
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, request, client) => {
     ws.isAlive = true;
     ws.on('pong', () => {
         ws.isAlive = true;
@@ -42,10 +48,10 @@ wss.on('connection', (ws) => {
                     'id': rpcObj.id,
                 };
                 ws.send(JSON.stringify(response));
-            }).catch((e)=>{
+            }).catch(()=>{
                 const response = {
                     'jsonrpc': '2.0',
-                    'result': e.data,
+                    'result': null,
                     'id': rpcObj.id,
                 };
                 ws.send(JSON.stringify(response));
@@ -71,7 +77,31 @@ wss.on('connection', (ws) => {
         }
     });
 });
+server.on('upgrade', async function upgrade(request, socket, head) {
+    const _JWT = request.headers.token;
+    if (!_JWT) {
+        socket.destroy();
+    }
+    let client = {};
+    try {
+        jwt.verify(_JWT, 'qwerty', function(err, decoded) {
+            if (err) {
+                socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+                socket.destroy();
+            } else {
+                client = {'data': decoded};
+            }
+        });
+    } catch (e) {
+        socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+        socket.destroy();
+        return;
+    }
 
+    wss.handleUpgrade(request, socket, head, function done(ws) {
+        wss.emit('connection', ws, request, client);
+    });
+});
 const interval = setInterval(() => {
     wss.clients.forEach((ws) => {
         if (!ws.isAlive) return ws.terminate();
