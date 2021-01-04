@@ -1,8 +1,12 @@
+import './style.scss';
+
 import React from 'react';
+
+import { EditableCard } from '../../components/deckCreator/cards/EditableCard';
 
 const DeckCreator = () => (
   <div className="deck-creator">
-    <h1>Deck Creator</h1>
+    <EditableCard>This is card content</EditableCard>
   </div>
 );
 

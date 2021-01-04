@@ -1,0 +1,63 @@
+@import '../../../shared/styles/globals.scss';
+
+$editable-card-min-width: 150px;
+$editable-card-min-height: 225px;
+$editable-card-width: 15vw;
+$editable-card-height: 1.5 * $editable-card-width;
+$editable-card-font-size: calc(
+  max(#{$editable-card-min-width} / 8, #{$editable-card-width} / 8)
+);
+
+.editable-card {
+  min-width: $editable-card-min-width;
+  min-height: $editable-card-min-height;
+  width: $editable-card-width;
+  height: $editable-card-height;
+  font-size: $editable-card-font-size;
+
+  word-wrap: break-word;
+
+  background-color: white;
+
+  position: relative;
+  padding: 20px;
+}
+
+.editable-card.not-in-edit {
+  cursor: pointer;
+}
+
+.editable-card-input {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+
+  resize: none;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+}
+
+.remove-card-button {
+  border: none;
+  background: none;
+  padding: 0;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  padding: 5px;
+
+  cursor: pointer;
+}
+
+.remove-card-button:hover {
+  color: $red;
+}
+
+.remove-card-button-icon {
+  font-size: $editable-card-font-size;
+}
