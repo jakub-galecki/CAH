@@ -1,0 +1,26 @@
+@import '../cards/cardInDeck.scss';
+
+.deck-switcher {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+
+  height: 100%;
+  overflow-y: auto;
+
+  justify-self: stretch;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 10fr;
+}
+
+.deck-switcher-buttons {
+  width: 100%;
+
+  display: flex;
+  justify-content: stretch;
+}
+
+.deck-switcher-buttons > button {
+  width: 50%;
+}

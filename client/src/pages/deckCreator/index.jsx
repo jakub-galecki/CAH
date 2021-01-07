@@ -2,11 +2,12 @@ import './style.scss';
 
 import React, { useState } from 'react';
 
-import { DeckCards } from '../../components/deckCreator/cards/DeckCards';
-import { myDeck1Data } from './dummyData';
+import { DeckSwitcher } from '../../components/deckCreator/containers/DeckSwitcher';
+import { myDeck1Data, otherDeck1Data } from './dummyData';
 
 const DeckCreator = () => {
   const [myDeck, setMyDeck] = useState(myDeck1Data);
+  const [chosenDecks, _setChosenDecks] = useState([otherDeck1Data]);
 
   const updateCardInDeck = (cardID, newContent) => {
     console.log(
@@ -18,7 +19,7 @@ const DeckCreator = () => {
     setMyDeck({ ...myDeck, cards: newCards });
   };
 
-  const addCardToDeck = (newContent) => {
+  const addNewCardToDeck = (newContent) => {
     console.log(`Adding new card "${newContent}" to deck. Send this to server`);
 
     const newCards = Array.from(myDeck.cards);
@@ -40,12 +41,13 @@ const DeckCreator = () => {
 
   return (
     <div className="deck-creator">
-      <DeckCards
-        deck={myDeck}
+      <DeckSwitcher
+        myDeck={myDeck}
+        chosenDecks={chosenDecks}
         updateCard={updateCardInDeck}
-        addCard={addCardToDeck}
+        addCard={addNewCardToDeck}
         removeCard={removeCardFromDeck}
-      ></DeckCards>
+      ></DeckSwitcher>
     </div>
   );
 };

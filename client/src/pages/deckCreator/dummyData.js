@@ -25,4 +25,19 @@ const myDeck1Data = {
   ],
 };
 
-export { myDeck1Data };
+const otherDeck1Data = {
+  id: 'OTDC1',
+  type: 'answers',
+  cards: [
+    { cardText: 'Other deck card 1', id: 101 },
+    { cardText: 'Other deck card 2', id: 102 },
+    { cardText: 'Other deck card 3', id: 103 },
+    { cardText: 'Other deck card 4', id: 104 },
+    { cardText: 'Other deck card 5', id: 105 },
+    { cardText: 'Other deck card 6', id: 106 },
+    { cardText: 'Other deck card 7', id: 107 },
+    { cardText: 'Other deck card 8', id: 108 },
+  ],
+};
+
+export { myDeck1Data, otherDeck1Data };
