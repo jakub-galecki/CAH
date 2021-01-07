@@ -1,8 +1,24 @@
+
+import "./index.scss";
+
 import React from 'react';
 
+import { Menu } from '../../components/roomList/menu';
+import { Sort } from '../../components/roomList/search';
+import { Tile } from '../../components/roomList/tile';
+import { roomsData } from './fakeData'
+
 const RoomList = () => (
-  <div className="room-list">
-    <h1>RoomList</h1>
+  <div className="roomList">
+    <br/><br/>
+      <div className="row">
+        <div className="column1"><Menu/></div>
+        <div className="column2">
+          <Sort/>
+          <Tile roomInfo = {roomsData}/>
+        </div>
+        <div className="column3"></div>
+      </div>
   </div>
 );
 

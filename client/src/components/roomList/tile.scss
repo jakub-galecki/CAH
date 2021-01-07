@@ -1,0 +1,40 @@
+@import '../../shared/styles/globals.scss';
+
+.tile {
+  background-color: white;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  padding: 1%;
+  margin: 1%;
+  width: 23%;
+}
+.tileData {
+  padding: 0.5%;
+  font-family: 'Rokkitt';
+  font-size: 130%;
+}
+.tileIcon {
+  font-size: 90%;
+}
+.tileJoin {
+  font-size: 150%;
+  font-family: 'Rokkitt';
+  background-color: black;
+  text-align: center;
+  margin: 3% 20% 0% 20%;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  padding: 0.5%;
+}
+.tileLink {
+  color: white;
+  text-decoration: none;
+}
+.xd {
+  display: inline;
+  width: 100%;
+}
