@@ -10,7 +10,6 @@ import { roomsData } from './fakeData'
 
 const RoomList = () => (
   <div className="roomList">
-    <br/><br/>
       <div className="row">
         <div className="column1"><Menu/></div>
         <div className="column2">
