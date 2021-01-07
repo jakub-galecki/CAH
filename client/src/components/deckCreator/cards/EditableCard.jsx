@@ -67,9 +67,12 @@ const EditableCard = ({
   }
 
   const removeCardButton = (
-    <button className="remove-card-button" onClick={() => removeCard(id)}>
+    <button
+      className="card-in-deck-button remove-card-button"
+      onClick={() => removeCard(id)}
+    >
       <Close
-        className="remove-card-button-icon"
+        className="card-in-deck-button-icon"
         theme="filled"
         strokeWidth={3}
       />
@@ -79,7 +82,7 @@ const EditableCard = ({
   return (
     <div
       ref={containerRef}
-      className={`editable-card${!editing ? ' not-in-edit' : ''}`}
+      className={`card-in-deck${!editing ? ' not-in-edit' : ''}`}
       onClick={() => setEditing(true)}
     >
       {card}
