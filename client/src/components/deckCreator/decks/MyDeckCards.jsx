@@ -2,9 +2,9 @@ import './deckCards.scss';
 
 import React from 'react';
 
-import { EditableCard } from './EditableCard';
+import { EditableCard } from '../cards/EditableCard';
 
-const DeckCards = ({ deck, updateCard, addCard, removeCard }) => {
+const MyDeckCards = ({ deck, updateCard, addCard, removeCard }) => {
   return (
     <div className="deck-cards">
       <EditableCard isPlaceholder={true} addCard={addCard}></EditableCard>
@@ -22,4 +22,4 @@ const DeckCards = ({ deck, updateCard, addCard, removeCard }) => {
   );
 };
 
-export { DeckCards };
+export { MyDeckCards };
