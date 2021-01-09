@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { DeckCreator, Game, Home, Room, RoomList } from '../../pages';
+import { DeckCreator, Game, Home, Lobby, RoomList } from '../../pages';
 import { PageTransitions } from '../transitions/index';
 
 export const Routing = () => {
@@ -20,7 +20,7 @@ export const Routing = () => {
                 <DeckCreator />
               </Route>
               <Route path="/room">
-                <Room />
+                <Lobby />
               </Route>
               <Route path="/roomList">
                 <RoomList />
