@@ -1,0 +1,10 @@
+.lobby {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 2.5em;
+
+  display: grid;
+  // TODO: add minmax
+  grid-template-columns: 24fr 52fr 24fr;
+  grid-template-rows: 1fr;
+}
