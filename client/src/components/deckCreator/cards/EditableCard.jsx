@@ -1,7 +1,9 @@
 import './editableCard.scss';
 
 import { Close } from '@icon-park/react';
-import { React, useEffect, useRef, useState } from 'react';
+import { React, useEffect, useRef } from 'react';
+
+import { useEditOnClick } from '../customHooks/useEditOnClick';
 
 const EditableCard = ({
   children,
@@ -11,19 +13,14 @@ const EditableCard = ({
   updateCard,
   removeCard,
 }) => {
-  const [editing, setEditing] = useState(false);
-  const [content, setContent] = useState(children);
   const containerRef = useRef();
   const inputRef = useRef();
-
-  const handleClickOutside = (e) => {
-    if (containerRef.current.contains(e.target)) {
-      // inside click
-      return;
-    }
-    // outside click
-    setEditing(false);
-  };
+  const [editing, content, setEditing, setContent] = useEditOnClick(
+    false,
+    children,
+    containerRef,
+    inputRef,
+  );
 
   useEffect(() => {
     if (!editing && content !== children) {
@@ -32,24 +29,14 @@ const EditableCard = ({
         setContent(children); //If the user removed all text from card, discard changes
       } else {
         setContent(trimmedContent);
-      if (isPlaceholder) {
-        addCard(content);
-        setContent('');
-      } else {
-        updateCard(id, content);
+        if (isPlaceholder) {
+          addCard(content);
+          setContent('');
+        } else {
+          updateCard(id, content);
+        }
       }
     }
-
-    if (editing) {
-      document.addEventListener('mousedown', handleClickOutside);
-      inputRef.current.focus();
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, [editing]);
 
   let card = (
