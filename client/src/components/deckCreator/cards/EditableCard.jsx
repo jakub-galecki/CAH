@@ -26,8 +26,12 @@ const EditableCard = ({
   };
 
   useEffect(() => {
-    if (!editing && content !== children && content.trim() !== '') {
-      setContent(content.trim());
+    if (!editing && content !== children) {
+      const trimmedContent = content.trim();
+      if (trimmedContent === '') {
+        setContent(children); //If the user removed all text from card, discard changes
+      } else {
+        setContent(trimmedContent);
       if (isPlaceholder) {
         addCard(content);
         setContent('');
