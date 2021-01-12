@@ -11,6 +11,7 @@ const express = require('express');
 const router = require('./routes/router');
 const bodyParser = require('body-parser');
 const qs = require('qs');
+const cors = require('cors');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -20,6 +21,7 @@ mongoose.connect(uri, {
 }).catch((err) => console.error(err.reason));
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/', router);
 
