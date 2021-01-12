@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Cards Against Humanity - client",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start",
@@ -11,19 +12,23 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "node-sass": "^4.14.1",
     "prettier": "^2.2.1",
     "react-card-flip": "^1.0.11"
   },
   "dependencies": {
     "@icon-park/react": "^1.1.5",
     "axios": "^0.21.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1",
+    "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
@@ -32,7 +37,8 @@
     "react-scripts": "^4.0.1",
     "react-toastify": "^6.2.0",
     "react-transition-group": "^4.4.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "ws": "^7.4.1"
   },
   "browserslist": {
     "production": [
