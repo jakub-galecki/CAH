@@ -8,14 +8,17 @@ import { CustomToastContainer } from './components/customToastContainer/index';
 import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
+import { WsProvider } from './contexts/ws';
 
 const App = () => (
   <div className="app">
     <Router>
       <AuthProvider>
-        <Navigation />
-        <Routing />
-        <CustomToastContainer />
+        <WsProvider>
+          <Navigation />
+          <Routing />
+          <CustomToastContainer />
+        </WsProvider>
       </AuthProvider>
     </Router>
   </div>
