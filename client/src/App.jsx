@@ -8,6 +8,7 @@ import { CustomToastContainer } from './components/customToastContainer/index';
 import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
+import { RpcProvider } from './contexts/rpc';
 import { WsProvider } from './contexts/ws';
 
 const App = () => (
@@ -15,9 +16,11 @@ const App = () => (
     <Router>
       <AuthProvider>
         <WsProvider>
-          <Navigation />
-          <Routing />
-          <CustomToastContainer />
+          <RpcProvider>
+            <Navigation />
+            <Routing />
+            <CustomToastContainer />
+          </RpcProvider>
         </WsProvider>
       </AuthProvider>
     </Router>

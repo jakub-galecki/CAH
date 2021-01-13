@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { useAuth } from './auth';
 
@@ -10,6 +10,9 @@ export const WsProvider = ({ children }) => {
     new WebSocket('ws://localhost:8080/' + 'token=' + accessToken),
   );
 
+  useEffect(() => {
+    new WebSocket('ws://localhost:8080/' + 'token=' + accessToken);
+  }, [accessToken]);
   // Cheap solution: prevent ws from closing
   ws.onclose = function () {
     setTimeout(() => {
