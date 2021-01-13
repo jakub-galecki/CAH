@@ -1,0 +1,39 @@
+@import '../../../shared/styles/globals.scss';
+
+$card-in-deck-min-width: 150px;
+$card-in-deck-min-height: 225px;
+$card-in-deck-width: 15vw;
+$card-in-deck-height: 1.5 * $card-in-deck-width;
+$card-in-deck-font-size: calc(
+  max(#{$card-in-deck-min-width} / 8, #{$card-in-deck-width} / 8)
+);
+
+.card-in-deck {
+  min-width: $card-in-deck-min-width;
+  min-height: $card-in-deck-min-height;
+  width: $card-in-deck-width;
+  height: $card-in-deck-height;
+  font-size: $card-in-deck-font-size;
+
+  word-wrap: break-word;
+
+  background-color: white;
+
+  position: relative;
+  padding: 20px;
+}
+
+.card-in-deck-button {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.card-in-deck-button:not(.disabled):hover {
+  color: $red;
+  cursor: pointer;
+}
+
+.card-in-deck-button-icon {
+  font-size: $card-in-deck-font-size;
+}
