@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DeckPreview } from '../../cardPanel/deckPreview/index';
+import { DeckPreview } from '../../deckPreview/index';
 
 const ChosenDecks = ({ chosenDecks, removeDeck, isDeckChosen }) => {
   return (

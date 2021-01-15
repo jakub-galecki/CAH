@@ -2,7 +2,7 @@ import './style.scss';
 
 import React from 'react';
 
-import { DeckPreview } from './deckPreview/index';
+import { DeckPreview } from '../deckPreview/index';
 import { Search } from './search';
 
 export const CardPanel = ({ availableDecks, addDeck, isDeckChosen }) => {
