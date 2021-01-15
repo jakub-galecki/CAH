@@ -2,10 +2,11 @@ import './style.scss';
 
 import React from 'react';
 
+import { ChosenDecks } from './chosenDecks/ChosenDecks';
 import { RoomLink } from './roomLink/RoomLink';
 import { RoomSettings } from './roomSettings/RoomSettings';
 
-export const Overview = () => {
+export const Overview = ({ chosenDecks, removeDeck, isDeckChosen }) => {
   return (
     <div className="overview">
       <RoomLink>{'www.example.com'}</RoomLink>
@@ -15,7 +16,12 @@ export const Overview = () => {
         defaultPlayerLimit={10}
         defaultPointLimit={20}
         defaultAnswerTime={30}
-      ></RoomSettings>
+      />
+      <ChosenDecks
+        chosenDecks={chosenDecks}
+        removeDeck={removeDeck}
+        isDeckChosen={isDeckChosen}
+      />
     </div>
   );
 };
