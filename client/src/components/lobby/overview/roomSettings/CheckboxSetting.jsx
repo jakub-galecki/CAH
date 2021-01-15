@@ -11,8 +11,8 @@ const CheckboxSetting = ({ title, defaultChecked, isDisabled }) => {
   };
 
   return (
-    <div>
-      <label>{title}</label>
+    <div className="room-setting">
+      <label className="room-setting-label">{title}</label>
       <input
         type="checkbox"
         disabled={isDisabled}

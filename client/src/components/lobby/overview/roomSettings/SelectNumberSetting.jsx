@@ -27,8 +27,8 @@ const SelectNumberSetting = ({
   }
 
   return (
-    <div>
-      <label>{title}</label>
+    <div className="room-setting">
+      <label className="room-setting-label">{title}</label>
       <select
         disabled={isDisabled}
         value={value}

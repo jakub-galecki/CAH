@@ -1,0 +1,33 @@
+.room-settings {
+  width: 100%;
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    justify-items: center;
+
+    .room-setting {
+      width: 100%;
+      margin: 5px 0 5px 0;
+      .room-setting-label {
+        display: inline-block;
+        width: 60%;
+        text-align: right;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .countdown-span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .start-game-button {
+    display: block;
+    margin: 10px auto 0 auto;
+    font-size: 1.5em;
+  }
+}

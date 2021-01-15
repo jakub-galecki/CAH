@@ -1,3 +1,5 @@
+import './roomSettings.scss';
+
 import React from 'react';
 
 import { CheckboxSetting } from './CheckboxSetting';
@@ -35,7 +37,7 @@ const RoomSettings = ({
           max={100}
         />
         <SelectNumberSetting
-          title="Time to answer (seconds)"
+          title="Seconds for answer"
           defaultValue={defaultAnswerTime}
           isDisabled={!isAdmin}
           min={15}
@@ -43,8 +45,8 @@ const RoomSettings = ({
           max={60}
         />
       </form>
-      <span>Countdown: 4</span>
-      <button>Start game</button>
+      <span className="countdown-span">Countdown: 4</span>
+      <button className="start-game-button">Start game</button>
     </div>
   );
 };
