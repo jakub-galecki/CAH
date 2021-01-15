@@ -1,5 +1,6 @@
 import './roomLink.scss';
 
+import { CopyLink } from '@icon-park/react';
 import React, { useRef } from 'react';
 
 import { toastInfo } from '../../../../utils/toastify/index';
@@ -28,7 +29,8 @@ const RoomLink = ({ children }) => {
         onClick={copyLinkToClipbaord}
         value={children}
       >
-        {children}
+        {children}{' '}
+        <CopyLink className="link-icon" theme="filled" strokeWidth={3} />
       </span>
     </div>
   );
