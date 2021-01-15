@@ -7,10 +7,10 @@ const RpcContext = createContext({});
 
 export const RpcProvider = ({ children }) => {
   const { ws } = useWs();
-  const [rpc, setRpc] = useState(new RpcClient(ws));
+  const [rpc, setRpc] = useState(ws ? new RpcClient(ws) : null);
 
   useEffect(() => {
-    setRpc(new RpcClient(ws));
+    if(ws) setRpc(new RpcClient(ws));
   }, [ws]);
   return <RpcContext.Provider value={{ rpc }}>{children}</RpcContext.Provider>;
 };
