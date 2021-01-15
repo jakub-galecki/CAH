@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
     if (token) setAccessToken(token);
   }, []);
 
-  const setToken = (token) => {
-    localStorage.setItem('accessToken', token);
-    setAccessToken(token);
+  const setToken = (givenToken) => {
+    localStorage.setItem('accessToken', givenToken);
+    setAccessToken(givenToken);
   };
   return (
     <AuthContext.Provider
