@@ -33,7 +33,13 @@ server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
+
+const rooms = [];
+const clients = [];
+
 wss.on('connection', (ws, request) => {
+    clients.push(ws);
+    console.log('New connection - client');
     let authenticated;
     try {
         authenticated = authUser(request.url);
@@ -53,13 +59,17 @@ wss.on('connection', (ws, request) => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
-        console.log(ws);
         if (!message) {
             ws.send('Empty request');
             return;
         }
         try {
             const rpcObj = JSONRPc.parse(message);
+            const tool = rpcObj.method.split('.')[0];
+            if (tool === 'room' || tool === 'game') {
+                rpcObj.params.rooms = rooms;
+                rpcObj.params.client = ws;
+            }
             Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
                 const response = {
                     'jsonrpc': '2.0',
@@ -103,7 +113,6 @@ wss.on('connection', (ws, request) => {
  * @return {{data: any, authenticated: boolean}}
  */
 function authUser(reqUrl) {
-    console.log(reqUrl);
     const obj = qs.parse(reqUrl, {delimiter: '/'});
     if (obj.token) {
         const _JWT = obj.token;
