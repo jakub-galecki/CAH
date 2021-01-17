@@ -2,22 +2,19 @@
 @import '../cardSizes.scss';
 
 .leaderboard {
-  position: absolute;
-  right: 0;
-  top: 50px;
-  width: 20vw;
+  padding: 10px 15px 10px 5px;
 
-  padding: 20px 30px;
-
-  background-color: $white;
+  background-color: white;
   color: $black;
   border: 10px solid $black;
   border-radius: 3%;
 }
 
 .leaderboard-row {
-  font-size: $card-big-font-size;
   width: 100%;
+
+  display: flex;
+  justify-content: space-around;
 
   text-align: center;
 }
@@ -28,11 +25,43 @@
   display: inline-block;
 }
 
-.leaderboard-state,
-.leaderboard-points {
-  width: 25%;
+.leaderboard-nick {
+  text-align: left;
 }
 
-.leaderboard-nick {
-  width: 50%;
+.game {
+  .leaderboard {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 20vw;
+  }
+
+  .leaderboard-row {
+    font-size: $card-big-font-size;
+  }
+
+  .leaderboard-state,
+  .leaderboard-points {
+    width: 25%;
+  }
+
+  .leaderboard-nick {
+    width: 50%;
+  }
+}
+
+.lobby {
+  .leaderboard {
+    align-self: start;
+    font-size: 1.5em;
+  }
+
+  .leaderboard-row {
+    justify-content: flex-start;
+  }
+
+  .leaderboard-state {
+    width: 1.7em;
+  }
 }

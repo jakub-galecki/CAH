@@ -2,10 +2,11 @@ import './style.scss';
 
 import React, { useState } from 'react';
 
+import { Leaderboard } from '../../components/game/leaderboard/Leaderboard';
 import { generateDecks } from '../../components/lobby/cardPanel/fakeDecks';
 import { CardPanel } from '../../components/lobby/cardPanel/index';
 import { Overview } from '../../components/lobby/overview/index';
-import { Team } from '../../components/lobby/team/index';
+import { leaderboardData } from '../game/dummyData';
 
 const Lobby = () => {
   const [availableDecks, _setAvailableDecks] = useState(generateDecks(18));
@@ -40,7 +41,7 @@ const Lobby = () => {
         removeDeck={removeDeck}
         isDeckChosen={isDeckChosen}
       />
-      <Team />
+      <Leaderboard playersInfo={leaderboardData} isInGameplay={false} />
     </div>
   );
 };

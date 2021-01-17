@@ -48,7 +48,10 @@ const Game = () => {
         <QuestionCard text="Fill this sentence _________________"></QuestionCard>
         <PlayedCards numberOfCards={cardsPlayed}></PlayedCards>
 
-        <Leaderboard playersInfo={leaderboardData}></Leaderboard>
+        <Leaderboard
+          playersInfo={leaderboardData}
+          isInGameplay={true}
+        ></Leaderboard>
         <CustomDragLayer></CustomDragLayer>
       </DndProvider>
     </div>
