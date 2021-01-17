@@ -1,6 +1,6 @@
 import './style.scss';
 
-import { Close } from '@icon-park/react';
+import { Close, Poker } from '@icon-park/react';
 import React from 'react';
 
 export const DeckPreview = ({
@@ -9,6 +9,7 @@ export const DeckPreview = ({
   type,
   title,
   description,
+  cardCount,
   createdAt,
   isInDeckPanel,
   addDeck,
@@ -44,7 +45,10 @@ export const DeckPreview = ({
         <p>{author}</p>
       </div>
       <div className="right-bottom">
-        <span>Card count</span>
+        <span>
+          {`${cardCount} `}
+          <Poker theme="outline" strokeWidth={3} />
+        </span>
       </div>
     </div>
   );

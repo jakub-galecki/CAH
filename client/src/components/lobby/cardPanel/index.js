@@ -10,7 +10,7 @@ export const CardPanel = ({ availableDecks, addDeck, isDeckChosen }) => {
     <div className="card-panel">
       <Search />
       {availableDecks.map(
-        ({ id, author, type, title, description, createdAt }) => (
+        ({ id, author, type, title, description, cardCount, createdAt }) => (
           <DeckPreview
             key={id}
             id={id}
@@ -18,6 +18,7 @@ export const CardPanel = ({ availableDecks, addDeck, isDeckChosen }) => {
             type={type}
             author={author}
             description={description}
+            cardCount={cardCount}
             createdAt={createdAt}
             isInDeckPanel={true}
             addDeck={addDeck}

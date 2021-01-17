@@ -1,5 +1,8 @@
 .room-settings {
-  width: 100%;
+  width: 60%;
+  @media (max-width: 1500px) {
+    width: 85%;
+  }
   form {
     display: grid;
     grid-template-columns: 1fr 1fr;

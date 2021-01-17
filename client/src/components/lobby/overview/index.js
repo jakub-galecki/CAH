@@ -10,17 +10,17 @@ export const Overview = ({ chosenDecks, removeDeck, isDeckChosen }) => {
   return (
     <div className="overview">
       <RoomLink>{'www.example.com'}</RoomLink>
+      <ChosenDecks
+        chosenDecks={chosenDecks}
+        removeDeck={removeDeck}
+        isDeckChosen={isDeckChosen}
+      />
       <RoomSettings
         isAdmin={true}
         defaultIsPrivate={false}
         defaultPlayerLimit={10}
         defaultPointLimit={20}
         defaultAnswerTime={30}
-      />
-      <ChosenDecks
-        chosenDecks={chosenDecks}
-        removeDeck={removeDeck}
-        isDeckChosen={isDeckChosen}
       />
     </div>
   );

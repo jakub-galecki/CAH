@@ -28,6 +28,10 @@ const generateType = () => {
   return randomNumber < 1 ? 'questions' : 'answers';
 };
 
+const generateCardCount = () => {
+  return Math.floor(Math.random() * 90) + 10;
+};
+
 export const generateDecks = (n) => {
   return Array(n)
     .fill(0)
@@ -37,6 +41,7 @@ export const generateDecks = (n) => {
       type: generateType(),
       author: generateAuthor(),
       description: generateDesc(),
+      cardCount: generateCardCount(),
       createdAt: generateDate(),
     }));
 };
