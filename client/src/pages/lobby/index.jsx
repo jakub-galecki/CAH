@@ -2,10 +2,10 @@ import './style.scss';
 
 import React, { useState } from 'react';
 
-import { Leaderboard } from '../../components/game/leaderboard/Leaderboard';
 import { generateDecks } from '../../components/lobby/cardPanel/fakeDecks';
 import { CardPanel } from '../../components/lobby/cardPanel/index';
 import { Overview } from '../../components/lobby/overview/index';
+import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
 import { leaderboardData } from '../game/dummyData';
 
 const Lobby = () => {
