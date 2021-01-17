@@ -41,30 +41,30 @@
   }
 
   .card-panel {
-    > .deck-preview {
+    .deck-preview {
       margin: 15px 10px 15px 10px;
     }
 
-    > .deck-preview.not-chosen {
+    .deck-preview.not-chosen {
       cursor: pointer;
     }
 
-    > .deck-preview.chosen {
+    .deck-preview.chosen {
       filter: opacity(30%);
       box-shadow: none;
     }
   }
 
   .chosen-decks-grid {
-    > .deck-preview.white .remove-deck-button {
+    .deck-preview.white .remove-deck-button {
       color: $black;
     }
 
-    > .deck-preview.black .remove-deck-button {
+    .deck-preview.black .remove-deck-button {
       color: $white;
     }
 
-    > .deck-preview {
+    .deck-preview {
       position: relative;
 
       .remove-deck-button {

@@ -9,7 +9,7 @@ import { Team } from '../../components/lobby/team/index';
 
 const Lobby = () => {
   const [availableDecks, _setAvailableDecks] = useState(generateDecks(18));
-  const [chosenDecks, setChosenDecks] = useState(availableDecks);
+  const [chosenDecks, setChosenDecks] = useState([]);
 
   const isDeckChosen = (deckID) => chosenDecks.some((d) => d.id === deckID);
 
