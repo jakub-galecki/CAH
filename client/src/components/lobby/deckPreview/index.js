@@ -6,6 +6,7 @@ import React from 'react';
 export const DeckPreview = ({
   id,
   author,
+  type,
   title,
   description,
   createdAt,
@@ -18,14 +19,20 @@ export const DeckPreview = ({
   let rightUpElem = <p>{date}</p>;
   if (!isInDeckPanel) {
     rightUpElem = (
-      <button onClick={() => removeDeck(id)}>
-        <Close theme="filled" strokeWidth={3} />
+      <button className="remove-deck-button" onClick={() => removeDeck(id)}>
+        <Close
+          className="remove-deck-button-icon"
+          theme="filled"
+          strokeWidth={3}
+        />
       </button>
     );
   }
   return (
     <div
-      className="card-preview"
+      className={`deck-preview${isDeckChosen ? ' chosen' : ' not-chosen'}${
+        type === 'questions' ? ' black' : ' white'
+      }`}
       onClick={() => (isInDeckPanel && !isDeckChosen ? addDeck(id) : '')}
     >
       <div className="left-up">

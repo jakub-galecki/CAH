@@ -3,4 +3,12 @@
   @media (max-width: 1500px) {
     width: 85%;
   }
+
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100%;
+  overflow-y: auto;
 }

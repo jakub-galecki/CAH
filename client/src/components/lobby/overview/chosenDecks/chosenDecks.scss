@@ -1,0 +1,21 @@
+.lobby {
+  .chosen-decks {
+    margin-top: 30px;
+    padding: 5px 15px 0 15px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+
+    overflow-y: auto;
+  }
+
+  //Separate element with padding is needed, because grid has problems with normal padding (when in overflow)
+  .chosen-decks::after {
+    content: '';
+    padding-bottom: 5px;
+    grid-column: 1 / 2;
+    order: 2;
+  }
+}

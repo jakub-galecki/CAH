@@ -23,12 +23,18 @@ const generateDate = () => {
   );
 };
 
+const generateType = () => {
+  const randomNumber = Math.random() * 2;
+  return randomNumber < 1 ? 'questions' : 'answers';
+};
+
 export const generateDecks = (n) => {
   return Array(n)
     .fill(0)
     .map(() => ({
       id: generateId(),
       title: generateTitle(),
+      type: generateType(),
       author: generateAuthor(),
       description: generateDesc(),
       createdAt: generateDate(),
