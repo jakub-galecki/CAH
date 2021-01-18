@@ -1,0 +1,47 @@
+@import '../../../../shared/styles/globals.scss';
+
+.lobby {
+  .search-wrapper {
+    display: flex;
+    justify-content: stretch;
+    padding: 5px;
+    input.search {
+      font-size: 1.1em;
+      border-radius: 0.5em;
+      border: 1px solid black;
+      padding: 0.25em;
+
+      min-width: 50%;
+    }
+
+    .filter-button {
+      flex-grow: 0;
+      margin: 0 0 0 10px;
+      padding: 5px;
+
+      border: 0;
+      border-radius: 10px;
+      font-size: 1.5em;
+
+      cursor: pointer;
+    }
+
+    .filter-button.white {
+      color: $black;
+      background-color: white;
+    }
+
+    .filter-button.black {
+      color: white;
+      background-color: $black;
+    }
+
+    .filter-button:hover {
+      box-shadow: 0 0 3px 1px $red;
+    }
+
+    .filter-button.not-active {
+      filter: opacity(30%);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.room-link-container {
+  text-align: center;
+  margin: 20px 0 20px 0;
+
+  .link-span {
+    display: inline-block;
+    position: relative;
+
+    font-style: italic;
+    cursor: pointer;
+  }
+
+  .link-icon {
+    position: absolute;
+    right: -1.3em;
+    font-size: 1em;
+    display: none;
+  }
+
+  .link-span:hover > .link-icon {
+    display: inline-block;
+  }
+}
