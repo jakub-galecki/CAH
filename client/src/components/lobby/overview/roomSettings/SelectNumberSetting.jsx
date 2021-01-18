@@ -1,3 +1,5 @@
+import './select.scss';
+
 import React, { useState } from 'react';
 
 const SelectNumberSetting = ({
@@ -27,15 +29,22 @@ const SelectNumberSetting = ({
   }
 
   return (
-    <div className="room-setting">
-      <label className="room-setting-label">{title}</label>
-      <select
-        disabled={isDisabled}
-        value={value}
-        onChange={(e) => onValueSet(Number(e.target.value))}
-      >
-        {options}
-      </select>
+    <div
+      className={`room-setting select-room-setting${
+        isDisabled ? ' disabled' : ''
+      }`}
+    >
+      <label className="select-label">{title}</label>
+      <div className="select-container">
+        <select
+          className="select"
+          disabled={isDisabled}
+          value={value}
+          onChange={(e) => onValueSet(Number(e.target.value))}
+        >
+          {options}
+        </select>
+      </div>
     </div>
   );
 };

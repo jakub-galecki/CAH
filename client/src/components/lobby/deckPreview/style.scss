@@ -50,7 +50,7 @@
     }
 
     .deck-preview.chosen {
-      filter: opacity(30%);
+      filter: opacity($disabled-opacity);
       box-shadow: none;
     }
   }
