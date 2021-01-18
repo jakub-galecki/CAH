@@ -8,17 +8,17 @@ import { CustomToastContainer } from './components/customToastContainer/index';
 import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
-import { RpcProvider } from './contexts/rpc';
+import { ConnectionProvider } from './contexts/connection';
 
 const App = () => (
   <div className="app">
     <Router>
       <AuthProvider>
-          <RpcProvider>
+          <ConnectionProvider>
             <Navigation />
             <Routing />
             <CustomToastContainer />
-          </RpcProvider>
+          </ConnectionProvider>
       </AuthProvider>
     </Router>
   </div>

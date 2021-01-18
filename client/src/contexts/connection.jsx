@@ -3,9 +3,9 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { RpcClient } from '../utils/RpcClient.js';
 import { useAuth } from './auth';
 
-const RpcContext = createContext({});
+const ConnectionContext = createContext({});
 
-export const RpcProvider = ({ children }) => {
+export const ConnectionProvider = ({ children }) => {
   const { accessToken } = useAuth();
   const [ws, setWs] = useState(null);
   const [rpc, setRpc] = useState(null);
@@ -20,9 +20,9 @@ export const RpcProvider = ({ children }) => {
     if(ws) setRpc(new RpcClient(ws));
   }, [ws])
 
-  return <RpcContext.Provider value={{ rpc }}>{children}</RpcContext.Provider>;
+  return <ConnectionContext.Provider value={{ rpc, ws }}>{children}</ConnectionContext.Provider>;
 };
 
-export const useRpc = () => {
-  return useContext(RpcContext);
+export const useConnection = () => {
+  return useContext(ConnectionContext);
 };
