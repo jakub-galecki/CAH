@@ -1,6 +1,6 @@
 import "./index.scss";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Menu } from '../../components/roomList/menu';
@@ -8,9 +8,10 @@ import { Sort } from '../../components/roomList/search';
 import { Tile } from '../../components/roomList/tile';
 import { useConnection } from '../../contexts/connection';
 import { toastError, toastSuccess } from '../../utils/toastify/index';
-import { roomsData } from './fakeData'
+// import { roomsData } from './fakeData'
 
 const RoomList = () => {
+  const [localRooms, setLocalRooms] = useState([]);
   const { rpc, ws } = useConnection();
   const { push } = useHistory();
 
@@ -20,12 +21,17 @@ const RoomList = () => {
       console.log(data) 
     }
   }
+
   useEffect(async () => {
+    if(!rpc) return;
     try {
       const rooms = await rpc.send('room.getRooms', {}, false);
-      console.log(rooms)
-    } catch { /* empty */ }
+      setLocalRooms(rooms)
+    } catch (e){
+      console.console.warn(e);
+    }
   }, [])
+
   const handleClick = async () => {
     try {
       await rpc.send('room.initRoom', {}, false);
@@ -44,7 +50,7 @@ const RoomList = () => {
         <div className="column2">
           <button onClick={handleClick}>Create room</button> {/* temp */}
           <Sort/>
-          <Tile roomInfo = {roomsData}/>
+          <Tile roomInfo = {localRooms}/>
         </div>
         <div className="column3"></div>
       </div>
