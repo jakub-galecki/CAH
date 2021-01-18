@@ -41,7 +41,7 @@
     }
 
     .filter-button.not-active {
-      filter: opacity(30%);
+      filter: opacity($disabled-opacity);
     }
   }
 }

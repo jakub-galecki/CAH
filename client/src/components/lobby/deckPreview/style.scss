@@ -45,12 +45,12 @@
       margin: 15px 10px 15px 10px;
     }
 
-    .deck-preview.not-chosen {
+    .deck-preview.admin.not-chosen {
       cursor: pointer;
     }
 
     .deck-preview.chosen {
-      filter: opacity(30%);
+      filter: opacity($disabled-opacity);
       box-shadow: none;
     }
   }

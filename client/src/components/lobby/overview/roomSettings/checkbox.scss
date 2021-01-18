@@ -1,0 +1,74 @@
+@import '../../../../shared/styles/globals.scss';
+
+.checkbox {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-gap: 0.5em;
+  font-size: inherit;
+  color: inherit;
+
+  .checkbox__label {
+    justify-self: end;
+    padding-right: 5px;
+    cursor: pointer;
+  }
+
+  .checkbox__input {
+    display: grid;
+    grid-template-areas: 'checkbox';
+
+    input {
+      opacity: 0;
+      width: 1em;
+      height: 1em;
+
+      cursor: pointer;
+      filter: inherit;
+    }
+
+    input:hover + .checkbox__control {
+      box-shadow: 0 0 3px 1px $red;
+    }
+
+    input:checked + .checkbox__control svg {
+      transform: scale(1);
+    }
+
+    input:checkbox:disabled + .checkbox__control {
+      color: grey;
+    }
+
+    > * {
+      grid-area: checkbox;
+    }
+
+    .checkbox__control {
+      display: inline-grid;
+      width: 1em;
+      height: 1em;
+      border-radius: 0.25em;
+      border: 0.1em solid currentColor;
+
+      svg {
+        transition: transform 0.1s ease-in 25ms;
+        transform: scale(0);
+        transform-origin: bottom left;
+      }
+    }
+  }
+}
+
+.checkbox.disabled {
+  filter: opacity($disabled-opacity);
+  .checkbox__label {
+    cursor: unset;
+  }
+  .checkbox__input {
+    input {
+      cursor: unset;
+    }
+    input:hover + .checkbox__control {
+      box-shadow: unset;
+    }
+  }
+}

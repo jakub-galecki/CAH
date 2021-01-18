@@ -15,10 +15,11 @@ export const DeckPreview = ({
   addDeck,
   removeDeck,
   isDeckChosen,
+  isAdmin,
 }) => {
   const date = `${createdAt.getDate()} ${createdAt.getMonth()} ${createdAt.getFullYear()}`;
   let rightUpElem = <p>{date}</p>;
-  if (!isInDeckPanel) {
+  if (!isInDeckPanel && isAdmin) {
     rightUpElem = (
       <button className="remove-deck-button" onClick={() => removeDeck(id)}>
         <Close
@@ -33,8 +34,10 @@ export const DeckPreview = ({
     <div
       className={`deck-preview${isDeckChosen ? ' chosen' : ' not-chosen'}${
         type === 'questions' ? ' black' : ' white'
-      }`}
-      onClick={() => (isInDeckPanel && !isDeckChosen ? addDeck(id) : '')}
+      }${isAdmin ? ' admin' : ''}`}
+      onClick={() =>
+        isInDeckPanel && !isDeckChosen && isAdmin ? addDeck(id) : ''
+      }
     >
       <div className="left-up">
         <h4>{title}</h4>

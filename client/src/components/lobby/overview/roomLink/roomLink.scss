@@ -2,12 +2,18 @@
   text-align: center;
   margin: 20px 0 20px 0;
 
+  font-size: 2em;
+  font-weight: bold;
+
   .link-span {
     display: inline-block;
     position: relative;
 
     font-style: italic;
     cursor: pointer;
+
+    border-radius: 10px;
+    padding: 0 0.5em 0 0.5em;
   }
 
   .link-icon {
@@ -17,7 +23,10 @@
     display: none;
   }
 
-  .link-span:hover > .link-icon {
-    display: inline-block;
+  .link-span:hover {
+    background-color: white;
+    > .link-icon {
+      display: inline-block;
+    }
   }
 }

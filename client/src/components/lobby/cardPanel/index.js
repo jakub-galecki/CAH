@@ -5,7 +5,12 @@ import React, { useState } from 'react';
 import { DeckPreview } from '../deckPreview/index';
 import { Search } from './search';
 
-export const CardPanel = ({ availableDecks, addDeck, isDeckChosen }) => {
+export const CardPanel = ({
+  availableDecks,
+  addDeck,
+  isDeckChosen,
+  isAdmin,
+}) => {
   const [filterText, setFilterText] = useState('');
   const [showAnswers, setShowAnswers] = useState(true);
   const [showQuestions, setShowQuestions] = useState(true);
@@ -45,6 +50,7 @@ export const CardPanel = ({ availableDecks, addDeck, isDeckChosen }) => {
                   isInDeckPanel={true}
                   addDeck={addDeck}
                   isDeckChosen={isDeckChosen(id)}
+                  isAdmin={isAdmin}
                 />
               );
           },

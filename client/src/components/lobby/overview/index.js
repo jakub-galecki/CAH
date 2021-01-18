@@ -6,7 +6,12 @@ import { ChosenDecks } from './chosenDecks/ChosenDecks';
 import { RoomLink } from './roomLink/RoomLink';
 import { RoomSettings } from './roomSettings/RoomSettings';
 
-export const Overview = ({ chosenDecks, removeDeck, isDeckChosen }) => {
+export const Overview = ({
+  chosenDecks,
+  removeDeck,
+  isDeckChosen,
+  isAdmin,
+}) => {
   return (
     <div className="overview">
       <RoomLink>{'www.example.com'}</RoomLink>
@@ -14,9 +19,10 @@ export const Overview = ({ chosenDecks, removeDeck, isDeckChosen }) => {
         chosenDecks={chosenDecks}
         removeDeck={removeDeck}
         isDeckChosen={isDeckChosen}
+        isAdmin={isAdmin}
       />
       <RoomSettings
-        isAdmin={true}
+        isAdmin={isAdmin}
         defaultIsPrivate={false}
         defaultPlayerLimit={10}
         defaultPointLimit={20}

@@ -14,6 +14,7 @@ const RoomSettings = ({
 }) => {
   return (
     <div className="room-settings">
+      <h1>Admin panel</h1>
       <form>
         <CheckboxSetting
           title="Private"
@@ -46,7 +47,9 @@ const RoomSettings = ({
         />
       </form>
       <span className="countdown-span">Countdown: 4</span>
-      <button className="start-game-button">Start game</button>
+      <button className={`start-game-button${!isAdmin ? ' disabled' : ''}`}>
+        Start game
+      </button>
     </div>
   );
 };
