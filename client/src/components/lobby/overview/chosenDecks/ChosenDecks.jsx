@@ -5,7 +5,7 @@ import React from 'react';
 
 import { DeckPreview } from '../../deckPreview/index';
 
-const ChosenDecks = ({ chosenDecks, removeDeck, isDeckChosen }) => {
+const ChosenDecks = ({ chosenDecks, removeDeck, isDeckChosen, isAdmin }) => {
   const answerDecksCount = chosenDecks.reduce(
     (sum, deck) => (deck.type === 'answers' ? sum + deck.cardCount : sum),
     0,
@@ -44,6 +44,7 @@ const ChosenDecks = ({ chosenDecks, removeDeck, isDeckChosen }) => {
               isInDeckPanel={false}
               removeDeck={removeDeck}
               isDeckChosen={isDeckChosen}
+              isAdmin={isAdmin}
             />
           ),
         )}

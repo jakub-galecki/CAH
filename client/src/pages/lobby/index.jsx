@@ -8,6 +8,8 @@ import { Overview } from '../../components/lobby/overview/index';
 import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
 import { leaderboardData } from '../game/dummyData';
 
+const isAdmin = true;
+
 const Lobby = () => {
   const [availableDecks, _setAvailableDecks] = useState(generateDecks(18));
   const [chosenDecks, setChosenDecks] = useState([]);
@@ -35,11 +37,13 @@ const Lobby = () => {
         availableDecks={availableDecks}
         addDeck={addDeck}
         isDeckChosen={isDeckChosen}
+        isAdmin={isAdmin}
       />
       <Overview
         chosenDecks={chosenDecks}
         removeDeck={removeDeck}
         isDeckChosen={isDeckChosen}
+        isAdmin={isAdmin}
       />
       <Leaderboard playersInfo={leaderboardData} isInGameplay={false} />
     </div>
