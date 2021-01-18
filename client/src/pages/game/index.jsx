@@ -9,7 +9,7 @@ import { CardsInHand, PlayedCards } from '../../components/game/containers';
 import { Counter } from '../../components/game/counter/Counter';
 import { Deck } from '../../components/game/deck/Deck';
 import { CustomDragLayer } from '../../components/game/dragAndDrop/CustomDragLayer';
-import { Leaderboard } from '../../components/game/leaderboard/Leaderboard';
+import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
 import { cardsInHandData, leaderboardData } from './dummyData';
 
 const Game = () => {
@@ -48,7 +48,10 @@ const Game = () => {
         <QuestionCard text="Fill this sentence _________________"></QuestionCard>
         <PlayedCards numberOfCards={cardsPlayed}></PlayedCards>
 
-        <Leaderboard playersInfo={leaderboardData}></Leaderboard>
+        <Leaderboard
+          playersInfo={leaderboardData}
+          isInGameplay={true}
+        ></Leaderboard>
         <CustomDragLayer></CustomDragLayer>
       </DndProvider>
     </div>

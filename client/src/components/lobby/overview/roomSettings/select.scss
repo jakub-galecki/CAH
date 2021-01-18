@@ -1,0 +1,63 @@
+@import '../../../../shared/styles/globals.scss';
+
+.select-room-setting {
+  .select-label {
+    display: inline-block;
+    width: 60%;
+    text-align: right;
+    padding-right: 5px;
+  }
+
+  .select-container {
+    display: inline-block;
+    position: relative;
+
+    select {
+      appearance: none;
+
+      background-color: white;
+      background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+      border: 1px solid $black;
+      border-radius: 0.25em;
+      padding: 0.25em 0.5em;
+      margin: 0;
+      width: 3.5em;
+      font-family: inherit;
+      font-size: 1.25rem;
+      line-height: 1.1;
+      outline: none;
+
+      cursor: pointer;
+    }
+  }
+
+  .select-container:hover .select {
+    box-shadow: 0 0 3px 1px $red;
+  }
+
+  .select-container::after {
+    content: '';
+    width: 0.8em;
+    height: 0.5em;
+    background-color: $black;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+
+    position: absolute;
+    top: 0.7em;
+    right: 0.3em;
+  }
+}
+
+.select-room-setting.disabled {
+  filter: opacity($disabled-opacity);
+
+  .select-container {
+    select {
+      cursor: unset;
+    }
+  }
+
+  .select-container:hover .select {
+    box-shadow: none;
+  }
+}

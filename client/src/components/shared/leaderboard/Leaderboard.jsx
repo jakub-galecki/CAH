@@ -4,15 +4,15 @@ import React from 'react';
 
 import { LeaderboardRow } from './LeaderboardRow';
 
-const Leaderboard = ({ playersInfo }) => {
+const Leaderboard = ({ playersInfo, isInGameplay }) => {
   return (
     <div className="leaderboard">
-      {playersInfo.map(({ id, state, nick, points }) => (
+      {playersInfo.map(({ id, state, nick, points, isAdmin }) => (
         <LeaderboardRow
           key={id}
-          state={state}
+          state={isInGameplay ? state : isAdmin ? 'admin' : ''}
           nick={nick}
-          points={points}
+          points={isInGameplay ? points : null}
         ></LeaderboardRow>
       ))}
     </div>
