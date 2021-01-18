@@ -1,0 +1,17 @@
+@import '../../shared/styles/globals.scss';
+
+.sort {
+  color: $red;
+  display: flex;
+  text-align: right;
+}
+.sortLoupe {
+  color: $black;
+  font-size: 115%;
+}
+p {
+  margin-left: 1%;
+  margin-right: 1%;
+  font-family: 'Rokkitt';
+  font-size: 150%;
+}
