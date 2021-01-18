@@ -1,0 +1,21 @@
+.roomList {
+  min-height: 100%;
+  padding-top: 2em;
+}
+
+.row {
+  display: grid;
+  height: 100%;
+  padding-left: 17vw;
+  width: 100vw;
+  grid-template-columns: 80fr 7fr;
+  grid-template-rows: 1fr;
+}
+
+.column1 {
+  position: fixed;
+  left:0;
+  top:0;
+  height: 100vh;
+  width: 17vw;
+}

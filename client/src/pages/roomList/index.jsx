@@ -1,10 +1,15 @@
+import "./index.scss";
+
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { Menu } from '../../components/roomList/menu';
+import { Sort } from '../../components/roomList/search';
+import { Tile } from '../../components/roomList/tile';
 import { useConnection } from '../../contexts/connection';
 import { toastError, toastSuccess } from '../../utils/toastify/index';
+import { roomsData } from './fakeData'
 
-// ! WIP: basic stage is written only to test features
 const RoomList = () => {
   const { rpc, ws } = useConnection();
   const { push } = useHistory();
@@ -33,11 +38,17 @@ const RoomList = () => {
   };
 
   return (
-    <div className="room-list">
-      <h1>RoomList</h1>
-      <button onClick={handleClick}>Create Room</button>
-    </div>
-  );
-};
+  <div className="roomList">
+      <div className="row">
+        <div className="column1"><Menu/></div>
+        <div className="column2">
+          <button onClick={handleClick}>Create room</button> {/* temp */}
+          <Sort/>
+          <Tile roomInfo = {roomsData}/>
+        </div>
+        <div className="column3"></div>
+      </div>
+  </div>
+)};
 
 export { RoomList };
