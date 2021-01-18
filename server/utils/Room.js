@@ -18,4 +18,12 @@ module.exports.Room = class Room {
         this.users.length = 0;
         this.owner = '';
     }
+    getInfo() {
+        return {
+            type: 'room',
+            owner: this.owner,
+            users: this.users,
+            state: this.state,
+        };
+    }
 };

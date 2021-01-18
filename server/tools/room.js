@@ -13,11 +13,13 @@ module.exports.initRoom = async function initRoom(params) {
         }
     }
 
-    const NewRoom = new Room(params.client);
+    const NewRoom = new Room(params.client.userData);
     params.rooms.push(NewRoom);
-    console.log(`Rooms num = ${params.rooms.length}`);
-    console.log('New room created!');
-    // @todo: change it
-    return NewRoom;
+    return NewRoom.getInfo();
 };
 
+module.exports.getRooms = async function getRooms(params) {
+    return params.rooms.map((room) => {
+        return room.getInfo();
+    });
+};

@@ -69,6 +69,7 @@ wss.on('connection', (ws, request) => {
             if (tool === 'room' || tool === 'game') {
                 rpcObj.params.rooms = rooms;
                 rpcObj.params.client = ws;
+                rpcObj.params.wss = wss;
             }
             Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
                 const response = {
@@ -76,6 +77,12 @@ wss.on('connection', (ws, request) => {
                     'result': res,
                     'id': rpcObj.id,
                 };
+                console.log(response.result);
+                if (response.result.type && response.result.type === 'room') {
+                    wss.clients.forEach((client) => {
+                        if (client !== ws) client.send(JSON.stringify(response));
+                    });
+                }
                 ws.send(JSON.stringify(response));
             }).catch((e) => {
                 const response = {
