@@ -12,6 +12,7 @@ const router = require('./routes/router');
 const bodyParser = require('body-parser');
 const qs = require('qs');
 const cors = require('cors');
+const room = require('./tools/room');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -26,20 +27,13 @@ app.use(bodyParser.json());
 app.use('/', router);
 
 const server = http.createServer(app);
-
 const wss = new WebSocket.Server({server: server});
-
 server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
 
-const rooms = [];
-const clients = [];
-
 wss.on('connection', (ws, request) => {
-    clients.push(ws);
-    console.log('New connection - client');
     let authenticated;
     try {
         authenticated = authUser(request.url);
@@ -65,11 +59,8 @@ wss.on('connection', (ws, request) => {
         }
         try {
             const rpcObj = JSONRPc.parse(message);
-            const tool = rpcObj.method.split('.')[0];
-            if (tool === 'room' || tool === 'game') {
-                rpcObj.params.rooms = rooms;
-                rpcObj.params.client = ws;
-                rpcObj.params.wss = wss;
+            if (rpcObj.method.indexOf('room') !== -1) {
+                rpcObj.params.userId = ws.userData.user._id;
             }
             Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
                 const response = {
@@ -77,12 +68,6 @@ wss.on('connection', (ws, request) => {
                     'result': res,
                     'id': rpcObj.id,
                 };
-                console.log(response.result);
-                if (response.result.type && response.result.type === 'room') {
-                    wss.clients.forEach((client) => {
-                        if (client !== ws) client.send(JSON.stringify(response));
-                    });
-                }
                 ws.send(JSON.stringify(response));
             }).catch((e) => {
                 const response = {
@@ -142,6 +127,38 @@ const interval = setInterval(() => {
         });
     });
 }, 5000);
+
+/**
+ * @param {WebSocketServer} wss
+ * @param {String} roomId
+ * @param {Object} data
+ */
+function broadcastToRoom(wss, roomId, data) {
+    (async function(wss, roomId, data) {
+        const users = await room.getUsers({roomId: roomId});
+        wss.clients.forEach((client) => {
+            const inRoom = Object.values(users).some((u) => {
+                return u === client.userData.user._id;
+            });
+            if (client.readyState === 1 && inRoom) {
+                client.send(JSON.stringify(data));
+            }
+        });
+    })(wss, roomId, data);
+}
+/**
+ * @param {WebSocketServer} wss
+ * @param {Object} data
+ */
+function broadcast(wss, data) {
+    (async function(wss, roomId, data) {
+        wss.clients.forEach((client) => {
+            if (client.readyState === 1) {
+                client.send(JSON.stringify(data));
+            }
+        });
+    })(wss, data);
+}
 
 wss.on('close', () => {
     clearInterval(interval);
