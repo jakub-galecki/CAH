@@ -35,7 +35,7 @@ router.post('/login', function(req, res) {
         if (pass) {
             jwt.sign({user}, 'qwerty', {expiresIn: '1h'}, (err, token) => {
                 if (err) console.log(err);
-                res.status(202).send({'token': token, 'found': true, 'message': 'Logged in'});
+                res.status(202).send({'token': token, 'found': true, 'message': 'Logged in', 'userId': user._id});
             });
         } else {
             return res.status(422).send({'found': false, 'message': 'Invalid password'});
