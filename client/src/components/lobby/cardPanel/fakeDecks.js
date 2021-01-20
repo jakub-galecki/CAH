@@ -32,7 +32,7 @@ const generateCardCount = () => {
   return Math.floor(Math.random() * 90) + 10;
 };
 
-export const generateDecks = (n) => {
+const generateDecks = (n) => {
   return Array(n)
     .fill(0)
     .map(() => ({
@@ -45,3 +45,43 @@ export const generateDecks = (n) => {
       createdAt: generateDate(),
     }));
 };
+
+const generateCards = (deckId, cardCount, cardType, userId) => {
+  const cards = Array(cardCount);
+  for (let i = 0; i < cardCount; i++) {
+    cards.push({
+      content: generateDesc(),
+      deckId: deckId,
+      cardType: cardType,
+      userId: userId,
+    });
+  }
+
+  return cards;
+};
+
+const addGeneratedDeckToServer = async (playerId, rpc, deckType) => {
+  console.log('Adding generated deck: userId: ' + playerId);
+  try {
+    const deck = generateDecks(1)[0];
+    const deckId = await rpc.send(
+      'deck.createDeck',
+      { title: deck.title, userID: playerId },
+      false,
+    );
+    console.log(deckId);
+
+    const cardCount = Math.floor(Math.random() * 40) + 10;
+    const cards = generateCards(deckId, cardCount, deckType, playerId);
+    console.log(`Sending cards: ${cards}`);
+    cards.forEach(async (card) => {
+      console.log(`Sending card: ${card}`);
+      const cardRes = await rpc.send('card.createCard', card, false);
+      console.log(cardRes);
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export { addGeneratedDeckToServer };

@@ -38,6 +38,20 @@ module.exports.addUsers = async function addUsers(params) {
     });
 };
 
+module.exports.join = async function join(params) {
+    return await Room.findById(params.roomId).exec().then((r) => {
+        if (params.userId) {
+            r.users = r.users.concat(params.userId);
+
+            console.log(r.users.length);
+            r.save();
+            return r;
+        }
+    }).catch((e) => {
+        throw new InternalError('Could not find the room');
+    });
+};
+
 module.exports.getUsers = async function getUsers(params) {
     return await Room.findById(params.roomId).exec().then((r) => {
         return r.users;

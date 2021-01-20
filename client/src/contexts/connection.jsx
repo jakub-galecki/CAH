@@ -16,8 +16,11 @@ export const ConnectionProvider = ({ children }) => {
   }, [accessToken]);
 
   // info: new rpc whenever ws changes
-  useEffect(() => {
-    if(ws) setRpc(new RpcClient(ws));
+  useEffect(async () => {
+    if(ws) {
+      const newRpc = new RpcClient(ws);
+      setRpc(newRpc);
+    }
   }, [ws])
 
   return <ConnectionContext.Provider value={{ rpc, ws }}>{children}</ConnectionContext.Provider>;
