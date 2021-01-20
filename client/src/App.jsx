@@ -9,16 +9,19 @@ import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
 import { ConnectionProvider } from './contexts/connection';
+import { RoomProvider } from './contexts/room';
 
 const App = () => (
   <div className="app">
     <Router>
       <AuthProvider>
-          <ConnectionProvider>
+        <ConnectionProvider>
+          <RoomProvider>
             <Navigation />
             <Routing />
             <CustomToastContainer />
-          </ConnectionProvider>
+          </RoomProvider>
+        </ConnectionProvider>
       </AuthProvider>
     </Router>
   </div>

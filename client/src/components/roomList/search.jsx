@@ -23,7 +23,7 @@ const Sort = () => (
       </p>
       <p>
         FILTRUJ
-      <select multiply>
+      <select multiple>
         <optgroup label="Talia">
           <option>standardowa</option>
           <option>niestandardowa</option>
