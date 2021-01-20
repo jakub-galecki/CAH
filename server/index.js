@@ -13,6 +13,8 @@ const bodyParser = require('body-parser');
 const qs = require('qs');
 const cors = require('cors');
 const room = require('./tools/room');
+const {toRoom} = require('./src/MethodsToBroadcast');
+const {allUsers} = require('./src/MethodsToBroadcast');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -68,7 +70,13 @@ wss.on('connection', (ws, request) => {
                     'result': res,
                     'id': rpcObj.id,
                 };
-                ws.send(JSON.stringify(response));
+                if (allUsers.includes(rpcObj.method)) {
+                    broadcast(wss, response);
+                } else if (toRoom.includes(rpcObj.method)) {
+                    broadcastToRoom(wss, rpcObj.params.roomId, response);
+                } else {
+                    ws.send(JSON.stringify(response));
+                }
             }).catch((e) => {
                 const response = {
                     'jsonrpc': '2.0',
