@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 
 const RoomSchema = new mongoose.Schema({
-    'owner': String,
-    'users': Array,
+    'owner': {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    'users': [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
     'state': String,
+    'name': String,
 });
 
 RoomSchema.methods.setState = function(state) {
@@ -31,6 +38,7 @@ RoomSchema.methods.getInfo = function() {
         'owner': this.owner,
         'users': this.users,
         'state': this.state,
+        'name': this.name,
     };
 };
 
