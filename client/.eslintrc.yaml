@@ -19,9 +19,9 @@ plugins:
   - simple-import-sort
   - eslint-plugin-import
 rules:
-  simple-import-sort/imports: error
+  simple-import-sort/imports: warn
   no-unused-vars:
-    - error
+    - warn
     - ignoreRestSiblings: true
       varsIgnorePattern: ^_
   import/no-default-export: error
