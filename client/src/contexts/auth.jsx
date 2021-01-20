@@ -8,7 +8,11 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    if(token) setAccessToken(token);
+    const usrId = localStorage.getItem('userId');
+    if (token && usrId) {
+      setAccessToken(token);
+      setUserId(usrId);
+    }
   }, []);
 
   const setToken = (givenToken) => {
@@ -16,10 +20,19 @@ export const AuthProvider = ({ children }) => {
     setAccessToken(givenToken);
   };
 
+  const setUserIdWithLocalStorage = (usrId) => {
+    localStorage.setItem('userId', usrId);
+    setUserId(usrId);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ accessToken: accessToken, setAccessToken: setToken, userId, setUserId }}
+      value={{
+        accessToken: accessToken,
+        setAccessToken: setToken,
+        userId,
+        setUserId: setUserIdWithLocalStorage,
+      }}
     >
       {children}
     </AuthContext.Provider>
