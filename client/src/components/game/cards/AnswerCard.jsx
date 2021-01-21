@@ -7,7 +7,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 const AnswerCard = ({ children, playCardFromHand, id }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: 'card', id: id, content: children },
-    collect: (monitor) => ({
+    collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
     end(item, monitor) {

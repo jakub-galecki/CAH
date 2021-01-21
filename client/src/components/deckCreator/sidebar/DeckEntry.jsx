@@ -63,12 +63,12 @@ const DeckEntry = ({
           type="checkbox"
           checked={chosen}
           onChange={() => toggleDeckVisiblity(deck.id)}
-        ></input>
+        />
         <DeckName
           deck={deck}
           isEditable={editable}
           containerRef={containerRef}
-        ></DeckName>
+        />
       </div>
       <div>
         {editButton}

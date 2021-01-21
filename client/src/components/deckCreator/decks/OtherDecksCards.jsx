@@ -6,9 +6,9 @@ import { NonEditableCard } from '../cards/NonEditableCard';
 
 const OtherDecksCards = ({ chosenDecks, addCard, isCardInMyDeck }) => {
   let cards = [];
-  chosenDecks.forEach((deck) => {
+  chosenDecks.forEach(deck => {
     cards = cards.concat(
-      deck.cards.map((card) => (
+      deck.cards.map(card => (
         <NonEditableCard
           key={card.id}
           addCard={addCard}

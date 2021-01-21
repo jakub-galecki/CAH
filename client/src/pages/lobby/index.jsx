@@ -16,14 +16,15 @@ const Lobby = () => {
   const [leaderBoardData, setLeaderBoardData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { rpc } = useConnection();
+  const { ws, rpc } = useConnection();
   const { userId } = useAuth();
   const { roomId } = useRoom();
-  const isDeckChosen = (deckID) => chosenDecks.some((d) => d.id === deckID);
+  const isDeckChosen = deckID => chosenDecks.some(d => d.id === deckID);
 
-  const addDeck = (deckID) => {
+  // if()
+  const addDeck = deckID => {
     if (!isDeckChosen(deckID)) {
-      const deckToAdd = availableDecks.find((deck) => deck.id === deckID);
+      const deckToAdd = availableDecks.find(deck => deck.id === deckID);
       if (deckToAdd) {
         setChosenDecks([...chosenDecks, deckToAdd]);
 
@@ -33,8 +34,8 @@ const Lobby = () => {
     }
   };
 
-  const removeDeck = (deckID) => {
-    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckID));
+  const removeDeck = deckID => {
+    setChosenDecks(chosenDecks.filter(deck => deck.id !== deckID));
 
     //TODO: rpc.send('room.removeDeck', {deckId: deckId}, false)
     console.log(`Removing deck ${deckID} from room. Send this to server`);
@@ -43,7 +44,7 @@ const Lobby = () => {
   const fetchAvailableDecks = async () => {
     try {
       const decksFromServer = await rpc.send('deck.getAllDecks', {}, false);
-      const decks = decksFromServer.map((d) => ({
+      const decks = decksFromServer.map(d => ({
         id: d.shortId,
         title: d.title,
         type: 'answers', // ! temp
@@ -59,7 +60,7 @@ const Lobby = () => {
   };
 
   // Temp code to create decks on key press ('a' for answers and 'q' for questions)
-  const addDeckToServerOnKeyPress = async (e) => {
+  const addDeckToServerOnKeyPress = async e => {
     if (e.key === 'a' || e.key === 'q') {
       await addGeneratedDeckToServer(userId, rpc, e.key === 'a' ? 0 : 1);
       fetchAvailableDecks();
@@ -76,11 +77,11 @@ const Lobby = () => {
   useEffect(async () => {
     try {
       const result = await rpc.send('room.getRoom', { roomId }, false);
-      const users = result.users.map((user) => {
+      const users = result.users.map(({ username, _id }) => {
         return {
-          isAdmin: user === result.owner,
-          id: user,
-          nick: user, // ! temp
+          isAdmin: _id === result.owner._id,
+          id: _id,
+          nick: username,
           state: 'lobby', // ! temp
           points: 0, // ! temp
         };

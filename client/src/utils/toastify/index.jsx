@@ -12,21 +12,21 @@ const TextError = styled.h4``;
 const TextSuccess = styled.h4``;
 const TextInfo = styled.h4``;
 
-export const toastError = (message) =>
+export const toastError = message =>
   toast.error(
     <Center>
       <TextError>{message}</TextError>
     </Center>,
   );
 
-export const toastSuccess = (message) =>
+export const toastSuccess = message =>
   toast.success(
     <Center>
       <TextSuccess>{message}</TextSuccess>
     </Center>,
   );
 
-export const toastInfo = (message) =>
+export const toastInfo = message =>
   toast.info(
     <Center>
       <TextInfo>{message}</TextInfo>

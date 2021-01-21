@@ -71,10 +71,13 @@ wss.on('connection', (ws, request) => {
                     'id': rpcObj.id,
                 };
                 if (allUsers.includes(rpcObj.method)) {
+                    console.log('broadcast all');
                     broadcast(wss, response);
                 } else if (toRoom.includes(rpcObj.method)) {
+                    console.log('broadcast toRoom');
                     broadcastToRoom(wss, rpcObj.params.roomId, response);
                 } else {
+                    console.log('toUser');
                     ws.send(JSON.stringify(response));
                 }
             }).catch((e) => {
@@ -159,13 +162,12 @@ function broadcastToRoom(wss, roomId, data) {
  * @param {Object} data
  */
 function broadcast(wss, data) {
-    (async function(wss, roomId, data) {
-        wss.clients.forEach((client) => {
-            if (client.readyState === 1) {
-                client.send(JSON.stringify(data));
-            }
-        });
-    })(wss, data);
+    wss.clients.forEach((client) => {
+        if (client.readyState === 1) {
+            console.log('send');
+            client.send(JSON.stringify(data));
+        }
+    });
 }
 
 wss.on('close', () => {

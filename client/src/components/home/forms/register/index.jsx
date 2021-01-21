@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     // TODO: elaborate on instant login & redirect (backend interference)
@@ -35,14 +35,14 @@ const Register = () => {
           <input
             placeholder="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
           />
           <label>and my password</label>
           <input
             placeholder="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
       </div>

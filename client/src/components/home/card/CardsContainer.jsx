@@ -11,7 +11,7 @@ import { FrontCard } from './FrontCard';
 const CardsContainer = () => {
   const [activeCard, setActiveCard] = useState(null);
 
-  const handleClick = (side) => {
+  const handleClick = side => {
     setActiveCard(side);
   };
 

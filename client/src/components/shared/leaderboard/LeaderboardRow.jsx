@@ -28,7 +28,7 @@ const LeaderboardRow = ({ state, nick, points }) => {
       );
       break;
     default:
-      icon = <span className="leaderboard-state"></span>;
+      icon = <span className="leaderboard-state" />;
   }
 
   return (

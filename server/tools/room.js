@@ -19,11 +19,16 @@ module.exports.initRoom = async function initRoom(params) {
         room.users = room.users.concat(params.users);
     }
     room.state = 'initialized';
-    return await room.save().then(function() {
-        return room.getInfo();
-    }).catch((err) => {
+    try {
+        await room.save();
+        return {
+            data: room,
+            user: params.userId,
+            method: 'room.initRoom',
+        };
+    } catch (err) {
         throw new InternalError(err.message);
-    });
+    }
 };
 
 module.exports.getRooms = async function getRooms() {

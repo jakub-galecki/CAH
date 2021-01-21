@@ -12,7 +12,7 @@ const SelectNumberSetting = ({
 }) => {
   const [value, setValue] = useState(defaultValue);
 
-  const onValueSet = (newValue) => {
+  const onValueSet = newValue => {
     setValue(newValue);
     console.log(
       `Setting room's "${title}" to ${newValue}. Send this to server`,
@@ -40,7 +40,7 @@ const SelectNumberSetting = ({
           className="select"
           disabled={isDisabled}
           value={value}
-          onChange={(e) => onValueSet(Number(e.target.value))}
+          onChange={e => onValueSet(Number(e.target.value))}
         >
           {options}
         </select>

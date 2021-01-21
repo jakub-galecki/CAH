@@ -13,7 +13,7 @@ const Leaderboard = ({ playersInfo, isInGameplay }) => {
           state={isInGameplay ? state : isAdmin ? 'admin' : ''}
           nick={nick}
           points={isInGameplay ? points : null}
-        ></LeaderboardRow>
+        />
       ))}
     </div>
   );

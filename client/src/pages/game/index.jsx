@@ -16,43 +16,37 @@ const Game = () => {
   const [cardsPlayed, setCardsPlayed] = useState(0);
   const [cardsInHand, setCardsInHand] = useState(cardsInHandData);
 
-  const playCardFromHand = (cardID) => {
+  const playCardFromHand = cardID => {
     if (canPlayCard(cardID)) {
       setCardsPlayed(cardsPlayed + 1);
       removeCardFromHand(cardID);
     }
   };
 
-  const canPlayCard = (cardID) => {
+  const canPlayCard = cardID => {
     //TODO: Here check whether the card can be played (Haven't yet played a card and the player is not black)
     console.log(cardID);
     return true;
   };
 
-  const removeCardFromHand = (cardID) => {
-    setCardsInHand(cardsInHand.filter((element) => element.id !== cardID));
+  const removeCardFromHand = cardID => {
+    setCardsInHand(cardsInHand.filter(element => element.id !== cardID));
   };
 
   return (
     <div className="game">
       <DndProvider backend={HTML5Backend}>
-        <CardsInHand
-          cards={cardsInHand}
-          playCardFromHand={playCardFromHand}
-        ></CardsInHand>
+        <CardsInHand cards={cardsInHand} playCardFromHand={playCardFromHand} />
         <div className="left-side-panel">
-          <Deck color="black" cardsLeft={23} cardsMax={40}></Deck>
-          <Counter></Counter>
-          <Deck color="white" cardsLeft={44} cardsMax={80}></Deck>
+          <Deck color="black" cardsLeft={23} cardsMax={40} />
+          <Counter />
+          <Deck color="white" cardsLeft={44} cardsMax={80} />
         </div>
-        <QuestionCard text="Fill this sentence _________________"></QuestionCard>
-        <PlayedCards numberOfCards={cardsPlayed}></PlayedCards>
+        <QuestionCard text="Fill this sentence _________________" />
+        <PlayedCards numberOfCards={cardsPlayed} />
 
-        <Leaderboard
-          playersInfo={leaderboardData}
-          isInGameplay={true}
-        ></Leaderboard>
-        <CustomDragLayer></CustomDragLayer>
+        <Leaderboard playersInfo={leaderboardData} isInGameplay={true} />
+        <CustomDragLayer />
       </DndProvider>
     </div>
   );

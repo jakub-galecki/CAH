@@ -15,12 +15,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const setToken = (givenToken) => {
+  const setToken = givenToken => {
     localStorage.setItem('accessToken', givenToken);
     setAccessToken(givenToken);
   };
 
-  const setUserIdWithLocalStorage = (usrId) => {
+  const setUserIdWithLocalStorage = usrId => {
     localStorage.setItem('userId', usrId);
     setUserId(usrId);
   };

@@ -4,7 +4,7 @@ const useEditOnClick = (isEditing, initialContent, containerRef, inputRef) => {
   const [editing, setEditing] = useState(isEditing);
   const [content, setContent] = useState(initialContent);
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = e => {
     if (containerRef.current.contains(e.target)) {
       // inside click
       return;
@@ -13,7 +13,7 @@ const useEditOnClick = (isEditing, initialContent, containerRef, inputRef) => {
     setEditing(false);
   };
 
-  const handleEnterClick = (e) => {
+  const handleEnterClick = e => {
     if (e.key == 'Enter') {
       setEditing(false);
     }

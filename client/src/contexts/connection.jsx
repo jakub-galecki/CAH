@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { RpcClient } from '../utils/RpcClient.js';
+import { listen } from '../utils/ws';
 import { useAuth } from './auth';
 
 const ConnectionContext = createContext({});
@@ -11,9 +12,14 @@ export const ConnectionProvider = ({ children }) => {
   const [rpc, setRpc] = useState(null);
 
   // info: new ws whenever accessToken changes
+
   useEffect(() => {
-    if (accessToken)
-      setWs(new WebSocket('ws://localhost:8080/' + 'token=' + accessToken));
+    if (accessToken) {
+      const newWs = new WebSocket(
+        'ws://localhost:8080/' + 'token=' + accessToken,
+      );
+      setWs(newWs);
+    }
   }, [accessToken]);
 
   // info: new rpc whenever ws changes

@@ -19,7 +19,9 @@ const DeckName = ({ deck, isEditable, containerRef }) => {
       } else {
         setDeckName(trimmedDeckName);
         console.log(
-          `Changing deck's "${deck.id}" name to "${trimmedDeckName}". Send this to server`,
+          `Changing deck's "${
+            deck.id
+          }" name to "${trimmedDeckName}". Send this to server`,
         );
       }
     }
@@ -39,10 +41,10 @@ const DeckName = ({ deck, isEditable, containerRef }) => {
       className="deck-name-input"
       ref={inputRef}
       value={deckName}
-      onChange={(e) =>
+      onChange={e =>
         setDeckName(e.target.value.replace(/\s+/g, ' ').trimStart())
       }
-    ></input>
+    />
   );
 
   return editing ? deckNameInput : deckNameSpan;

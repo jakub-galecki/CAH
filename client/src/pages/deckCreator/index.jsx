@@ -11,11 +11,11 @@ const DeckCreator = () => {
   const [currentMyDeck, setCurrentMyDeck] = useState(myDecks[0]);
   const [chosenDecks, setChosenDecks] = useState([otherDecksData[0]]);
 
-  const setCurrentMyDeckCards = (newCards) => {
+  const setCurrentMyDeckCards = newCards => {
     const newMyDeck = { ...currentMyDeck, cards: newCards };
     setCurrentMyDeck(newMyDeck);
     setMyDecks(
-      myDecks.map((deck) => (deck.id === newMyDeck.id ? newMyDeck : deck)),
+      myDecks.map(deck => (deck.id === newMyDeck.id ? newMyDeck : deck)),
     );
   };
 
@@ -23,13 +23,13 @@ const DeckCreator = () => {
     console.log(
       `Updating card ${cardID} to "${newContent}". Send this to server`,
     );
-    const newCards = currentMyDeck.cards.map((card) =>
+    const newCards = currentMyDeck.cards.map(card =>
       cardID === card.id ? { cardText: newContent, id: cardID } : card,
     );
     setCurrentMyDeckCards(newCards);
   };
 
-  const addNewCardToDeck = (newContent) => {
+  const addNewCardToDeck = newContent => {
     console.log(`Adding new card "${newContent}" to deck. Send this to server`);
 
     const newCards = Array.from(currentMyDeck.cards);
@@ -42,45 +42,45 @@ const DeckCreator = () => {
     setCurrentMyDeckCards(newCards);
   };
 
-  const removeCardFromDeck = (cardID) => {
+  const removeCardFromDeck = cardID => {
     console.log(`Removing card ${cardID} from deck. Send this to server`);
 
-    const newCards = currentMyDeck.cards.filter((card) => card.id !== cardID);
+    const newCards = currentMyDeck.cards.filter(card => card.id !== cardID);
     setCurrentMyDeckCards(newCards);
   };
 
-  const toggleChosenDeckVisibility = (deckID) => {
+  const toggleChosenDeckVisibility = deckID => {
     const isVisible = isDeckVisible(deckID);
     if (isVisible) {
       hideDeck(deckID);
     } else {
       const chosenDeck =
-        otherDecksData.find((deck) => deck.id === deckID) ||
-        myDecks.find((deck) => deck.id === deckID);
+        otherDecksData.find(deck => deck.id === deckID) ||
+        myDecks.find(deck => deck.id === deckID);
       setChosenDecks([...chosenDecks, chosenDeck]);
     }
   };
 
-  const isDeckVisible = (deckID) => {
-    return chosenDecks.find((deck) => deck.id === deckID);
+  const isDeckVisible = deckID => {
+    return chosenDecks.find(deck => deck.id === deckID);
   };
 
-  const hideDeck = (deckID) => {
-    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckID));
+  const hideDeck = deckID => {
+    setChosenDecks(chosenDecks.filter(deck => deck.id !== deckID));
   };
 
-  const editDeck = (deckID) => {
+  const editDeck = deckID => {
     if (isDeckVisible(deckID)) {
       hideDeck(deckID);
     }
 
-    const newMyDeck = myDecks.find((deck) => deck.id === deckID);
+    const newMyDeck = myDecks.find(deck => deck.id === deckID);
     setCurrentMyDeck(newMyDeck);
   };
 
-  const removeDeck = (deckID) => {
+  const removeDeck = deckID => {
     console.log(`Removing my deck ${deckID}. Send this to server`);
-    setMyDecks(myDecks.filter((deck) => deck.id !== deckID));
+    setMyDecks(myDecks.filter(deck => deck.id !== deckID));
   };
 
   const newEmptyDeck = () => {
@@ -101,14 +101,14 @@ const DeckCreator = () => {
         editDeck={editDeck}
         removeDeck={removeDeck}
         newDeck={newEmptyDeck}
-      ></Sidebar>
+      />
       <DeckSwitcher
         myDeck={currentMyDeck}
         chosenDecks={chosenDecks}
         updateCard={updateCardInDeck}
         addCard={addNewCardToDeck}
         removeCard={removeCardFromDeck}
-      ></DeckSwitcher>
+      />
     </div>
   );
 };

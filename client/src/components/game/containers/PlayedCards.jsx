@@ -8,7 +8,7 @@ import { PlayedCard } from '../cards/PlayedCard';
 const PlayedCards = ({ numberOfCards }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: 'card',
-    collect: (monitor) => ({
+    collect: monitor => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
     }),
@@ -16,7 +16,7 @@ const PlayedCards = ({ numberOfCards }) => {
 
   const playedCards = Array(numberOfCards);
   for (let i = 0; i < numberOfCards; i++) {
-    const card = <PlayedCard></PlayedCard>;
+    const card = <PlayedCard />;
     playedCards.push(card);
   }
 
