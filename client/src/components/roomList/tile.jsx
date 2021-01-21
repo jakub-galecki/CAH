@@ -4,16 +4,24 @@ import { User } from '@icon-park/react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useAuth } from '../../contexts/auth';
 import { useConnection } from '../../contexts/connection';
 import { useRoom } from '../../contexts/room';
 
 const Tile = ({ roomInfo }) => {
   const { ws, rpc } = useConnection();
+  const { userId } = useAuth();
   const { push } = useHistory();
   const { setRoomId } = useRoom();
 
-  ws.onmessage = (data) => {
-    console.log(data);
+  ws.onmessage = (msg) => {
+    const { result } = JSON.parse(msg.data);
+    if(result.method === 'room.join') {
+      if(result.user === userId) {
+        setRoomId(result.data._id);
+        push('/room');
+      }
+    }
   }
 
   const handleJoin = async (id) => {
@@ -21,8 +29,6 @@ const Tile = ({ roomInfo }) => {
       rpc.send('room.join', {
         roomId: id,
       }, false);
-      // setRoomId(result);
-      push('/room');
     } catch (e) {
       console.error(e);
     }

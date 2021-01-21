@@ -50,10 +50,12 @@ module.exports.join = async function join(params) {
     return await Room.findById(params.roomId).exec().then((r) => {
         if (params.userId) {
             r.users = r.users.concat(params.userId);
-
-            console.log(r.users.length);
             r.save();
-            return r;
+            return {
+                data: r,
+                user: params.userId,
+                method: 'room.join',
+            };
         }
     }).catch((e) => {
         throw new InternalError('Could not find the room');
