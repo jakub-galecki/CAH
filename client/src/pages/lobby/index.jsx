@@ -16,10 +16,33 @@ const Lobby = () => {
   const [leaderBoardData, setLeaderBoardData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { rpc } = useConnection();
+  const { ws, rpc } = useConnection();
   const { userId } = useAuth();
   const { roomId } = useRoom();
   const isDeckChosen = (deckID) => chosenDecks.some((d) => d.id === deckID);
+
+  // @todo: rewrite ws handling logic inside specialized module
+  ws.onmessage = (msg) => {
+    console.log(msg);
+    const { result } = JSON.parse(msg.data);
+    console.log(result);
+    switch (result.method) {
+      case 'room.join':
+        if (result.data._id === roomId) {
+          const newUser = {
+            id: result.user._id,
+            isAdmin: false,
+            nick: result.user.username,
+            points: 0,
+            state: 'lobby',
+          };
+          setLeaderBoardData([...leaderBoardData, newUser]);
+        }
+        break;
+      default:
+        console.log(result);
+    }
+  };
 
   const addDeck = (deckID) => {
     if (!isDeckChosen(deckID)) {
@@ -76,11 +99,11 @@ const Lobby = () => {
   useEffect(async () => {
     try {
       const result = await rpc.send('room.getRoom', { roomId }, false);
-      const users = result.users.map((user) => {
+      const users = result.users.map(({ username, _id }) => {
         return {
-          isAdmin: user === result.owner,
-          id: user,
-          nick: user, // ! temp
+          isAdmin: _id === result.owner._id,
+          id: _id,
+          nick: username,
           state: 'lobby', // ! temp
           points: 0, // ! temp
         };

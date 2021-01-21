@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "lint": "eslint src --ext .jsx",
+    "prettier": "prettier --check src",
+    "prettier:write": "prettier --write src"
   },
   "author": "",
   "license": "ISC",

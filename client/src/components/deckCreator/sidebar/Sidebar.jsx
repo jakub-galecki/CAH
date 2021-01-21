@@ -25,7 +25,7 @@ const Sidebar = ({
             deck={deck}
             chosen={chosenDecks.some((chosenDeck) => chosenDeck.id === deck.id)}
             toggleDeckVisiblity={toggleDeckVisiblity}
-          ></DeckEntry>
+          />
         ))}
       </ul>
       <h2>My decks</h2>
@@ -40,7 +40,7 @@ const Sidebar = ({
             isDeckCurrentlyEdited={deck.id === currentMyDeck.id}
             editDeck={editDeck}
             removeDeck={removeDeck}
-          ></DeckEntry>
+          />
         ))}
       </ul>
       <button

@@ -12,18 +12,20 @@ export const Routing = () => {
       render={({ location }) => {
         const { key } = location;
         // only login when not auth
-        if(!rpc) return (
-          <PageTransitions keyValue={key}>
-            <Switch location={location}>
-              <Route exact path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </PageTransitions>)
+        if (!rpc)
+          return (
+            <PageTransitions keyValue={key}>
+              <Switch location={location}>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </PageTransitions>
+          );
         return (
           <PageTransitions keyValue={key}>
             <Switch location={location}>
-            <Route exact path="/">
+              <Route exact path="/">
                 <Home />
               </Route>
               <Route path="/deckCreator">

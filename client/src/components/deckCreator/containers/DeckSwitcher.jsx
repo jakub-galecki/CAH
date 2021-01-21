@@ -24,7 +24,7 @@ const DeckSwitcher = ({
       updateCard={updateCard}
       addCard={addCard}
       removeCard={removeCard}
-    ></MyDeckCards>
+    />
   );
 
   const otherDeckCards = (
@@ -32,7 +32,7 @@ const DeckSwitcher = ({
       chosenDecks={chosenDecks}
       addCard={addCard}
       isCardInMyDeck={isCardInMyDeck}
-    ></OtherDecksCards>
+    />
   );
 
   return (
