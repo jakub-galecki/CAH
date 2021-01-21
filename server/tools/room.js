@@ -47,17 +47,31 @@ module.exports.addUsers = async function addUsers(params) {
 };
 
 module.exports.join = async function join(params) {
-    return await Room.findById(params.roomId).exec().then((r) => {
-        if (params.userId) {
-            r.users = r.users.concat(params.userId);
-
-            console.log(r.users.length);
-            r.save();
-            return r;
-        }
-    }).catch((e) => {
-        throw new InternalError('Could not find the room');
-    });
+    if (params.userId) {
+        Room.find({
+            users: {$elemMatch: {$eq: params.userId}},
+            state: {$in: ['initialized', 'inGame']},
+        }, async function(err, user) {
+            if (err) {
+                throw new InternalError(err.message);
+            }
+            if (!user.length) {
+                await Room.findById(params.roomId).exec().then((r) => {
+                    if (params.userId) {
+                        r.users = r.users.concat(params.userId);
+                        r.save();
+                        return r;
+                    }
+                }).catch((e) => {
+                    throw new InternalError('Could not find the room');
+                });
+            } else {
+                throw new InternalError('User is currently in the other game');
+            }
+        });
+    } else {
+        throw new InternalError('User Id is required.');
+    }
 };
 
 module.exports.getUsers = async function getUsers(params) {
