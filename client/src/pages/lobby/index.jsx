@@ -21,7 +21,29 @@ const Lobby = () => {
   const { roomId } = useRoom();
   const isDeckChosen = deckID => chosenDecks.some(d => d.id === deckID);
 
-  // if()
+  // @todo: rewrite ws handling logic inside specialized module
+  ws.onmessage = msg => {
+    console.log(msg);
+    const { result } = JSON.parse(msg.data);
+    console.log(result);
+    switch (result.method) {
+      case 'room.join':
+        if (result.data._id === roomId) {
+          const newUser = {
+            id: result.user._id,
+            isAdmin: false,
+            nick: result.user.username,
+            points: 0,
+            state: 'lobby',
+          };
+          setLeaderBoardData([...leaderBoardData, newUser]);
+        }
+        break;
+      default:
+        console.log(result);
+    }
+  };
+
   const addDeck = deckID => {
     if (!isDeckChosen(deckID)) {
       const deckToAdd = availableDecks.find(deck => deck.id === deckID);

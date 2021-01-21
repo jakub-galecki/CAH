@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {InternalError} = require('../src/err');
 require('../models/RoomSchema');
 const Room = mongoose.model('Room');
+const User = mongoose.model('User');
 
 module.exports.initRoom = async function initRoom(params) {
     if (!params.name) throw new InternalError('You must provide room name');
@@ -30,6 +31,22 @@ module.exports.initRoom = async function initRoom(params) {
         throw new InternalError(err.message);
     }
 };
+module.exports.join = async function join(params) {
+    const {_id, username} = await User.findById(params.userId);
+    return await Room.findById(params.roomId).exec().then((r) => {
+        if (params.userId) {
+            r.users = r.users.concat(params.userId);
+            r.save();
+            return {
+                data: r,
+                user: {_id, username},
+                method: 'room.join',
+            };
+        }
+    }).catch((e) => {
+        throw new InternalError('Could not find the room');
+    });
+};
 
 module.exports.getRooms = async function getRooms() {
     return await Room.find({$or: [{state: 'initialized'}, {state: 'inGame'}]}).populate([{path: 'owner', select: {username: 1}}]).exec().then(function(data) {
@@ -51,21 +68,6 @@ module.exports.addUsers = async function addUsers(params) {
     });
 };
 
-module.exports.join = async function join(params) {
-    return await Room.findById(params.roomId).exec().then((r) => {
-        if (params.userId) {
-            r.users = r.users.concat(params.userId);
-            r.save();
-            return {
-                data: r,
-                user: params.userId,
-                method: 'room.join',
-            };
-        }
-    }).catch((e) => {
-        throw new InternalError('Could not find the room');
-    });
-};
 
 module.exports.getUsers = async function getUsers(params) {
     return await Room.findById(params.roomId).exec().then((r) => {

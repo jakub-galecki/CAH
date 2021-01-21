@@ -1,2 +1,2 @@
 module.exports.toRoom = [''];
-module.exports.allUsers = ['game.start', 'room.initRoom'];
+module.exports.allUsers = ['game.start', 'room.initRoom', 'room.join'];

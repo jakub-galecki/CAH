@@ -23,6 +23,7 @@ const RoomList = () => {
   ws.onmessage = msg => {
     console.log(msg);
     const { result } = JSON.parse(msg.data);
+    if (!result) return; // @todo: error handling
     switch (result.method) {
       case 'room.initRoom':
         if (result.user === userId) {
@@ -33,13 +34,15 @@ const RoomList = () => {
         }
         break;
       case 'room.join':
-        if (result.user === userId) {
+        if (result.user._id === userId) {
           setRoomId(result.data._id);
-          // toastSuccess('User entered the lobby');
           push('/room');
+          // toastSuccess('User entered the lobby');
         } else {
-          console.log(result.data);
-          // localRooms.filter((r) => r._id !== result.data._id);
+          const roomsWithoutUpdated = localRooms.filter(
+            r => r._id !== result.data._id,
+          );
+          setLocalRooms([result.data, ...roomsWithoutUpdated]);
         }
         break;
       default:
@@ -47,10 +50,7 @@ const RoomList = () => {
     }
   };
 
-  // ws.listen('room.initRoom', result => {
-  //   console.log(result);
-  // })
-
+  // Initial rooms data
   useEffect(async () => {
     try {
       const rooms = await rpc.send('room.getRooms', {}, false);

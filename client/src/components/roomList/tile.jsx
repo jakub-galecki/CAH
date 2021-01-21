@@ -9,8 +9,8 @@ import { useConnection } from '../../contexts/connection';
 const Tile = ({ roomInfo }) => {
   const { rpc } = useConnection();
 
-  const handleJoin = async({ roomId }) => {
-    rpc.send('room.join', { roomId },false);
+  const handleJoin = async roomId => {
+    rpc.send('room.join', { roomId }, false);
   };
 
   return (
