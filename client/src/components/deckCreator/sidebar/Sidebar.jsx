@@ -19,22 +19,22 @@ const Sidebar = ({
     <aside className="deck-creator-sidebar">
       <h2>Available decks</h2>
       <ul>
-        {availableDecks.map(deck => (
+        {availableDecks.map((deck) => (
           <DeckEntry
             key={deck.id}
             deck={deck}
-            chosen={chosenDecks.some(chosenDeck => chosenDeck.id === deck.id)}
+            chosen={chosenDecks.some((chosenDeck) => chosenDeck.id === deck.id)}
             toggleDeckVisiblity={toggleDeckVisiblity}
           />
         ))}
       </ul>
       <h2>My decks</h2>
       <ul>
-        {myDecks.map(deck => (
+        {myDecks.map((deck) => (
           <DeckEntry
             key={deck.id}
             deck={deck}
-            chosen={chosenDecks.some(chosenDeck => chosenDeck.id === deck.id)}
+            chosen={chosenDecks.some((chosenDeck) => chosenDeck.id === deck.id)}
             toggleDeckVisiblity={toggleDeckVisiblity}
             editable={true}
             isDeckCurrentlyEdited={deck.id === currentMyDeck.id}

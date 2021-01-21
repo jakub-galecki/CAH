@@ -16,21 +16,21 @@ const Game = () => {
   const [cardsPlayed, setCardsPlayed] = useState(0);
   const [cardsInHand, setCardsInHand] = useState(cardsInHandData);
 
-  const playCardFromHand = cardID => {
+  const playCardFromHand = (cardID) => {
     if (canPlayCard(cardID)) {
       setCardsPlayed(cardsPlayed + 1);
       removeCardFromHand(cardID);
     }
   };
 
-  const canPlayCard = cardID => {
+  const canPlayCard = (cardID) => {
     //TODO: Here check whether the card can be played (Haven't yet played a card and the player is not black)
     console.log(cardID);
     return true;
   };
 
-  const removeCardFromHand = cardID => {
-    setCardsInHand(cardsInHand.filter(element => element.id !== cardID));
+  const removeCardFromHand = (cardID) => {
+    setCardsInHand(cardsInHand.filter((element) => element.id !== cardID));
   };
 
   return (

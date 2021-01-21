@@ -50,7 +50,7 @@ const EditableCard = ({
         ref={inputRef}
         className="editable-card-input"
         value={content}
-        onChange={e =>
+        onChange={(e) =>
           setContent(e.target.value.replace(/\s+/g, ' ').trimStart())
         }
       />

@@ -21,7 +21,7 @@ const getItemStyles = (initialOffset, currentOffset) => {
 
 const CustomDragLayer = () => {
   const { isDragging, item, initialOffset, currentOffset } = useDragLayer(
-    monitor => ({
+    (monitor) => ({
       item: monitor.getItem(),
       initialOffset: monitor.getInitialSourceClientOffset(),
       currentOffset: monitor.getSourceClientOffset(),

@@ -14,7 +14,7 @@ const Login = () => {
   const { setUserId } = useAuth();
   const history = useHistory();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await login({ username, password });
@@ -38,14 +38,14 @@ const Login = () => {
           <input
             placeholder="username"
             value={username}
-            onChange={e => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <label>and my password</label>
           <input
             placeholder="password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
       </div>

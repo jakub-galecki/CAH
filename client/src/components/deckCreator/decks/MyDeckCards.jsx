@@ -8,7 +8,7 @@ const MyDeckCards = ({ deck, updateCard, addCard, removeCard }) => {
   return (
     <div className="deck-cards">
       <EditableCard isPlaceholder={true} addCard={addCard} />
-      {deck.cards.map(card => (
+      {deck.cards.map((card) => (
         <EditableCard
           key={card.id}
           id={card.id}

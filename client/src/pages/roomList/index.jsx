@@ -20,7 +20,7 @@ const RoomList = () => {
   const { setRoomId } = useRoom();
 
   // @todo: rewrite ws handling logic inside specialized module
-  ws.onmessage = msg => {
+  ws.onmessage = (msg) => {
     console.log(msg);
     const { result } = JSON.parse(msg.data);
     if (!result) return; // @todo: error handling
@@ -40,7 +40,7 @@ const RoomList = () => {
           // toastSuccess('User entered the lobby');
         } else {
           const roomsWithoutUpdated = localRooms.filter(
-            r => r._id !== result.data._id,
+            (r) => r._id !== result.data._id,
           );
           setLocalRooms([result.data, ...roomsWithoutUpdated]);
         }
@@ -75,7 +75,10 @@ const RoomList = () => {
         <div className="column2">
           {/* !TEMP: faster to handle it in top view for now */}
           <button onClick={handleClick}>Create room</button>
-          <input value={roomName} onChange={e => setRoomName(e.target.value)} />
+          <input
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+          />
           {/* !TEMP: faster to handle it in top view for now */}
           <Sort />
           <Tile roomInfo={localRooms} />

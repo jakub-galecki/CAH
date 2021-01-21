@@ -14,8 +14,8 @@ const DeckSwitcher = ({
 }) => {
   const [showingMyDeck, setShowingMyDeck] = useState(true);
 
-  const isCardInMyDeck = cardContent => {
-    return myDeck.cards.some(card => card.cardText === cardContent);
+  const isCardInMyDeck = (cardContent) => {
+    return myDeck.cards.some((card) => card.cardText === cardContent);
   };
 
   const myDeckCards = (

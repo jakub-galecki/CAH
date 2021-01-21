@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { RpcClient } from '../utils/RpcClient.js';
-import { listen } from '../utils/ws';
 import { useAuth } from './auth';
 
 const ConnectionContext = createContext({});

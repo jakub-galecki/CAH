@@ -10,7 +10,7 @@ export const RoomProvider = ({ children }) => {
     if (currentRoom) _setRoomId(currentRoom);
   }, []);
 
-  const setRoomId = room => {
+  const setRoomId = (room) => {
     localStorage.setItem('roomId', room);
     _setRoomId(room);
   };
