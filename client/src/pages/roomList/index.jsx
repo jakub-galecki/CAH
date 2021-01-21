@@ -12,6 +12,8 @@ import { toastError, toastSuccess } from '../../utils/toastify/index';
 
 const RoomList = () => {
   const [localRooms, setLocalRooms] = useState([]);
+  // @todo: create room in menu
+  const [roomName, setRoomName] = useState('');
   const { rpc } = useConnection();
   const { push } = useHistory();
   const { setRoomId } = useRoom();
@@ -28,7 +30,7 @@ const RoomList = () => {
   // Create new room
   const handleClick = async () => {
     try {
-      const roomData = await rpc.send('room.initRoom', {}, false);
+      const roomData = await rpc.send('room.initRoom', {name: roomName}, false);
       setRoomId(roomData.roomId);
 
       toastSuccess('User entered the lobby');
@@ -39,6 +41,7 @@ const RoomList = () => {
     }
   };
 
+  // @todo: create room in menu
   return (
     <div className="roomList">
       <div className="row">
@@ -46,7 +49,10 @@ const RoomList = () => {
           <Menu />
         </div>
         <div className="column2">
-          <button onClick={handleClick}>Create room</button> {/* temp */}
+          {/* !TEMP: faster to handle it in top view for now */}
+          <button onClick={handleClick}>Create room</button>
+          <input value={roomName} onChange={(e) => setRoomName(e.target.value)}></input>
+          {/* !TEMP: faster to handle it in top view for now */}
           <Sort />
           <Tile roomInfo={localRooms} />
         </div>

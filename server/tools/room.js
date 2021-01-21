@@ -27,7 +27,7 @@ module.exports.initRoom = async function initRoom(params) {
 };
 
 module.exports.getRooms = async function getRooms() {
-    return await Room.find({$or: [{state: 'initialized'}, {state: 'inGame'}]}).exec().then(function(data) {
+    return await Room.find({$or: [{state: 'initialized'}, {state: 'inGame'}]}).populate([{path: 'owner', select: {username: 1}}]).exec().then(function(data) {
         return data;
     }).catch(function(error) {
         throw new InternalError(error.message);
