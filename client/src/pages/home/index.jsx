@@ -11,21 +11,22 @@ const Home = () => {
   const { accessToken } = useAuth();
   const { push } = useHistory();
 
-  if(accessToken) push('/roomList') 
+  if (accessToken) push('/roomList');
   return (
-  <div className="home">
-    <Container>
-      <div className="home-group">
-        <Header>
-          <h1>
-            Cards against <div className="red">humanity</div>
-          </h1>
-        </Header>
-        <CardsContainer />
-        <PlayAsGuest />
-      </div>
-    </Container>
-  </div>
-)};
+    <div className="home">
+      <Container>
+        <div className="home-group">
+          <Header>
+            <h1>
+              Cards against <div className="red">humanity</div>
+            </h1>
+          </Header>
+          <CardsContainer />
+          <PlayAsGuest />
+        </div>
+      </Container>
+    </div>
+  );
+};
 
 export { Home };

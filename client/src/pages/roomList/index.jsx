@@ -30,7 +30,11 @@ const RoomList = () => {
   // Create new room
   const handleClick = async () => {
     try {
-      const roomData = await rpc.send('room.initRoom', {name: roomName}, false);
+      const roomData = await rpc.send(
+        'room.initRoom',
+        { name: roomName },
+        false,
+      );
       setRoomId(roomData.roomId);
 
       toastSuccess('User entered the lobby');
@@ -51,7 +55,10 @@ const RoomList = () => {
         <div className="column2">
           {/* !TEMP: faster to handle it in top view for now */}
           <button onClick={handleClick}>Create room</button>
-          <input value={roomName} onChange={(e) => setRoomName(e.target.value)}></input>
+          <input
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+          ></input>
           {/* !TEMP: faster to handle it in top view for now */}
           <Sort />
           <Tile roomInfo={localRooms} />

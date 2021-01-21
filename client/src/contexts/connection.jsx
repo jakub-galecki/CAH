@@ -10,20 +10,25 @@ export const ConnectionProvider = ({ children }) => {
   const [ws, setWs] = useState(null);
   const [rpc, setRpc] = useState(null);
 
-  // info: new ws whenever accessToken changes 
+  // info: new ws whenever accessToken changes
   useEffect(() => {
-    if(accessToken) setWs(new WebSocket('ws://localhost:8080/' + 'token=' + accessToken));
+    if (accessToken)
+      setWs(new WebSocket('ws://localhost:8080/' + 'token=' + accessToken));
   }, [accessToken]);
 
   // info: new rpc whenever ws changes
   useEffect(async () => {
-    if(ws) {
+    if (ws) {
       const newRpc = new RpcClient(ws);
       setRpc(newRpc);
     }
-  }, [ws])
+  }, [ws]);
 
-  return <ConnectionContext.Provider value={{ rpc, ws }}>{children}</ConnectionContext.Provider>;
+  return (
+    <ConnectionContext.Provider value={{ rpc, ws }}>
+      {children}
+    </ConnectionContext.Provider>
+  );
 };
 
 export const useConnection = () => {
