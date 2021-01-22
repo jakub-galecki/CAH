@@ -26,7 +26,7 @@ const Lobby = () => {
     console.log(msg);
     const { result } = JSON.parse(msg.data);
     if (!result) return; // @todo: error handling
-    
+
     console.log(result);
     switch (result.method) {
       case 'room.join':
@@ -103,7 +103,6 @@ const Lobby = () => {
     return () => window.removeEventListener(addDeckToServerOnKeyPress);
   }, [isAdmin]);
 
-  //----------------------------------
 
   useEffect(async () => {
     try {
