@@ -115,7 +115,11 @@ module.exports.attachDeck = async function attachDeck(params) {
     if (params.roomId) {
         return await Room.findById(params.roomId).exec().then((room) => {
             room.attachDeck(params.decks);
-            return room.getInfo();
+            return {
+                data: room.getInfo(),
+                user: params.userId,
+                method: 'room.attachDeck',
+            };
         }).catch((e) => {
             throw new InternalError('Not such room');
         });
@@ -128,7 +132,11 @@ module.exports.detachDeck = async function detachDeck(params) {
     if (params.roomId) {
         return await Room.findById(params.roomId).exec().then((room) => {
             room.detachDeck(params.deckId);
-            return room.getInfo();
+            return {
+                data: room.getInfo(),
+                user: params.userId,
+                method: 'room.attachDeck',
+            };
         }).catch((e) => {
             throw new InternalError('Not such room');
         });

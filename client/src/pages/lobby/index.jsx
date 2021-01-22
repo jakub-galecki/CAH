@@ -25,6 +25,8 @@ const Lobby = () => {
   ws.onmessage = (msg) => {
     console.log(msg);
     const { result } = JSON.parse(msg.data);
+    if (!result) return; // @todo: error handling
+    
     console.log(result);
     switch (result.method) {
       case 'room.join':
@@ -39,6 +41,13 @@ const Lobby = () => {
           setLeaderBoardData([...leaderBoardData, newUser]);
         }
         break;
+      case 'room.attachDeck':
+        console.log(result.data);
+        break;
+      case 'room.detachDeck':
+        console.log(result.data);
+        break;
+
       default:
         console.log(result);
     }
