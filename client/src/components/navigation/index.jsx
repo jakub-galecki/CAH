@@ -1,7 +1,8 @@
 import './style.css';
 
-import React from 'react';
+import React from 'react';  
 import { Link, useLocation } from 'react-router-dom';
+
 const Navigation = () => {
   const { pathname } = useLocation();
 
@@ -23,9 +24,10 @@ const Navigation = () => {
         <li className={pathname == '/game' ? 'active' : ''}>
           <Link to="/game">Game</Link>
         </li>
+        <li className={pathname == '/game' ? 'active' : ''}>
+        </li>
       </ul>
     </nav>
   );
 };
-
 export { Navigation };

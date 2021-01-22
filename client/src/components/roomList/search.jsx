@@ -5,16 +5,16 @@ import React from 'react';
 const Sort = () => (
     <div className='sort'> 
         <p>
-          WYSZUKAJ
+          SEARCH
           <input type="text"/>
         <Search className='sortLoupe' type="submit"/>
         </p>
         <p>
-        SORTUJ
+        SORT BY:
       <select>
-	      <option value>wolne miejsca</option>
-	      <option >czas utworzenia</option>
-        <option >alfabetycznie</option>
+	      <option value>players</option>
+	      <option >creation time</option>
+        <option >name</option>
       </select>
       <select>
 	      <option value>Low to High</option>
@@ -22,11 +22,11 @@ const Sort = () => (
       </select>
       </p>
       <p>
-        FILTRUJ
+        FILTR BY:
       <select multiply>
-        <optgroup label="Talia">
-          <option>standardowa</option>
-          <option>niestandardowa</option>
+        <optgroup label="Deck">
+          <option>standard</option>
+          <option>custom</option>
         </optgroup>
       </select>
       </p>

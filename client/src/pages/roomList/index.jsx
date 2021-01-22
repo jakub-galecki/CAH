@@ -10,14 +10,12 @@ import { roomsData } from './fakeData'
 
 const RoomList = () => (
   <div className="roomList">
-    <br/><br/>
       <div className="row">
         <div className="column1"><Menu/></div>
         <div className="column2">
           <Sort/>
           <Tile roomInfo = {roomsData}/>
         </div>
-        <div className="column3"></div>
       </div>
   </div>
 );

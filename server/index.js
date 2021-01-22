@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = require('./routes/router');
 const bodyParser = require('body-parser');
+const qs = require('qs');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -21,20 +22,36 @@ mongoose.connect(uri, {
 const app = express();
 app.use(bodyParser.json());
 app.use('/', router);
+
 const server = http.createServer(app);
 
-const wss = new WebSocket.Server({noServer: true});
+const wss = new WebSocket.Server({server: server});
 
 server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
-wss.on('connection', (ws, request, client) => {
+wss.on('connection', (ws, request) => {
+    let authenticated;
+    try {
+        authenticated = authUser(request.url);
+    } catch (e) {
+        ws.send('No token provided');
+        ws.terminate();
+        return;
+    }
+    if (!authenticated || !authenticated.authenticated) {
+        ws.send('User not authenticated');
+        ws.terminate();
+        return;
+    }
     ws.isAlive = true;
+    ws.userData = authenticated.data;
     ws.on('pong', () => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
+        console.log(ws);
         if (!message) {
             ws.send('Empty request');
             return;
@@ -48,7 +65,7 @@ wss.on('connection', (ws, request, client) => {
                     'id': rpcObj.id,
                 };
                 ws.send(JSON.stringify(response));
-            }).catch((e)=>{
+            }).catch((e) => {
                 const response = {
                     'jsonrpc': '2.0',
                     'error': e.data,
@@ -77,31 +94,28 @@ wss.on('connection', (ws, request, client) => {
         }
     });
 });
-server.on('upgrade', async function upgrade(request, socket, head) {
-    const _JWT = request.headers.token;
-    if (!_JWT) {
-        socket.destroy();
-    }
-    let client = {};
-    try {
-        jwt.verify(_JWT, 'qwerty', function(err, decoded) {
-            if (err) {
-                socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-                socket.destroy();
-            } else {
-                client = {'data': decoded};
-            }
-        });
-    } catch (e) {
-        socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
-        socket.destroy();
-        return;
-    }
 
-    wss.handleUpgrade(request, socket, head, function done(ws) {
-        wss.emit('connection', ws, request, client);
-    });
-});
+/**
+ *
+ * @param {string} reqUrl
+ * @return {{data: any, authenticated: boolean}}
+ */
+function authUser(reqUrl) {
+    console.log(reqUrl);
+    const obj = qs.parse(reqUrl, {delimiter: '/'});
+    if (obj.token) {
+        const _JWT = obj.token;
+        try {
+            const decoded = jwt.verify(_JWT, 'qwerty');
+            return {authenticated: true, data: decoded};
+        } catch (e) {
+            return {authenticated: false};
+        }
+    } else {
+        throw new Error('No token provided');
+    }
+}
+
 const interval = setInterval(() => {
     wss.clients.forEach((ws) => {
         if (!ws.isAlive) return ws.terminate();

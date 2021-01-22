@@ -1,0 +1,39 @@
+.popup-box {
+  position: absolute;
+  background: black;
+  width: 500%;
+  height: 60%;
+  top: 20%;
+  left: 500px;
+  border-radius: 1%;
+}
+
+.box {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  height: auto;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+  background: black;
+}
+
+.close-icon {
+  content: 'X';
+  cursor: pointer;
+  position: fixed;
+  right: calc(15% - 30px);
+  top: calc(100vh - 85vh - 33px);
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}

@@ -1,6 +1,7 @@
 @import '../../shared/styles/globals.scss';
 
 .tile {
+  display: inline-block;
   background-color: white;
   border-radius: 10px;
   border-style: solid;
@@ -35,6 +36,5 @@
   text-decoration: none;
 }
 .xd {
-  display: inline;
   width: 100%;
 }
