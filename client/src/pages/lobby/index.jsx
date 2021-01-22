@@ -103,7 +103,6 @@ const Lobby = () => {
     return () => window.removeEventListener(addDeckToServerOnKeyPress);
   }, [isAdmin]);
 
-
   useEffect(async () => {
     try {
       const result = await rpc.send('room.getRoom', { roomId }, false);
