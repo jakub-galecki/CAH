@@ -3,7 +3,7 @@
 .menu {
   height: 100%;
   text-align: center;
-  font-size: 160%;
+  font-size: 140%;
   font-family: 'Rokkitt';
   color: $white;
   background-color: $black;
@@ -12,9 +12,13 @@
 .menuIcon {
   padding-top: 15%;
   color: $white;
-  font-size: 600%;
+  font-size: 350%;
 }
 .menuLink {
   color: white;
   text-decoration: none;
+}
+.menuPopup {
+  position: absolute;
+  left: 20%;
 }

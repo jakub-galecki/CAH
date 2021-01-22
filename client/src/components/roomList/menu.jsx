@@ -1,10 +1,16 @@
 import './menu.scss';
 
-import { Back, Log, PlusCross } from '@icon-park/react';
-import React from 'react';
+import { Back, BookOpen, Log, PlusCross } from '@icon-park/react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Popup } from '../navigation/rules.jsx';
 const Menu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="menu">
       <div className="menuText">
@@ -28,6 +34,12 @@ const Menu = () => {
           New Room
         </Link>
       </div>
+      <div className="menuText" onClick={togglePopup}>
+        <BookOpen className="menuIcon" />
+        <br />
+        Rules
+      </div>
+      {isOpen && <Popup className="menuPopup" handleClose={togglePopup} />}
     </div>
   );
 };

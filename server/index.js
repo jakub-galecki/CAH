@@ -34,7 +34,6 @@ server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
-
 wss.on('connection', (ws, request) => {
     let authenticated;
     try {
@@ -55,6 +54,7 @@ wss.on('connection', (ws, request) => {
         ws.isAlive = true;
     });
     ws.on('message', (message) => {
+        console.log(ws);
         if (!message) {
             ws.send('Empty request');
             return;
