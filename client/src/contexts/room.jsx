@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect,useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const RoomContext = createContext({});
 
@@ -7,7 +7,7 @@ export const RoomProvider = ({ children }) => {
 
   useEffect(() => {
     const currentRoom = localStorage.getItem('roomId');
-    if(currentRoom) _setRoomId(currentRoom);
+    if (currentRoom) _setRoomId(currentRoom);
   }, []);
 
   const setRoomId = (room) => {
@@ -16,9 +16,7 @@ export const RoomProvider = ({ children }) => {
   };
 
   return (
-    <RoomContext.Provider
-      value={{ roomId, setRoomId }}
-    >
+    <RoomContext.Provider value={{ roomId, setRoomId }}>
       {children}
     </RoomContext.Provider>
   );

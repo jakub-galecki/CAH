@@ -1,35 +1,35 @@
-import "./search.scss";
+import './search.scss';
 
 import { Search } from '@icon-park/react';
 import React from 'react';
 const Sort = () => (
-    <div className='sort'> 
-        <p>
-          WYSZUKAJ
-          <input type="text"/>
-        <Search className='sortLoupe' type="submit"/>
-        </p>
-        <p>
-        SORTUJ
+  <div className="sort">
+    <p>
+      SEARCH
+      <input type="text" />
+      <Search className="sortLoupe" type="submit" />
+    </p>
+    <p>
+      SORT BY:
       <select>
-	      <option value>wolne miejsca</option>
-	      <option >czas utworzenia</option>
-        <option >alfabetycznie</option>
+        <option value>players</option>
+        <option>creation time</option>
+        <option>name</option>
       </select>
       <select>
-	      <option value>Low to High</option>
-	      <option >High to low</option>
+        <option value>Low to High</option>
+        <option>High to low</option>
       </select>
-      </p>
-      <p>
-        FILTRUJ
-      <select multiple>
-        <optgroup label="Talia">
-          <option>standardowa</option>
-          <option>niestandardowa</option>
+    </p>
+    <p>
+      FILTR BY:
+      <select multiply>
+        <optgroup label="Deck">
+          <option>standard</option>
+          <option>custom</option>
         </optgroup>
       </select>
-      </p>
-	</div>
-)
+    </p>
+  </div>
+);
 export { Sort };

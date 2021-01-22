@@ -27,9 +27,9 @@ const Navigation = () => {
         <li className={pathname == '/game' ? 'active' : ''}>
           <Link to="/game">Game</Link>
         </li>
+        <li className={pathname == '/game' ? 'active' : ''}></li>
       </ul>
     </nav>
   );
 };
-
 export { Navigation };

@@ -101,14 +101,14 @@ const DeckCreator = () => {
         editDeck={editDeck}
         removeDeck={removeDeck}
         newDeck={newEmptyDeck}
-      ></Sidebar>
+      />
       <DeckSwitcher
         myDeck={currentMyDeck}
         chosenDecks={chosenDecks}
         updateCard={updateCardInDeck}
         addCard={addNewCardToDeck}
         removeCard={removeCardFromDeck}
-      ></DeckSwitcher>
+      />
     </div>
   );
 };

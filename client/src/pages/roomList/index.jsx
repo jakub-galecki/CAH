@@ -6,16 +6,51 @@ import { useHistory } from 'react-router-dom';
 import { Menu } from '../../components/roomList/menu';
 import { Sort } from '../../components/roomList/search';
 import { Tile } from '../../components/roomList/tile';
+import { useAuth } from '../../contexts/auth';
 import { useConnection } from '../../contexts/connection';
 import { useRoom } from '../../contexts/room';
-import { toastError, toastSuccess } from '../../utils/toastify/index';
 
 const RoomList = () => {
   const [localRooms, setLocalRooms] = useState([]);
-  const { rpc } = useConnection();
+  // @todo: create room in menu
+  const { userId } = useAuth();
+  const [roomName, setRoomName] = useState('');
+  const { rpc, ws } = useConnection();
   const { push } = useHistory();
   const { setRoomId } = useRoom();
 
+  // @todo: rewrite ws handling logic inside specialized module
+  ws.onmessage = (msg) => {
+    console.log(msg);
+    const { result } = JSON.parse(msg.data);
+    if (!result) return; // @todo: error handling
+    switch (result.method) {
+      case 'room.initRoom':
+        if (result.user === userId) {
+          setRoomId(result.data._id);
+          push('/room');
+        } else {
+          setLocalRooms([result.data, ...localRooms]);
+        }
+        break;
+      case 'room.join':
+        if (result.user._id === userId) {
+          setRoomId(result.data._id);
+          push('/room');
+          // toastSuccess('User entered the lobby');
+        } else {
+          const roomsWithoutUpdated = localRooms.filter(
+            (r) => r._id !== result.data._id,
+          );
+          setLocalRooms([result.data, ...roomsWithoutUpdated]);
+        }
+        break;
+      default:
+        console.log(result);
+    }
+  };
+
+  // Initial rooms data
   useEffect(async () => {
     try {
       const rooms = await rpc.send('room.getRooms', {}, false);
@@ -26,19 +61,11 @@ const RoomList = () => {
   }, []);
 
   // Create new room
-  const handleClick = async () => {
-    try {
-      const roomData = await rpc.send('room.initRoom', {}, false);
-      setRoomId(roomData.roomId);
-
-      toastSuccess('User entered the lobby');
-      push('/room');
-    } catch (err) {
-      console.log(err);
-      toastError('xd');
-    }
+  const handleClick = () => {
+    rpc.send('room.initRoom', { name: roomName }, false);
   };
 
+  // @todo: create room in menu
   return (
     <div className="roomList">
       <div className="row">
@@ -46,11 +73,17 @@ const RoomList = () => {
           <Menu />
         </div>
         <div className="column2">
-          <button onClick={handleClick}>Create room</button> {/* temp */}
+          {/* !TEMP: faster to handle it in top view for now */}
+          <button onClick={handleClick}>Create room</button>
+          <input
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+          />
+          {/* !TEMP: faster to handle it in top view for now */}
           <Sort />
           <Tile roomInfo={localRooms} />
         </div>
-        <div className="column3"></div>
+        <div className="column3" />
       </div>
     </div>
   );

@@ -36,23 +36,17 @@ const Game = () => {
   return (
     <div className="game">
       <DndProvider backend={HTML5Backend}>
-        <CardsInHand
-          cards={cardsInHand}
-          playCardFromHand={playCardFromHand}
-        ></CardsInHand>
+        <CardsInHand cards={cardsInHand} playCardFromHand={playCardFromHand} />
         <div className="left-side-panel">
-          <Deck color="black" cardsLeft={23} cardsMax={40}></Deck>
-          <Counter></Counter>
-          <Deck color="white" cardsLeft={44} cardsMax={80}></Deck>
+          <Deck color="black" cardsLeft={23} cardsMax={40} />
+          <Counter />
+          <Deck color="white" cardsLeft={44} cardsMax={80} />
         </div>
-        <QuestionCard text="Fill this sentence _________________"></QuestionCard>
-        <PlayedCards numberOfCards={cardsPlayed}></PlayedCards>
+        <QuestionCard text="Fill this sentence _________________" />
+        <PlayedCards numberOfCards={cardsPlayed} />
 
-        <Leaderboard
-          playersInfo={leaderboardData}
-          isInGameplay={true}
-        ></Leaderboard>
-        <CustomDragLayer></CustomDragLayer>
+        <Leaderboard playersInfo={leaderboardData} isInGameplay={true} />
+        <CustomDragLayer />
       </DndProvider>
     </div>
   );

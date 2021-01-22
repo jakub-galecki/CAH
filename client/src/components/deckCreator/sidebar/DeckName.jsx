@@ -42,7 +42,7 @@ const DeckName = ({ deck, isEditable, containerRef }) => {
       onChange={(e) =>
         setDeckName(e.target.value.replace(/\s+/g, ' ').trimStart())
       }
-    ></input>
+    />
   );
 
   return editing ? deckNameInput : deckNameSpan;
