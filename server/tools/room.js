@@ -50,8 +50,6 @@ module.exports.join = async function join(params) {
     return await Room.findById(params.roomId).exec().then((r) => {
         if (params.userId) {
             r.users = r.users.concat(params.userId);
-
-            console.log(r.users.length);
             r.save();
             return r;
         }
@@ -82,4 +80,30 @@ module.exports.changeState = async function changeState(params) {
     }).catch((e) => {
         throw new InternalError('Could not find the room');
     });
+};
+
+module.exports.attachDeck = async function attachDeck(params) {
+    if (params.roomId) {
+        return await Room.findById(params.roomId).exec().then((room) => {
+            room.attachDeck(params.deckId);
+            return room.getInfo();
+        }).catch((e) => {
+            throw new InternalError('Not such room');
+        });
+    } else {
+        throw new Error('No roomId provided');
+    }
+};
+
+module.exports.detachDeck = async function detachDeck(params) {
+    if (params.roomId) {
+        return await Room.findById(params.roomId).exec().then((room) => {
+            room.detachDeck();
+            return room.getInfo();
+        }).catch((e) => {
+            throw new InternalError('Not such room');
+        });
+    } else {
+        throw new Error('No roomId provided');
+    }
 };

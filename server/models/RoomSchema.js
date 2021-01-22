@@ -9,6 +9,10 @@ const RoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
+    'deckId': {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Deck',
+    },
     'state': String,
     'name': String,
 });
@@ -32,11 +36,22 @@ RoomSchema.methods.removeUser = function(id) {
     this.save();
 };
 
+RoomSchema.methods.attachDeck = function(id) {
+    this.deckId = id;
+    this.save();
+};
+
+RoomSchema.methods.detachDeck = function() {
+    this.deckId = null;
+    this.save();
+};
+
 RoomSchema.methods.getInfo = function() {
     return {
         'roomId': this._id,
         'owner': this.owner,
         'users': this.users,
+        'deckId': this.deckId,
         'state': this.state,
         'name': this.name,
     };
