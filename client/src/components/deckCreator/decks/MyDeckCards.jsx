@@ -7,7 +7,7 @@ import { EditableCard } from '../cards/EditableCard';
 const MyDeckCards = ({ deck, updateCard, addCard, removeCard }) => {
   return (
     <div className="deck-cards">
-      <EditableCard isPlaceholder={true} addCard={addCard}></EditableCard>
+      <EditableCard isPlaceholder={true} addCard={addCard} />
       {deck.cards.map((card) => (
         <EditableCard
           key={card.id}

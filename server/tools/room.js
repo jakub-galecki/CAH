@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {InternalError} = require('../src/err');
 require('../models/RoomSchema');
 const Room = mongoose.model('Room');
+const User = mongoose.model('User');
 
 module.exports.initRoom = async function initRoom(params) {
     if (!params.name) throw new InternalError('You must provide room name');
@@ -19,15 +20,20 @@ module.exports.initRoom = async function initRoom(params) {
         room.users = room.users.concat(params.users);
     }
     room.state = 'initialized';
-    return await room.save().then(function() {
-        return room.getInfo();
-    }).catch((err) => {
+    try {
+        await room.save();
+        return {
+            data: room,
+            user: params.userId,
+            method: 'room.initRoom',
+        };
+    } catch (err) {
         throw new InternalError(err.message);
-    });
+    }
 };
 
 module.exports.getRooms = async function getRooms() {
-    return await Room.find({$or: [{state: 'initialized'}, {state: 'inGame'}]}).exec().then(function(data) {
+    return await Room.find({$or: [{state: 'initialized'}, {state: 'inGame'}]}).populate([{path: 'owner', select: {username: 1}}]).exec().then(function(data) {
         return data;
     }).catch(function(error) {
         throw new InternalError(error.message);
@@ -47,30 +53,37 @@ module.exports.addUsers = async function addUsers(params) {
 };
 
 module.exports.join = async function join(params) {
+    const {_id, username} = await User.findById(params.userId);
+
     if (params.userId) {
-        Room.find({
+        const user = await Room.find({
             users: {$elemMatch: {$eq: params.userId}},
             state: {$in: ['initialized', 'inGame']},
-        }, async function(err, user) {
-            if (err) {
-                throw new InternalError(err.message);
-            }
-            if (!user.length) {
-                await Room.findById(params.roomId).exec().then((r) => {
-                    if (params.userId) {
-                        r.users = r.users.concat(params.userId);
-                        r.save();
-                        return r;
-                    }
-                }).catch((e) => {
-                    throw new InternalError('Could not find the room');
-                });
-            } else {
-                throw new InternalError('User is currently in the other game');
-            }
         });
+        console.log(user);
+        if (!user) {
+            throw new InternalError('Error while fetching user in Room.find');
+        }
+        if (!user.length) {
+            try {
+                const r = await Room.findById(params.roomId);
+                if (params.userId) {
+                    r.users = r.users.concat(params.userId);
+                    r.save();
+                    return {
+                        data: r,
+                        user: {_id, username},
+                        method: 'room.join',
+                    };
+                }
+            } catch (e) {
+                throw new InternalError('Could not find the room');
+            }
+        } else {
+            throw new InternalError('User is currently in the other game');
+        }
     } else {
-        throw new InternalError('User Id is required.');
+        return new InternalError('User Id is required.');
     }
 };
 

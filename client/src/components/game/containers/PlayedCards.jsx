@@ -16,7 +16,7 @@ const PlayedCards = ({ numberOfCards }) => {
 
   const playedCards = Array(numberOfCards);
   for (let i = 0; i < numberOfCards; i++) {
-    const card = <PlayedCard></PlayedCard>;
+    const card = <PlayedCard />;
     playedCards.push(card);
   }
 

@@ -53,7 +53,7 @@ const EditableCard = ({
         onChange={(e) =>
           setContent(e.target.value.replace(/\s+/g, ' ').trimStart())
         }
-      ></textarea>
+      />
     );
   }
 

@@ -13,6 +13,8 @@ const bodyParser = require('body-parser');
 const qs = require('qs');
 const cors = require('cors');
 const room = require('./tools/room');
+const {toRoom} = require('./src/MethodsToBroadcast');
+const {allUsers} = require('./src/MethodsToBroadcast');
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -68,7 +70,16 @@ wss.on('connection', (ws, request) => {
                     'result': res,
                     'id': rpcObj.id,
                 };
-                ws.send(JSON.stringify(response));
+                if (allUsers.includes(rpcObj.method)) {
+                    console.log('broadcast all');
+                    broadcast(wss, response);
+                } else if (toRoom.includes(rpcObj.method)) {
+                    console.log('broadcast toRoom');
+                    broadcastToRoom(wss, rpcObj.params.roomId, response);
+                } else {
+                    console.log('toUser');
+                    ws.send(JSON.stringify(response));
+                }
             }).catch((e) => {
                 const response = {
                     'jsonrpc': '2.0',
@@ -151,13 +162,12 @@ function broadcastToRoom(wss, roomId, data) {
  * @param {Object} data
  */
 function broadcast(wss, data) {
-    (async function(wss, roomId, data) {
-        wss.clients.forEach((client) => {
-            if (client.readyState === 1) {
-                client.send(JSON.stringify(data));
-            }
-        });
-    })(wss, data);
+    wss.clients.forEach((client) => {
+        if (client.readyState === 1) {
+            console.log('send');
+            client.send(JSON.stringify(data));
+        }
+    });
 }
 
 wss.on('close', () => {
