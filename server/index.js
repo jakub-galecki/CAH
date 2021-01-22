@@ -144,18 +144,16 @@ const interval = setInterval(() => {
  * @param {String} roomId
  * @param {Object} data
  */
-function broadcastToRoom(wss, roomId, data) {
-    (async function(wss, roomId, data) {
-        const users = await room.getUsers({roomId: roomId});
-        wss.clients.forEach((client) => {
-            const inRoom = Object.values(users).some((u) => {
-                return u === client.userData.user._id;
-            });
-            if (client.readyState === 1 && inRoom) {
-                client.send(JSON.stringify(data));
-            }
+async function broadcastToRoom(wss, roomId, data) {
+    const users = await room.getUsers({roomId: roomId});
+    wss.clients.forEach((client) => {
+        const inRoom = Object.values(users).some((u) => {
+            return u === client.userData.user._id;
         });
-    })(wss, roomId, data);
+        if (client.readyState === 1 && inRoom) {
+            client.send(JSON.stringify(data));
+        }
+    });
 }
 /**
  * @param {WebSocketServer} wss

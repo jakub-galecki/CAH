@@ -110,3 +110,37 @@ module.exports.changeState = async function changeState(params) {
         throw new InternalError('Could not find the room');
     });
 };
+
+module.exports.attachDeck = async function attachDeck(params) {
+    if (params.roomId) {
+        return await Room.findById(params.roomId).exec().then((room) => {
+            room.attachDeck(params.decks);
+            return {
+                data: room.getInfo(),
+                user: params.userId,
+                method: 'room.attachDeck',
+            };
+        }).catch((e) => {
+            throw new InternalError('Not such room');
+        });
+    } else {
+        throw new Error('No roomId provided');
+    }
+};
+
+module.exports.detachDeck = async function detachDeck(params) {
+    if (params.roomId) {
+        return await Room.findById(params.roomId).exec().then((room) => {
+            room.detachDeck(params.deckId);
+            return {
+                data: room.getInfo(),
+                user: params.userId,
+                method: 'room.attachDeck',
+            };
+        }).catch((e) => {
+            throw new InternalError('Not such room');
+        });
+    } else {
+        throw new Error('No roomId provided');
+    }
+};
