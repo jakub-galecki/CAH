@@ -1,0 +1,15 @@
+.lobby {
+  font-family: 'Rokkitt';
+  font-size: 18px;
+
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  padding-top: 2.5em;
+
+  display: grid;
+  // TODO: add minmax
+  grid-template-columns: 19fr 62fr 19fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+}

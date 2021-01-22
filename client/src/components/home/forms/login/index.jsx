@@ -11,6 +11,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setAccessToken } = useAuth();
+  const { setUserId } = useAuth();
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -19,6 +20,7 @@ const Login = () => {
       const result = await login({ username, password });
 
       setAccessToken(result.data.token);
+      setUserId(result.data.userId);
       toastSuccess('Logged in!');
       history.push('/roomList');
     } catch ({ response }) {

@@ -1,0 +1,14 @@
+@import '../cards/cardInDeck.scss';
+
+.deck-cards {
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    calc(max(#{$card-in-deck-width}, #{$card-in-deck-min-width}))
+  );
+  justify-content: center;
+  gap: 30px 30px;
+
+  height: 100%;
+  overflow-y: auto;
+}

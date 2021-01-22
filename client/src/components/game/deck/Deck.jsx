@@ -15,7 +15,7 @@ const Deck = ({ color, cardsLeft, cardsMax }) => {
         bottomOffset={i * 3}
         rightOffset={i * 3}
         text={i === cardsToRender - 1 ? 'Cards Against Humanity' : ''}
-      ></CardReverse>
+      />
     );
     cardElements.push(element);
   }

@@ -1,0 +1,65 @@
+@import '../../../../shared/styles/globals.scss';
+
+.room-settings {
+  width: 60%;
+  @media (max-width: 1500px) {
+    width: 85%;
+  }
+
+  margin-bottom: 25px;
+
+  h1 {
+    text-align: center;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    justify-items: center;
+
+    .room-setting {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      margin: 5px 0 5px 0;
+    }
+  }
+
+  .countdown-span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .start-game-button {
+    display: block;
+    margin: 10px auto 0 auto;
+    font-size: 1.5em;
+
+    background-color: white;
+    padding: 10px 15px 10px 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .start-game-button:focus {
+    outline: none;
+  }
+
+  .start-game-button:not(.disabled) {
+    cursor: pointer;
+  }
+
+  .start-game-button:not(.disabled):hover {
+    box-shadow: 0 0 3px 1px $red;
+  }
+
+  .start-game-button.disabled {
+    filter: opacity($disabled-opacity);
+  }
+}

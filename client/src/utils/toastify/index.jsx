@@ -10,6 +10,7 @@ const Center = styled.div`
 
 const TextError = styled.h4``;
 const TextSuccess = styled.h4``;
+const TextInfo = styled.h4``;
 
 export const toastError = (message) =>
   toast.error(
@@ -22,5 +23,12 @@ export const toastSuccess = (message) =>
   toast.success(
     <Center>
       <TextSuccess>{message}</TextSuccess>
+    </Center>,
+  );
+
+export const toastInfo = (message) =>
+  toast.info(
+    <Center>
+      <TextInfo>{message}</TextInfo>
     </Center>,
   );

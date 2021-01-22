@@ -1,4 +1,4 @@
-import { Correct, Loading, Poker } from '@icon-park/react';
+import { Correct, CrownThree, Loading, Poker } from '@icon-park/react';
 import React from 'react';
 
 const LeaderboardRow = ({ state, nick, points }) => {
@@ -10,7 +10,7 @@ const LeaderboardRow = ({ state, nick, points }) => {
       break;
     case 'chosen':
       icon = (
-        <Correct className="leaderboard-state" theme="filled" strokeWidth="1" />
+        <Correct className="leaderboard-state" theme="filled" strokeWidth={1} />
       );
       break;
     case 'choosing':
@@ -18,15 +18,24 @@ const LeaderboardRow = ({ state, nick, points }) => {
         <Loading className="leaderboard-state" theme="filled" spin="true" />
       );
       break;
+    case 'admin':
+      icon = (
+        <CrownThree
+          className="leaderboard-state"
+          theme="outline"
+          strokeWidth={3}
+        />
+      );
+      break;
     default:
-      icon = <span className="leaderboard-state"></span>;
+      icon = <span className="leaderboard-state" />;
   }
 
   return (
     <div className="leaderboard-row">
       {icon}
       <span className="leaderboard-nick">{nick}</span>
-      <span className="leaderboard-points">{points}</span>
+      {points ? <span className="leaderboard-points">{points}</span> : ''}
     </div>
   );
 };

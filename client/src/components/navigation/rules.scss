@@ -1,27 +1,38 @@
 .popup-box {
-  position: absolute;
+  position: fixed;
   background: black;
-  width: 500%;
-  height: 60%;
-  top: 20%;
-  left: 500px;
+  width: 50vw;
+  height: 64vh;
+  top: 18vh;
+  left: 25vw;
   border-radius: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
 }
 
 .box {
-  position: relative;
   width: 80%;
   margin: 0 auto;
-  height: auto;
-  margin-top: calc(100vh - 85vh - 20px);
   background: #fff;
   border-radius: 4px;
   padding: 20px;
   border: 1px solid #999;
   overflow: auto;
   background: black;
+  p {
+    font-size: 0.9em;
+    text-align: justify;
+  }
 }
 
+.close {
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px;
+  color: red;
+}
 .close-icon {
   content: 'X';
   cursor: pointer;

@@ -1,13 +1,16 @@
 import './style.css';
 
-import React from 'react';  
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { useConnection } from '../../contexts/connection';
+
 const Navigation = () => {
+  const { rpc } = useConnection();
   const { pathname } = useLocation();
 
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${rpc ? 'hidden' : ''}`}>
       <ul>
         <li className={pathname == '/' ? 'active' : ''}>
           <Link to="/">Home</Link>
@@ -24,8 +27,7 @@ const Navigation = () => {
         <li className={pathname == '/game' ? 'active' : ''}>
           <Link to="/game">Game</Link>
         </li>
-        <li className={pathname == '/game' ? 'active' : ''}>
-        </li>
+        <li className={pathname == '/game' ? 'active' : ''}></li>
       </ul>
     </nav>
   );

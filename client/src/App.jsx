@@ -8,14 +8,20 @@ import { CustomToastContainer } from './components/customToastContainer/index';
 import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
+import { ConnectionProvider } from './contexts/connection';
+import { RoomProvider } from './contexts/room';
 
 const App = () => (
   <div className="app">
     <Router>
       <AuthProvider>
-        <Navigation />
-        <Routing />
-        <CustomToastContainer />
+        <ConnectionProvider>
+          <RoomProvider>
+            <Navigation />
+            <Routing />
+            <CustomToastContainer />
+          </RoomProvider>
+        </ConnectionProvider>
       </AuthProvider>
     </Router>
   </div>
