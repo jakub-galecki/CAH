@@ -43,6 +43,7 @@ const Lobby = () => {
         break;
       case 'room.attachDeck':
         console.log(result.data);
+        console.log('Deck attached!');
         break;
       case 'room.detachDeck':
         console.log(result.data);
@@ -53,23 +54,40 @@ const Lobby = () => {
     }
   };
 
-  const addDeck = (deckID) => {
-    if (!isDeckChosen(deckID)) {
-      const deckToAdd = availableDecks.find((deck) => deck.id === deckID);
+  const addDeck = (deckId, sendToServer) => {
+    if (!isDeckChosen(deckId)) {
+      const deckToAdd = availableDecks.find((deck) => deck.id === deckId);
       if (deckToAdd) {
         setChosenDecks([...chosenDecks, deckToAdd]);
 
-        //TODO: rpc.send('room.addDeck', {deckId: deckId}, false)
-        console.log(`Adding deck ${deckID} to room. Send this to server`);
+        if (sendToServer) {
+          console.log('Sending attach');
+          rpc.send(
+            'room.attachDeck',
+            {
+              roomId: roomId,
+              decks: [deckId],
+            },
+            false,
+          );
+        }
       }
     }
   };
 
-  const removeDeck = (deckID) => {
-    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckID));
+  const removeDeck = (deckId, sendToServer) => {
+    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckId));
 
-    //TODO: rpc.send('room.removeDeck', {deckId: deckId}, false)
-    console.log(`Removing deck ${deckID} from room. Send this to server`);
+    if (sendToServer) {
+      rpc.send(
+        'room.detachDeck',
+        {
+          roomId: roomId,
+          deckId: deckId,
+        },
+        false,
+      );
+    }
   };
 
   const fetchAvailableDecks = async () => {
@@ -117,7 +135,7 @@ const Lobby = () => {
       });
       setLeaderBoardData(users);
 
-      if (userId === result.owner) {
+      if (userId === result.owner._id) {
         setIsAdmin(true);
       }
 
