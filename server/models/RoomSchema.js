@@ -9,10 +9,7 @@ const RoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
-    'deckId': {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Deck',
-    },
+    'decks': Array,
     'state': String,
     'name': String,
 });
@@ -36,13 +33,20 @@ RoomSchema.methods.removeUser = function(id) {
     this.save();
 };
 
-RoomSchema.methods.attachDeck = function(id) {
-    this.deckId = id;
+RoomSchema.methods.attachDeck = function(ids) {
+    ids.forEach((val)=>{
+        if (!this.decks.includes(val)) {
+            this.decks.push(val);
+        }
+    });
     this.save();
 };
 
-RoomSchema.methods.detachDeck = function() {
-    this.deckId = null;
+RoomSchema.methods.detachDeck = function(deckId) {
+    const i = this.decks.indexOf(deckId);
+    if (i > -1) {
+        this.decks.splice(i, 1);
+    }
     this.save();
 };
 
@@ -51,7 +55,7 @@ RoomSchema.methods.getInfo = function() {
         'roomId': this._id,
         'owner': this.owner,
         'users': this.users,
-        'deckId': this.deckId,
+        'decks': this.decks,
         'state': this.state,
         'name': this.name,
     };

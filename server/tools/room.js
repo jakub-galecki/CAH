@@ -85,7 +85,7 @@ module.exports.changeState = async function changeState(params) {
 module.exports.attachDeck = async function attachDeck(params) {
     if (params.roomId) {
         return await Room.findById(params.roomId).exec().then((room) => {
-            room.attachDeck(params.deckId);
+            room.attachDeck(params.decks);
             return room.getInfo();
         }).catch((e) => {
             throw new InternalError('Not such room');
@@ -98,7 +98,7 @@ module.exports.attachDeck = async function attachDeck(params) {
 module.exports.detachDeck = async function detachDeck(params) {
     if (params.roomId) {
         return await Room.findById(params.roomId).exec().then((room) => {
-            room.detachDeck();
+            room.detachDeck(params.deckId);
             return room.getInfo();
         }).catch((e) => {
             throw new InternalError('Not such room');
