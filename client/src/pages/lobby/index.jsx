@@ -42,11 +42,10 @@ const Lobby = () => {
         }
         break;
       case 'room.attachDeck':
-        console.log(result.data);
-        console.log('Deck attached!');
+        setChosenDecksByIds(result.data.decks, availableDecks);
         break;
       case 'room.detachDeck':
-        console.log(result.data);
+        setChosenDecksByIds(result.data.decks, availableDecks);
         break;
 
       default:
@@ -54,40 +53,38 @@ const Lobby = () => {
     }
   };
 
-  const addDeck = (deckId, sendToServer) => {
+  const setChosenDecksByIds = (chosenDecksIds, allDecks) => {
+    setChosenDecks(allDecks.filter((d) => chosenDecksIds.includes(d.id)));
+  };
+
+  const addDeck = (deckId) => {
     if (!isDeckChosen(deckId)) {
       const deckToAdd = availableDecks.find((deck) => deck.id === deckId);
       if (deckToAdd) {
         setChosenDecks([...chosenDecks, deckToAdd]);
 
-        if (sendToServer) {
-          console.log('Sending attach');
-          rpc.send(
-            'room.attachDeck',
-            {
-              roomId: roomId,
-              decks: [deckId],
-            },
-            false,
-          );
-        }
+        rpc.send(
+          'room.attachDeck',
+          {
+            roomId: roomId,
+            decks: [deckId],
+          },
+          false,
+        );
       }
     }
   };
 
-  const removeDeck = (deckId, sendToServer) => {
+  const removeDeck = (deckId) => {
     setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckId));
-
-    if (sendToServer) {
-      rpc.send(
-        'room.detachDeck',
-        {
-          roomId: roomId,
-          deckId: deckId,
-        },
-        false,
-      );
-    }
+    rpc.send(
+      'room.detachDeck',
+      {
+        roomId: roomId,
+        deckId: deckId,
+      },
+      false,
+    );
   };
 
   const fetchAvailableDecks = async () => {
@@ -103,6 +100,7 @@ const Lobby = () => {
         createdAt: new Date(2020, 1, 1), // ! temp
       }));
       setAvailableDecks(decks);
+      return decks;
     } catch (e) {
       console.error(e);
     }
@@ -139,7 +137,8 @@ const Lobby = () => {
         setIsAdmin(true);
       }
 
-      await fetchAvailableDecks();
+      const allDecks = await fetchAvailableDecks();
+      setChosenDecksByIds(result.decks, allDecks);
     } catch (e) {
       console.error(e);
     }
