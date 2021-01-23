@@ -30,7 +30,7 @@ const Lobby = () => {
     console.log(result);
     switch (result.method) {
       case 'room.join':
-        if (result.data._id === roomId) {
+        if (result.roomId === roomId) {
           const newUser = {
             id: result.user._id,
             isAdmin: false,
@@ -42,10 +42,10 @@ const Lobby = () => {
         }
         break;
       case 'room.attachDeck':
-        console.log(result.data);
+        setChosenDecksByIds(result.data.decks, availableDecks);
         break;
       case 'room.detachDeck':
-        console.log(result.data);
+        setChosenDecksByIds(result.data.decks, availableDecks);
         break;
 
       default:
@@ -53,23 +53,38 @@ const Lobby = () => {
     }
   };
 
-  const addDeck = (deckID) => {
-    if (!isDeckChosen(deckID)) {
-      const deckToAdd = availableDecks.find((deck) => deck.id === deckID);
+  const setChosenDecksByIds = (chosenDecksIds, allDecks) => {
+    setChosenDecks(allDecks.filter((d) => chosenDecksIds.includes(d.id)));
+  };
+
+  const addDeck = (deckId) => {
+    if (!isDeckChosen(deckId)) {
+      const deckToAdd = availableDecks.find((deck) => deck.id === deckId);
       if (deckToAdd) {
         setChosenDecks([...chosenDecks, deckToAdd]);
 
-        //TODO: rpc.send('room.addDeck', {deckId: deckId}, false)
-        console.log(`Adding deck ${deckID} to room. Send this to server`);
+        rpc.send(
+          'room.attachDeck',
+          {
+            roomId: roomId,
+            decks: [deckId],
+          },
+          false,
+        );
       }
     }
   };
 
-  const removeDeck = (deckID) => {
-    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckID));
-
-    //TODO: rpc.send('room.removeDeck', {deckId: deckId}, false)
-    console.log(`Removing deck ${deckID} from room. Send this to server`);
+  const removeDeck = (deckId) => {
+    setChosenDecks(chosenDecks.filter((deck) => deck.id !== deckId));
+    rpc.send(
+      'room.detachDeck',
+      {
+        roomId: roomId,
+        deckId: deckId,
+      },
+      false,
+    );
   };
 
   const fetchAvailableDecks = async () => {
@@ -85,6 +100,7 @@ const Lobby = () => {
         createdAt: new Date(2020, 1, 1), // ! temp
       }));
       setAvailableDecks(decks);
+      return decks;
     } catch (e) {
       console.error(e);
     }
@@ -117,11 +133,12 @@ const Lobby = () => {
       });
       setLeaderBoardData(users);
 
-      if (userId === result.owner) {
+      if (userId === result.owner._id) {
         setIsAdmin(true);
       }
 
-      await fetchAvailableDecks();
+      const allDecks = await fetchAvailableDecks();
+      setChosenDecksByIds(result.decks, allDecks);
     } catch (e) {
       console.error(e);
     }

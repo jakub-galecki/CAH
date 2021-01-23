@@ -5,7 +5,6 @@ import React from 'react';
 import { LeaderboardRow } from './LeaderboardRow';
 
 const Leaderboard = ({ playersInfo, isInGameplay }) => {
-  console.log({ playersInfo });
   return (
     <div className="leaderboard">
       {playersInfo.map(({ id, state, nick, points, isAdmin }) => (

@@ -135,7 +135,7 @@ module.exports.detachDeck = async function detachDeck(params) {
             return {
                 data: room.getInfo(),
                 user: params.userId,
-                method: 'room.attachDeck',
+                method: 'room.detachDeck',
             };
         }).catch((e) => {
             throw new InternalError('Not such room');
