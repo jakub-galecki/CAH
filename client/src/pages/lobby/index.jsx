@@ -30,7 +30,7 @@ const Lobby = () => {
     console.log(result);
     switch (result.method) {
       case 'room.join':
-        if (result.data._id === roomId) {
+        if (result.roomId === roomId) {
           const newUser = {
             id: result.user._id,
             isAdmin: false,
