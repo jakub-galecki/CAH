@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const {InternalError} = require('../src/err');
 require('../models/DeckSchema');
 const Deck = mongoose.model('Deck');
-
 // {"jsonrpc": "2.0", "method": "deck.createDeck", "params": {"title":"tytul", "userId":"1"}, "id": 1}
 // {"jsonrpc": "2.0", "method": "deck.getDeck", "params": {"deckId":"07ZZ4G"}, "id": 1}
 // {"jsonrpc": "2.0", "method": "deck.getAllDecks", "params": {}, "id": 1}
