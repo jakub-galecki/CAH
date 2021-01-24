@@ -1,5 +1,6 @@
 import './rules.scss';
 
+import { Close } from '@icon-park/react';
 import React from 'react';
 
 const Popup = (props) => {
@@ -27,7 +28,7 @@ const Popup = (props) => {
         </div>
 
         <div className="text close" onClick={props.handleClose}>
-          X
+          <Close />
         </div>
         {props.content}
       </div>

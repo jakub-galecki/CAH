@@ -14,7 +14,6 @@ const RoomList = () => {
   const [localRooms, setLocalRooms] = useState([]);
   // @todo: create room in menu
   const { userId } = useAuth();
-  const [roomName, setRoomName] = useState('');
   const { rpc, ws } = useConnection();
   const { push } = useHistory();
   const { setRoomId } = useRoom();
@@ -60,11 +59,6 @@ const RoomList = () => {
     }
   }, []);
 
-  // Create new room
-  const handleClick = () => {
-    rpc.send('room.initRoom', { name: roomName }, false);
-  };
-
   // @todo: create room in menu
   return (
     <div className="roomList">
@@ -73,13 +67,6 @@ const RoomList = () => {
           <Menu />
         </div>
         <div className="column2">
-          {/* !TEMP: faster to handle it in top view for now */}
-          <button onClick={handleClick}>Create room</button>
-          <input
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-          />
-          {/* !TEMP: faster to handle it in top view for now */}
           <Sort />
           <Tile roomInfo={localRooms} />
         </div>
