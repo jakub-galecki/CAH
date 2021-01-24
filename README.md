@@ -4,7 +4,7 @@
 1. [ Technologies used. ](#tech)
 2. [ Installation. ](#install)
 2. [ How the app works. ](#work)
-3. [ Development. ](#work)
+3. [ Development. ](#dev)
 
 <a id="tech"></a>
 ### Technologies
