@@ -17,7 +17,9 @@ const RoomSettings = ({
   const { roomId } = useRoom();
   const { rpc } = useConnection();
   const handleStart = () => {
-    rpc.send('room.start', { roomId }, false);
+    if (isAdmin) {
+      rpc.send('room.start', { roomId }, false);
+    }
   };
 
   return (
@@ -56,7 +58,7 @@ const RoomSettings = ({
       </form>
       <span className="countdown-span">Countdown: 4</span>
       <button
-        onClick={() => handleStart()}
+        onClick={handleStart}
         className={`start-game-button${!isAdmin ? ' disabled' : ''}`}
       >
         Start game
