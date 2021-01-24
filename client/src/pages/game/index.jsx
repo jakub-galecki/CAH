@@ -1,6 +1,6 @@
 import './style.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -12,18 +12,34 @@ import { CustomDragLayer } from '../../components/game/dragAndDrop/CustomDragLay
 import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
 import { useAuth } from '../../contexts/auth';
 import { useConnection } from '../../contexts/connection';
-import { cardsInHandData, leaderboardData } from './dummyData';
+import { useRoom } from '../../contexts/room';
+import { cardsInHandData } from './dummyData';
 
 const Game = () => {
   const [cardsPlayed, setCardsPlayed] = useState(0);
   const [cardsInHand, setCardsInHand] = useState(cardsInHandData);
   const [cardsOnTable, setCardsOnTable] = useState(null);
+  const [leaderboardData, setLeaderBoardData] = useState([]);
   const [judge, setJudge] = useState(null);
   const [isJudge, setIsJudge] = useState(false);
   const [winnerId, setWinnerId] = useState(false);
   const [isFreezed, setIsFreezed] = useState(true);
   const { rpc, ws } = useConnection();
   const { userId } = useAuth();
+  const { roomId } = useRoom();
+
+  // @todo: temp - gather info bout users
+  useEffect( async () => {
+    const data = await rpc.send('room.getUsers', { roomId }, false);
+    console.log(data);
+    const users = data.map((user) => ({
+      id: user._id,
+      nick: user.username,
+      isAdmin: false,
+      points: 0,
+    }))
+    setLeaderBoardData(users)
+  }, [])
 
   ws.onmessage = (msg) => {
     console.log(msg);

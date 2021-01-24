@@ -88,7 +88,7 @@ module.exports.join = async function join(params) {
 };
 
 module.exports.getUsers = async function getUsers(params) {
-    return await Room.findById(params.roomId).exec().then((r) => {
+    return await Room.findById(params.roomId).populate([{path: 'owner', select: {username: 1}}, {path: 'users', select: {username: 1}}]).exec().then((r) => {
         return r.users;
     }).catch((e) => {
         throw new InternalError('Could not find the room');
