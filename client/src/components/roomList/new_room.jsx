@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 
 import { useConnection } from '../../contexts/connection';
 const Create = () => {
-
   const [roomName, setRoomName] = useState('');
   const { rpc } = useConnection();
 
@@ -14,18 +13,18 @@ const Create = () => {
     rpc.send('room.initRoom', { name: roomName }, false);
   };
 
-  
- return (
+  return (
     <div className="menuLink">
-        <div onClick={handleClick}>        
-        <PlusCross className="menuIcon"/>
+      <div onClick={handleClick}>
+        <PlusCross className="menuIcon" />
         <br />
-        Create room </div>
-        <input
-            value={roomName}
-            placeholder="Room's name"
-            onChange={(e) => setRoomName(e.target.value)}
-          />
+        Create room{' '}
+      </div>
+      <input
+        value={roomName}
+        placeholder="Room's name"
+        onChange={(e) => setRoomName(e.target.value)}
+      />
     </div>
   );
 };

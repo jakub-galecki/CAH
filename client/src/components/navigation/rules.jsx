@@ -28,7 +28,7 @@ const Popup = (props) => {
         </div>
 
         <div className="text close" onClick={props.handleClose}>
-          <Close/>
+          <Close />
         </div>
         {props.content}
       </div>
