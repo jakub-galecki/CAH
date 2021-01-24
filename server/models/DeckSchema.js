@@ -12,7 +12,12 @@ const DeckSchema = new mongoose.Schema({
         },
     },
     'shortId': String,
-    'userId': String,
+    'author': {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    'cardsCount': Number,
+    'createdAt': Date,
 });
 
 module.exports = mongoose.model('Deck', DeckSchema, 'decks');
