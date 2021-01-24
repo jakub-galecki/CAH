@@ -1,8 +1,8 @@
 .popup-box {
   position: fixed;
   background: black;
-  width: 50vw;
-  height: 64vh;
+  width: 45em;
+  height: 50vh;
   top: 18vh;
   left: 25vw;
   border-radius: 1%;
@@ -29,22 +29,11 @@
 
 .close {
   cursor: pointer;
+  font-size: 1.3em;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
   display: inline-block;
   padding: 4px;
   color: red;
-}
-.close-icon {
-  content: 'X';
-  cursor: pointer;
-  position: fixed;
-  right: calc(15% - 30px);
-  top: calc(100vh - 85vh - 33px);
-  background: #ededed;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  line-height: 20px;
-  text-align: center;
-  border: 1px solid #999;
-  font-size: 20px;
 }
