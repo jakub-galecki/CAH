@@ -37,6 +37,8 @@ server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
+const games = [];
+
 wss.on('connection', (ws, request) => {
     let authenticated;
     try {
@@ -65,6 +67,7 @@ wss.on('connection', (ws, request) => {
             const rpcObj = JSONRPc.parse(message);
             if (rpcObj.method.indexOf('room') !== -1) {
                 rpcObj.params.userId = ws.userData.user._id;
+                rpcObj.params.games = games;
             }
             Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
                 const response = {
@@ -147,7 +150,7 @@ async function broadcastToRoom(wss, roomId, data) {
     const users = await room.getUsers({roomId: roomId});
     wss.clients.forEach((client) => {
         const inRoom = Object.values(users).some((u) => {
-            return u.toString() === client.userData.user._id;
+            return u._id.toString() === client.userData.user._id;
         });
         if (client.readyState === 1 && inRoom) {
             client.send(JSON.stringify(data));

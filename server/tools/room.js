@@ -88,7 +88,7 @@ module.exports.join = async function join(params) {
 };
 
 module.exports.getUsers = async function getUsers(params) {
-    return await Room.findById(params.roomId).exec().then((r) => {
+    return await Room.findById(params.roomId).populate([{path: 'owner', select: {username: 1}}, {path: 'users', select: {username: 1}}]).exec().then((r) => {
         return r.users;
     }).catch((e) => {
         throw new InternalError('Could not find the room');
@@ -97,6 +97,16 @@ module.exports.getUsers = async function getUsers(params) {
 
 module.exports.getRoom = async function getRoom(params) {
     return await Room.findById(params.roomId).populate([{path: 'owner', select: {username: 1}}, {path: 'users', select: {username: 1}}]).exec().then((r) => {
+        return r.getInfo();
+    }).catch((e) => {
+        throw new InternalError('Could not find the room');
+    });
+};
+
+module.exports.getMyRoom = async function getMyRoom(params) {
+    return await Room.findOne({
+        users: params.userId,
+    }).populate([{path: 'owner', select: {username: 1}}, {path: 'users', select: {username: 1}}]).exec().then((r) => {
         return r.getInfo();
     }).catch((e) => {
         throw new InternalError('Could not find the room');
@@ -143,4 +153,18 @@ module.exports.detachDeck = async function detachDeck(params) {
     } else {
         throw new Error('No roomId provided');
     }
+};
+
+module.exports.start = async function start(params) {
+    const gameId = params.games.length + 1;
+    params.games.push({
+        gameId,
+        roomId: params.roomId,
+    });
+
+    return Promise.resolve({
+        data: gameId,
+        user: params.userId,
+        method: 'room.start',
+    });
 };

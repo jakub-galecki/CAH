@@ -54,6 +54,9 @@ const RoomList = () => {
     try {
       const rooms = await rpc.send('room.getRooms', {}, false);
       setLocalRooms(rooms);
+
+      const { roomId } = await rpc.send('room.getMyRoom', {}, false);
+      setRoomId(roomId);
     } catch (e) {
       console.warn(e);
     }

@@ -9,6 +9,7 @@ import { Navigation } from './components/navigation';
 import { Routing } from './components/routing/Routing';
 import { AuthProvider } from './contexts/auth';
 import { ConnectionProvider } from './contexts/connection';
+import { GameProvider } from './contexts/game';
 import { RoomProvider } from './contexts/room';
 
 const App = () => (
@@ -17,9 +18,11 @@ const App = () => (
       <AuthProvider>
         <ConnectionProvider>
           <RoomProvider>
-            <Navigation />
-            <Routing />
-            <CustomToastContainer />
+            <GameProvider>
+              <Navigation />
+              <Routing />
+              <CustomToastContainer />
+            </GameProvider>
           </RoomProvider>
         </ConnectionProvider>
       </AuthProvider>

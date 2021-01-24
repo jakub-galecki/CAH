@@ -1,6 +1,7 @@
 import './style.scss';
 
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { addGeneratedDeckToServer } from '../../components/lobby/cardPanel/fakeDecks';
 import { CardPanel } from '../../components/lobby/cardPanel/index';
@@ -8,6 +9,7 @@ import { Overview } from '../../components/lobby/overview/index';
 import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
 import { useAuth } from '../../contexts/auth';
 import { useConnection } from '../../contexts/connection';
+import { useGame } from '../../contexts/game';
 import { useRoom } from '../../contexts/room';
 
 const Lobby = () => {
@@ -16,9 +18,11 @@ const Lobby = () => {
   const [leaderBoardData, setLeaderBoardData] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const { push } = useHistory();
   const { ws, rpc } = useConnection();
   const { userId } = useAuth();
   const { roomId } = useRoom();
+  const { setGameId } = useGame();
   const isDeckChosen = (deckID) => chosenDecks.some((d) => d.id === deckID);
 
   // @todo: rewrite ws handling logic inside specialized module
@@ -30,7 +34,7 @@ const Lobby = () => {
     console.log(result);
     switch (result.method) {
       case 'room.join':
-        if (result.roomId === roomId) {
+        if (result.data._id === roomId) {
           const newUser = {
             id: result.user._id,
             isAdmin: false,
@@ -47,7 +51,11 @@ const Lobby = () => {
       case 'room.detachDeck':
         setChosenDecksByIds(result.data.decks, availableDecks);
         break;
-
+      case 'room.start':
+        if (!result.data) return; // @todo: error handling
+        setGameId(result.data);
+        push('/game');
+        break;
       default:
         console.log(result);
     }
