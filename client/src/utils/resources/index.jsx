@@ -1,16 +1,15 @@
 import axios from 'axios';
 
-//const url = 'http://localhost:8080/';
-const url = 'https://cardz-against-humanity.herokuapp.com/';
+import { getServerHttpUrl } from '../serverURL';
 
 export const login = ({ username, password }) =>
-  axios.post(`${url}user/login`, {
+  axios.post(`${getServerHttpUrl()}user/login`, {
     username,
     password,
   });
 
 export const register = ({ username, password }) =>
-  axios.post(`${url}user/createUser`, {
+  axios.post(`${getServerHttpUrl()}user/createUser`, {
     username,
     password,
     played: 0,
