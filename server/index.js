@@ -34,6 +34,8 @@ server.listen(process.env.PORT || '8080', () => {
     console.log('Listening on port: ' + server.address().port);
 });
 
+const games = [];
+
 wss.on('connection', (ws, request) => {
     let authenticated;
     try {
@@ -62,6 +64,7 @@ wss.on('connection', (ws, request) => {
             const rpcObj = JSONRPc.parse(message);
             if (rpcObj.method.indexOf('room') !== -1) {
                 rpcObj.params.userId = ws.userData.user._id;
+                rpcObj.params.games = games;
             }
             Methods._callMethod(rpcObj.method, rpcObj.params).then((res) => {
                 const response = {

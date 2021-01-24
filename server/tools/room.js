@@ -144,3 +144,17 @@ module.exports.detachDeck = async function detachDeck(params) {
         throw new Error('No roomId provided');
     }
 };
+
+module.exports.start = async function start(params) {
+    const gameId = params.games.length + 1;
+    params.games.push({
+        gameId,
+        roomId: params.roomId,
+    });
+
+    return Promise.resolve({
+        data: gameId,
+        user: params.userId,
+        method: 'room.start',
+    });
+};

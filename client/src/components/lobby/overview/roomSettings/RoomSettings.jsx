@@ -2,6 +2,8 @@ import './roomSettings.scss';
 
 import React from 'react';
 
+import { useConnection } from '../../../../contexts/connection';
+import { useRoom } from '../../../../contexts/room';
 import { CheckboxSetting } from './CheckboxSetting';
 import { SelectNumberSetting } from './SelectNumberSetting';
 
@@ -12,6 +14,12 @@ const RoomSettings = ({
   defaultPointLimit,
   defaultAnswerTime,
 }) => {
+  const { roomId } = useRoom();
+  const { rpc } = useConnection();
+  const handleStart = () => {
+    rpc.send('room.start', { roomId }, false);
+  };
+
   return (
     <div className="room-settings">
       <h1>Admin panel</h1>
@@ -47,7 +55,10 @@ const RoomSettings = ({
         />
       </form>
       <span className="countdown-span">Countdown: 4</span>
-      <button className={`start-game-button${!isAdmin ? ' disabled' : ''}`}>
+      <button
+        onClick={() => handleStart()}
+        className={`start-game-button${!isAdmin ? ' disabled' : ''}`}
+      >
         Start game
       </button>
     </div>

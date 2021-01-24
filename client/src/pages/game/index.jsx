@@ -10,13 +10,58 @@ import { Counter } from '../../components/game/counter/Counter';
 import { Deck } from '../../components/game/deck/Deck';
 import { CustomDragLayer } from '../../components/game/dragAndDrop/CustomDragLayer';
 import { Leaderboard } from '../../components/shared/leaderboard/Leaderboard';
+import { useAuth } from '../../contexts/auth';
+import { useConnection } from '../../contexts/connection';
 import { cardsInHandData, leaderboardData } from './dummyData';
 
 const Game = () => {
   const [cardsPlayed, setCardsPlayed] = useState(0);
   const [cardsInHand, setCardsInHand] = useState(cardsInHandData);
+  const [cardsOnTable, setCardsOnTable] = useState(null);
+  const [judge, setJudge] = useState(null);
+  const [isJudge, setIsJudge] = useState(false);
+  const [winnerId, setWinnerId] = useState(false);
+  const [isFreezed, setIsFreezed] = useState(true);
+  const { rpc, ws } = useConnection();
+  const { userId } = useAuth();
+
+  ws.onmessage = (msg) => {
+    console.log(msg);
+    const { result } = JSON.parse(msg.data);
+    if (!result) return; // @todo: error handling
+    switch (result.method) {
+      case 'game.nextTurn':
+        if (!result.data) return; // @todo: error handling
+
+        setCardsOnTable(null);
+        setWinnerId(null);
+        setIsFreezed(false);
+        setJudge(result.data.judge);
+        setCardsInHand(result.data.cards);
+
+        // setIsJudge
+        if (userId === result.data.judge) setIsJudge(true);
+        else setIsJudge(false);
+
+        break;
+      case 'game.endPickingTime':
+        setIsFreezed(true);
+        setCardsOnTable(result.data.cards);
+
+        break;
+      case 'game.winner':
+        if (!result.data) return; // @todo: error handling
+        setWinnerId(result.data._id);
+
+        break;
+      default:
+        console.log(result);
+    }
+  };
 
   const playCardFromHand = (cardID) => {
+    if (isFreezed && isJudge) return;
+
     if (canPlayCard(cardID)) {
       setCardsPlayed(cardsPlayed + 1);
       removeCardFromHand(cardID);
