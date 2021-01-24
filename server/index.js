@@ -3,8 +3,10 @@
 const mongoose = require('mongoose');
 const WebSocket = require('ws');
 const http = require('http');
-//const uri = 'mongodb://127.0.0.1:27017/CAH';
-const uri = 'mongodb+srv://admin:cXp4E1DDe05cxgn7@cluster0.4hdvd.mongodb.net/CAH?retryWrites=true&w=majority'
+let uri = 'mongodb://127.0.0.1:27017/CAH';
+if (process.env.MONGO.length > 0) {
+    uri = process.env.MONGO;
+}
 const JSONRPc = require('./src/jsonrpc');
 const Methods = require('./src/method');
 const jwt = require('jsonwebtoken');
@@ -71,13 +73,10 @@ wss.on('connection', (ws, request) => {
                     'id': rpcObj.id,
                 };
                 if (allUsers.includes(rpcObj.method)) {
-                    console.log('broadcast all');
                     broadcast(wss, response);
                 } else if (toRoom.includes(rpcObj.method)) {
-                    console.log('broadcast toRoom');
                     broadcastToRoom(wss, rpcObj.params.roomId, response);
                 } else {
-                    console.log('toUser');
                     ws.send(JSON.stringify(response));
                 }
             }).catch((e) => {
@@ -155,6 +154,7 @@ async function broadcastToRoom(wss, roomId, data) {
         }
     });
 }
+
 /**
  * @param {WebSocketServer} wss
  * @param {Object} data
@@ -162,7 +162,6 @@ async function broadcastToRoom(wss, roomId, data) {
 function broadcast(wss, data) {
     wss.clients.forEach((client) => {
         if (client.readyState === 1) {
-            console.log('send');
             client.send(JSON.stringify(data));
         }
     });
