@@ -1,6 +1,6 @@
 import './style.scss';
 
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -29,7 +29,7 @@ const Game = () => {
   const { roomId } = useRoom();
 
   // @todo: temp - gather info bout users
-  useEffect( async () => {
+  useEffect(async () => {
     const data = await rpc.send('room.getUsers', { roomId }, false);
     console.log(data);
     const users = data.map((user) => ({
@@ -37,9 +37,9 @@ const Game = () => {
       nick: user.username,
       isAdmin: false,
       points: 0,
-    }))
-    setLeaderBoardData(users)
-  }, [])
+    }));
+    setLeaderBoardData(users);
+  }, []);
 
   ws.onmessage = (msg) => {
     console.log(msg);
