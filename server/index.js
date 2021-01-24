@@ -151,7 +151,7 @@ async function broadcastToRoom(wss, roomId, data) {
     const users = await room.getUsers({roomId: roomId});
     wss.clients.forEach((client) => {
         const inRoom = Object.values(users).some((u) => {
-            return u.toString() === client.userData.user._id;
+            return u._id.toString() === client.userData.user._id;
         });
         if (client.readyState === 1 && inRoom) {
             client.send(JSON.stringify(data));

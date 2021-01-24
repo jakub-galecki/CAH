@@ -103,6 +103,16 @@ module.exports.getRoom = async function getRoom(params) {
     });
 };
 
+module.exports.getMyRoom = async function getMyRoom(params) {
+    return await Room.findOne({
+        users: params.userId,
+    }).populate([{path: 'owner', select: {username: 1}}, {path: 'users', select: {username: 1}}]).exec().then((r) => {
+        return r.getInfo();
+    }).catch((e) => {
+        throw new InternalError('Could not find the room');
+    });
+};
+
 module.exports.changeState = async function changeState(params) {
     return await Room.findById(params.roomId).exec().then((r) => {
         return r.setState(params.state);
