@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const WebSocket = require('ws');
 const http = require('http');
 let uri = 'mongodb://127.0.0.1:27017/CAH';
-if (process.env.MONGO) {
+if (process.env.MONGO.length > 0) {
     uri = process.env.MONGO;
 }
 const JSONRPc = require('./src/jsonrpc');
