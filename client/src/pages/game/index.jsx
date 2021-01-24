@@ -32,10 +32,10 @@ const Game = () => {
   useEffect(async () => {
     const data = await rpc.send('room.getUsers', { roomId }, false);
     console.log(data);
-    const users = data.map((user) => ({
+    const users = data.map((user, index) => ({
       id: user._id,
       nick: user.username,
-      isAdmin: false,
+      state: index === 0 ? 'black' : 'choosing',
       points: 0,
     }));
     setLeaderBoardData(users);
@@ -103,7 +103,7 @@ const Game = () => {
           <Counter />
           <Deck color="white" cardsLeft={44} cardsMax={80} />
         </div>
-        <QuestionCard text="Fill this sentence _________________" />
+        <QuestionCard text="Grandma would never admit she likes _______." />
         <PlayedCards numberOfCards={cardsPlayed} />
 
         <Leaderboard playersInfo={leaderboardData} isInGameplay={true} />

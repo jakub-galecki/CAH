@@ -1,14 +1,14 @@
 const cardsInHandData = [
-  { cardText: 'Card 1', id: 1 },
-  { cardText: 'Another card', id: 2 },
-  { cardText: 'An answer', id: 3 },
-  { cardText: 'This is an answer', id: 4 },
-  { cardText: 'Card 5', id: 5 },
-  { cardText: 'This is an answer', id: 6 },
-  { cardText: 'This is an answer', id: 7 },
-  { cardText: 'This is an answer', id: 8 },
-  { cardText: 'This is an answer', id: 9 },
-  { cardText: 'This is an answer', id: 10 },
+  { cardText: '12-hour Netflix marathons', id: 1 },
+  { cardText: '1st place in the talent show', id: 2 },
+  { cardText: '70-year-olds who are in better shape than me', id: 3 },
+  { cardText: 'A blimp advertising hair regrowth', id: 4 },
+  { cardText: 'A bowl cut', id: 5 },
+  { cardText: "A Boy Scouts' camping trip gone wrong", id: 6 },
+  { cardText: 'A breath of fresh air', id: 7 },
+  { cardText: 'A brother from another mother', id: 8 },
+  { cardText: 'A bulging merit badge', id: 9 },
+  { cardText: 'A Canadian otter', id: 10 },
 ];
 
 const leaderboardData = [
