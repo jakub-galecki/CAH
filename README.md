@@ -15,7 +15,7 @@ Technologies used in the project includes:
 - MongoDB
 - WebSockets
 - Express
-- JSON RPC - as the method of communication between client and server
+- JSON RPC - as the method of communication between a client and server
 
 
 <a name="install"></a>
@@ -63,9 +63,9 @@ the owner of the repository or the contributors.*
 This project is using JSP RPC protocol to communicate with the server. In this section
 we will explain how it works.   
 
-To communicate with server client uses something called request object. There are specific memebers of the object
+To communicate with server client uses something called request object. There are specific members of the object
 that have to be included in the structure of the request object, these are:
-- jsonrpc, which specifies the version of the JSON-RPC (project is using version 2.0).
+- json rpc, which specifies the version of the JSON-RPC (project is using version 2.0).
 - method, which specifies method that will be invoked on a server.
 - params, values that will be used by the invoked method.
 - id, not always required, but in this project we include this member.
