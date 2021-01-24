@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //const url = 'http://localhost:8080/';
-const url = 'http://cardz-against-humanity.herokuapp.com/';
+const url = 'https://cardz-against-humanity.herokuapp.com/';
 
 export const login = ({ username, password }) =>
   axios.post(`${url}user/login`, {
