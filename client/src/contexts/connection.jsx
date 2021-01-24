@@ -15,7 +15,8 @@ export const ConnectionProvider = ({ children }) => {
   useEffect(() => {
     if (accessToken) {
       const newWs = new WebSocket(
-        'ws://localhost:8080/' + 'token=' + accessToken,
+        //'ws://localhost:8080/' + 'token=' + accessToken,
+        'ws://cardz-against-humanity.herokuapp.com/' + 'token=' + accessToken,
       );
       setWs(newWs);
     }
