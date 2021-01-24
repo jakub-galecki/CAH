@@ -56,7 +56,7 @@ const RoomSettings = ({
           max={60}
         />
       </form>
-      <span className="countdown-span">Countdown: 4</span>
+      {/*<span className="countdown-span">Countdown: 4</span>*/}
       <button
         onClick={handleStart}
         className={`start-game-button${!isAdmin ? ' disabled' : ''}`}
