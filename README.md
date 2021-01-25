@@ -1,10 +1,21 @@
 # CAH - Cards Against Humanity 
 
 ### Table of Contents
-1. [ Technologies used. ](#tech)
-2. [ Installation. ](#install)
-2. [ How the app works. ](#work)
-3. [ Development. ](#dev)
+1. [ About the game. ](#about)
+2. [ Technologies used. ](#tech)
+3. [ Installation. ](#install)
+4. [ How the app works. ](#work)
+5. [ Development. ](#dev)
+
+<a name="about"></a>
+### About the game
+***
+This is an __unofficial__, web based <a href="https://www.cardsagainsthumanity.com/">Cards Against Humanity</a> party game. It's all about choosing the most silly answers to even more ridiculous questions in a card-game format. \
+__Check it out live here__: *https://cards-against-humanity-client.herokuapp.com* \* \
+Just register, then log in with the data provided during the registration process. \
+Enjoy!
+
+\* It might take a few longer seconds to connect. Don't worry, that's probably because the server has gone to sleep. It will wake up as soon as you connect to it.
 
 <a id="tech"></a>
 ### Technologies
@@ -21,12 +32,6 @@ Technologies used in the project includes:
 <a name="install"></a>
 ### Installation
 ***
-
-##### Official version: 
-To run the official version of the project you should __follow the link below__: \
-*https://cards-against-humanity-client.herokuapp.com*.  
-To start the game you have to register and then log in with data provided during the registration process.
-
 ##### Development version
 If you wish to contribute to the project or to run the app locally, follow the steps below.
 
