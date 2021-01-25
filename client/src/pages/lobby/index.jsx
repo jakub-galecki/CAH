@@ -101,11 +101,11 @@ const Lobby = () => {
       const decks = decksFromServer.map((d) => ({
         id: d.shortId,
         title: d.title,
-        type: 'answers', // ! temp
-        author: 'Author not fetched', // ! temp
-        description: 'Description not fetched', // ! temp
-        cardCount: -1, // ! temp
-        createdAt: new Date(2020, 1, 1), // ! temp
+        type: d.type === 0 ? 'answers' : 'questions',
+        author: '', // ! temp
+        description: '', // ! temp
+        cardCount: d.cardsCount,
+        //createdAt: new Date(d.createdAt),
       }));
       setAvailableDecks(decks);
       return decks;
@@ -115,17 +115,17 @@ const Lobby = () => {
   };
 
   // Temp code to create decks on key press ('a' for answers and 'q' for questions)
-  const addDeckToServerOnKeyPress = async (e) => {
-    if (e.key === 'a' || e.key === 'q') {
-      await addGeneratedDeckToServer(userId, rpc, e.key === 'a' ? 0 : 1);
-      fetchAvailableDecks();
-    }
-  };
+  // const addDeckToServerOnKeyPress = async (e) => {
+  //   if (e.key === 'a' || e.key === 'q') {
+  //     await addGeneratedDeckToServer(userId, rpc, e.key === 'a' ? 0 : 1);
+  //     fetchAvailableDecks();
+  //   }
+  // };
 
-  useEffect(async () => {
-    if (isAdmin) window.addEventListener('keydown', addDeckToServerOnKeyPress);
-    return () => window.removeEventListener(addDeckToServerOnKeyPress);
-  }, [isAdmin]);
+  // useEffect(async () => {
+  //   if (isAdmin) window.addEventListener('keydown', addDeckToServerOnKeyPress);
+  //   return () => window.removeEventListener(addDeckToServerOnKeyPress);
+  // }, [isAdmin]);
 
   useEffect(async () => {
     try {
