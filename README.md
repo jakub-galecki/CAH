@@ -10,6 +10,7 @@
 <a name="about"></a>
 ### About the game
 ***
+![Part of the gameplay](lobby_game_presentation.gif)
 This is an __unofficial__, web based <a href="https://www.cardsagainsthumanity.com/">Cards Against Humanity</a> party game. It's all about choosing the most silly answers to even more ridiculous questions in a card-game format. \
 __Check it out live here__: *https://cards-against-humanity-client.herokuapp.com* \* \
 Just register, then log in with the data provided during the registration process. \
