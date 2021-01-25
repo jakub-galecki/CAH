@@ -101,11 +101,11 @@ const Lobby = () => {
       const decks = decksFromServer.map((d) => ({
         id: d.shortId,
         title: d.title,
-        type: 'answers', // ! temp
-        author: 'Author not fetched', // ! temp
-        description: 'Description not fetched', // ! temp
-        cardCount: -1, // ! temp
-        createdAt: new Date(2020, 1, 1), // ! temp
+        type: d.type === 0 ? 'answers' : 'questions',
+        author: '', // ! temp
+        description: '', // ! temp
+        cardCount: d.cardsCount,
+        //createdAt: new Date(d.createdAt),
       }));
       setAvailableDecks(decks);
       return decks;

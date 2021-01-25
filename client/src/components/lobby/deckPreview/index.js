@@ -17,7 +17,10 @@ export const DeckPreview = ({
   isDeckChosen,
   isAdmin,
 }) => {
-  const date = `${createdAt.getDate()} ${createdAt.getMonth()} ${createdAt.getFullYear()}`;
+  let date = '';
+  if (createdAt) {
+    date = `${createdAt.getDate()} ${createdAt.getMonth()} ${createdAt.getFullYear()}`;
+  }
   let rightUpElem = <p>{date}</p>;
   if (!isInDeckPanel && isAdmin) {
     rightUpElem = (
