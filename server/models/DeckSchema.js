@@ -18,6 +18,7 @@ const DeckSchema = new mongoose.Schema({
     },
     'cardsCount': Number,
     'createdAt': Date,
+    'type': Number,
 });
 
 module.exports = mongoose.model('Deck', DeckSchema, 'decks');

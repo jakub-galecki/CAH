@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const {InternalError} = require('../src/err');
 require('../models/DeckSchema');
+const {v4: uuidv4} = require('uuid');
+
 const Deck = mongoose.model('Deck');
 // {"jsonrpc": "2.0", "method": "deck.createDeck", "params": {"title":"tytul", "userId":"1"}, "id": 1}
 // {"jsonrpc": "2.0", "method": "deck.getDeck", "params": {"deckId":"07ZZ4G"}, "id": 1}
@@ -32,17 +34,13 @@ module.exports.createDeck = async function(params) {
     }
     const deck = new Deck();
     deck.title = params.title;
-
-    let shortId;
-    do {
-        shortId = Math.random().toString(36).substr(2, 6).toUpperCase();
-    } while (Deck.findOne({'shortId': shortId}).length);
-    deck.shortId = shortId;
+    deck.shortId = uuidv4().split('-')[0];
     deck.cardsCount = params.cardsCount;
     deck.createdAt = new Date();
     deck.author = params.userId;
+    deck.type = params.type;
     return await deck.save().then(function(deck) {
-        return shortId;
+        return deck.shortId;
     }).catch(function(error) {
         throw new InternalError('User already exists');
     });
