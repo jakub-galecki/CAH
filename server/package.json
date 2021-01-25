@@ -16,6 +16,7 @@
     "mongoose": "^5.11.8",
     "mongoose-unique-validator": "^2.0.3",
     "qs": "^6.7.0",
+    "uuid": "^8.3.2",
     "ws": "^7.4.1"
   },
   "author": "",
