@@ -115,17 +115,17 @@ const Lobby = () => {
   };
 
   // Temp code to create decks on key press ('a' for answers and 'q' for questions)
-  const addDeckToServerOnKeyPress = async (e) => {
-    if (e.key === 'a' || e.key === 'q') {
-      await addGeneratedDeckToServer(userId, rpc, e.key === 'a' ? 0 : 1);
-      fetchAvailableDecks();
-    }
-  };
+  // const addDeckToServerOnKeyPress = async (e) => {
+  //   if (e.key === 'a' || e.key === 'q') {
+  //     await addGeneratedDeckToServer(userId, rpc, e.key === 'a' ? 0 : 1);
+  //     fetchAvailableDecks();
+  //   }
+  // };
 
-  useEffect(async () => {
-    if (isAdmin) window.addEventListener('keydown', addDeckToServerOnKeyPress);
-    return () => window.removeEventListener(addDeckToServerOnKeyPress);
-  }, [isAdmin]);
+  // useEffect(async () => {
+  //   if (isAdmin) window.addEventListener('keydown', addDeckToServerOnKeyPress);
+  //   return () => window.removeEventListener(addDeckToServerOnKeyPress);
+  // }, [isAdmin]);
 
   useEffect(async () => {
     try {
